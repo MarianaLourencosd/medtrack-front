@@ -1,0 +1,312 @@
+/* ---------------- IMPORTAÇÃO DE FONTES ---------------- */
+@import url("https://fonts.googleapis.com/css2?family=Karla:wght@200..800&family=Montserrat:wght@100..900&family=Spectral:wght@200..800&display=swap");
+
+/* ---------------- VARIÁVEIS GLOBAIS ---------------- */
+:root {
+  --fonte-montserrat: "Montserrat", sans-serif;
+  --fonte-karla: "Karla", sans-serif;
+  --fonte-spectral: "Spectral", serif;
+
+  --cor-preto: #000000;
+  --cor-primaria: #00614C;
+  --cor-secundaria: #00AD88;
+  --cor-cinza: #B4BEC9;
+  --cor-branco: #FAFAFA;
+
+  /* Integração com Bootstrap */
+  --bs-body-font-family: var(--fonte-montserrat);
+  --bs-body-bg: var(--cor-branco);
+  --bs-body-color: var(--cor-preto);
+  --bs-primary: var(--cor-primaria);
+  --bs-secondary: var(--cor-secundaria);
+  --bs-border-radius: 1rem;
+  --bs-btn-bg: var(--cor-primaria);
+
+  /* Efeitos suaves */
+  --sombra-card: 0 10px 25px rgba(0, 0, 0, 0.25);
+  --sombra-card-hover: 0 16px 45px rgba(0, 120, 94, 0.4);
+  --transicao: all 0.3s ease;
+}
+
+/* ---------------- RESET ---------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ---------------- MODO ESCURO ---------------- */
+body.dark-mode {
+  --cor-preto: #FAFAFA;
+  --cor-branco: #0a0a0a;
+  --cor-primaria: #00AD88;
+  --cor-secundaria: #00795f;
+  background: radial-gradient(circle, #000000 0%, #004d3b 100%);
+  color: var(--cor-preto);
+  transition: var(--transicao);
+}
+
+body.dark-mode .filter-container h2 {
+  color: var(--cor-preto);
+}
+
+body.dark-mode .filter-box {
+  background-color: var(--cor-branco);
+}
+
+body.dark-mode .filter-box input::placeholder {
+  color: var(--cor-preto);
+}
+
+body.dark-mode .filter-box button {
+  background: var(--cor-primaria);
+  color: var(--cor-branco);
+}
+
+body.dark-mode .filter-box button:hover {
+  background: var(--cor-secundaria);
+}
+
+/* ---------------- BODY E MAIN ---------------- */
+html,
+body {
+  min-height: 100%;
+  font-family: var(--fonte-montserrat);
+  background: radial-gradient(circle, var(--cor-preto) 0%, var(--cor-primaria) 100%);
+  transition: var(--transicao);
+  scroll-behavior: smooth;
+}
+
+main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  line-height: 1.5;
+  letter-spacing: 0.5px;
+}
+
+/* ---------------- FILTRO ---------------- */
+.filter-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 3rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  text-align: center;
+}
+
+.filter-container h2 {
+  font-family: var(--fonte-spectral);
+  font-size: clamp(1.8rem, 2.5vw, 2.6rem);
+  font-weight: 700;
+  color: var(--cor-branco);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.filter-box {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 480px;
+  background: var(--bs-body-bg);
+  border-radius: var(--bs-border-radius);
+  padding: 0.5rem 0.75rem;
+  box-shadow: 0 4px 15px #00000020;
+  transition: var(--transicao);
+}
+
+.filter-box:focus-within {
+  box-shadow: 0 0 0 0.25rem rgba(0, 97, 76, 0.25);
+}
+
+.filter-box input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-family: var(--fonte-montserrat);
+  font-size: 1rem;
+  padding: 0.75rem;
+  outline: none;
+  color: var(--bs-body-color);
+}
+
+.filter-box input::placeholder {
+  color: #aaa;
+}
+
+.filter-box button {
+  background: var(--cor-primaria);
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: var(--transicao);
+}
+
+.filter-box button:hover {
+  background: var(--cor-secundaria);
+  transform: translateY(-1px);
+}
+
+/* ---------------- CARDS ---------------- */
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.card {
+  background: var(--cor-branco);
+  border-radius: 1rem;
+  box-shadow: var(--sombra-card);
+  overflow: hidden;
+  position: relative;
+  width: 260px;
+  transition: var(--transicao);
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sombra-card-hover);
+}
+
+.banner {
+  height: 110px;
+  background: var(--cor-primaria);
+  position: relative;
+}
+
+.avatar {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 33px;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  border: 6px solid var(--cor-primaria);
+  overflow: hidden;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .avatar img {
+  transform: scale(1.05);
+}
+
+/* ---------------- CONTEÚDO ---------------- */
+.body {
+  padding: 2.5rem 0.75rem 0.75rem;
+  text-align: center;
+}
+
+.name {
+  font-weight: 800;
+  font-size: 1.120rem;
+  color: var(--cor-preto);
+}
+
+.age {
+  color: var(--cor-primaria);
+  margin-left: 0.5rem;
+}
+
+.city {
+  color: var(--cor-preto);
+  font-size: 1rem;
+  margin-top: 0.25rem;
+  font-weight: 600;
+}
+
+/* ---------------- ESTATÍSTICAS ---------------- */
+.stats {
+  display: flex;
+  border-top: 1px solid var(--cor-cinza);
+  margin-top: 0.75rem;
+}
+
+.stat {
+  flex: 1;
+  text-align: center;
+  padding: 0.75rem;
+  transition: var(--transicao);
+}
+
+.stat + .stat {
+  border-left: 1px solid var(--cor-cinza);
+}
+
+.stat .num {
+  font-weight: 800;
+  font-size: 1.20rem;
+  color: var(--cor-primaria);
+}
+
+.stat .label {
+  color: var(--cor-preto);
+  font-size: 0.875rem;
+  letter-spacing: .3px;
+  margin-top: 0.25rem;
+  font-weight: 600;
+}
+
+.card:hover .stat .num {
+  color: var(--cor-secundaria);
+}
+
+/* ---------------- ACESSIBILIDADE ---------------- */
+.card:focus-within {
+  outline: 3px solid var(--cor-secundaria);
+  outline-offset: 2px;
+}
+
+/* ---------------- RESPONSIVIDADE ---------------- */
+@media (max-width: 768px) {
+  .cards {
+    gap: 1.5rem;
+  }
+
+  .card {
+    width: 90%;
+    max-width: 320px;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats {
+    flex-direction: column;
+    border-top: none;
+  }
+
+  .stat + .stat {
+    border-left: none;
+    border-top: 1px solid var(--cor-cinza);
+  }
+
+  .body {
+    padding-top: 5rem;
+  }
+
+  .filter-container h2 {
+    font-size: 1.8rem;
+  }
+}

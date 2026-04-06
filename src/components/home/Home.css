@@ -8,6 +8,43 @@
     box-sizing: border-box;
 }
 
+#nav-btn-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;   
+    color: var(--cor-primaria); 
+    border: none;
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: transform 0.3s ease, color 0.3s ease;
+    z-index: 1000;
+}
+
+/* Hover e foco */
+#nav-btn-toggle:hover,
+#nav-btn-toggle:focus {
+    color: var(--cor-secundaria); 
+    outline: none; 
+    transform: scale(1.2); 
+}
+
+#nav-btn-toggle i {
+    pointer-events: none; 
+}
+
+/* MODO ESCURO */
+body.dark-mode #nav-btn-toggle {
+    color: var(--cor-secundaria);
+}
+
+body.dark-mode #nav-btn-toggle:hover,
+body.dark-mode #nav-btn-toggle:focus {
+    color: var(--cor-primaria);   
+}
+
 /* ===============================
    FOCO VISÍVEL PARA ACESSIBILIDADE
    =============================== */
