@@ -1,6 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Home.css";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import LogoClaro from "../../assets/images/logo-claro.svg";
 import ImagemHeader from "../../assets/images/imagem-header-home.svg";
@@ -17,21 +18,31 @@ import Testemunha8 from "../../assets/images/imagem-testemunha-8.jpg";
 import { initDarkMode, toggleDarkMode } from "../../utils/darkMode";
 import { initScrollButtons } from "../../utils/scrollButtons";
 import { initNavbarMobile } from "../../utils/navbarMobile"; 
+import { initKeyboardShortcuts } from "../../utils/keyboardShortcuts";
 
 function Home() {
   const [darkMode, setDarkMode] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    // Inicializa modo escuro
     initDarkMode(setDarkMode);
+
+    // Navbar mobile
     const cleanupNavbar = initNavbarMobile();
+
+    // Scroll buttons
     const cleanupScroll = initScrollButtons();
+
+    // Atalhos de teclado
+    const cleanupShortcuts = initKeyboardShortcuts(navigate);
 
     return () => {
       if (cleanupNavbar) cleanupNavbar();
       if (cleanupScroll) cleanupScroll();
+      if (cleanupShortcuts) cleanupShortcuts();
     };
-  }, []);
+  }, [navigate]);
 
   return (
     <>
@@ -370,10 +381,10 @@ Acesso rápido e seguro ao histórico médico para decisões ágeis em emergênc
         <div className="col-12 col-sm-6 col-lg-3 d-flex justify-content-center">
           <section className="card-testimonial">
             <i className="card-quote-testimonial fa-solid fa-quote-left"></i>
-          <img src={Testemunha8} alt="Ricardo Martins"/>
+          <img src={Testemunha8} alt="Ricardo Martins" className="card-image-testimonial"/>
 
-            <hr className="team-divider-testimonial" />
-            <p className="card-name-testimonial">Ricardo Martins</p>
+            <hr className="team-divider-testimonial"/>
+            <p className="card-name-testimonial">Ricardo Martins </p>
             <div className="testimonial-start">
               <i className="fa-solid fa-star"></i>
               <i className="fa-solid fa-star"></i>
