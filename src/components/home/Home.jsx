@@ -17,35 +17,47 @@ import Testemunha8 from "../../assets/images/imagem-testemunha-8.jpg";
 
 import { initDarkMode, toggleDarkMode } from "../../utils/darkMode";
 import { initScrollButtons } from "../../utils/scrollButtons";
-import { initNavbarMobile } from "../../utils/navbarMobile"; 
+import { initNavbarMobile } from "../../utils/navbarMobile";
 import { initKeyboardShortcuts } from "../../utils/keyboardShortcuts";
+import { initFontSizeControls } from "../../utils/fontSize";
 
 function Home() {
   const [darkMode, setDarkMode] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Inicializa modo escuro
+    // === Inicializações ===
     initDarkMode(setDarkMode);
-
-    // Navbar mobile
     const cleanupNavbar = initNavbarMobile();
-
-    // Scroll buttons
     const cleanupScroll = initScrollButtons();
-
-    // Atalhos de teclado
     const cleanupShortcuts = initKeyboardShortcuts(navigate);
 
+    // === Fonte ===
+    const fontControls = initFontSizeControls();
+    document.getElementById("decrease")?.addEventListener("click", fontControls.decrease);
+    document.getElementById("increase")?.addEventListener("click", fontControls.increase);
+    document.getElementById("reset")?.addEventListener("click", fontControls.reset);
+
+    // === Cleanup ===
     return () => {
       if (cleanupNavbar) cleanupNavbar();
       if (cleanupScroll) cleanupScroll();
       if (cleanupShortcuts) cleanupShortcuts();
+      document.getElementById("decrease")?.removeEventListener("click", fontControls.decrease);
+      document.getElementById("increase")?.removeEventListener("click", fontControls.increase);
+      document.getElementById("reset")?.removeEventListener("click", fontControls.reset);
     };
   }, [navigate]);
 
   return (
     <>
+      {/* Botões de ajuste de fonte */}
+      <div className="font-size-controls">
+        <button id="decrease" title="Diminuir fonte">A-</button>
+        <button id="reset" title="Restaurar fonte">A</button>
+        <button id="increase" title="Aumentar fonte">A+</button>
+      </div>
+      
       {/* Botão Voltar ao Topo */}
       <button id="btnTopo" title="Voltar ao topo">
         <i className="fa-solid fa-arrow-up"></i>
