@@ -2,6 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./Home.css";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../../utils/acessibilidade.css";
 
 import LogoClaro from "../../assets/images/logo-claro.svg";
 import ImagemHeader from "../../assets/images/imagem-header-home.svg";
@@ -258,7 +259,7 @@ Nosso sistema fornece dados de emergência em tempo real, garantindo agilidade e
 </div>
 
 <div className="col-md-6 col-lg-3 mb-4">
-<section className="card-info-destaque">
+<section className="card-info-destaque"  tabIndex="0">
 <span className="icon-info-destaque">
 <i className="fa-solid fa-laptop-medical"></i>
 </span>
@@ -270,7 +271,7 @@ Usamos plataformas seguras que protegem seus dados e garantem total privacidade,
 </div>
 
 <div className="col-md-6 col-lg-3 mb-4">
-<section className="card-info-destaque">
+<section className="card-info-destaque"  tabIndex="0">
 <span className="icon-info-destaque">
 <i className="fa-solid fa-heart-pulse"></i>
 </span>
@@ -282,7 +283,7 @@ Profissionais experientes em saúde e tecnologia oferecem soluções focadas no 
 </div>
 
 <div className="col-md-6 col-lg-3 mb-4">
-<section className="card-info-destaque">
+<section className="card-info-destaque"  tabIndex="0">
 <span className="icon-info-destaque">
 <i className="fa-solid fa-briefcase-medical"></i>
 </span>
@@ -314,7 +315,7 @@ Acesso rápido e seguro ao histórico médico para decisões ágeis em emergênc
 
     {/* 1 */}
     <div className="col-12 col-sm-6 col-lg-3 d-flex justify-content-center">
-      <section className="card-testimonial">
+      <section className="card-testimonial"  tabIndex="0">
         <i className="card-quote-testimonial fa-solid fa-quote-left"></i>
               <img src={Testemunha1} alt="Renato Souza" className="card-image-testimonial"/>
 
@@ -335,7 +336,7 @@ Acesso rápido e seguro ao histórico médico para decisões ágeis em emergênc
 
     {/* 2 */}
     <div className="col-12 col-sm-6 col-lg-3 d-flex justify-content-center">
-      <section className="card-testimonial">
+      <section className="card-testimonial"  tabIndex="0">
         <i className="card-quote-testimonial fa-solid fa-quote-left"></i>
               <img src={Testemunha2} alt="Camila Duarte" className="card-image-testimonial"/>
 
@@ -356,7 +357,7 @@ Acesso rápido e seguro ao histórico médico para decisões ágeis em emergênc
 
     {/* 3 */}
     <div className="col-12 col-sm-6 col-lg-3 d-flex justify-content-center">
-      <section className="card-testimonial">
+      <section className="card-testimonial"  tabIndex="0">
         <i className="card-quote-testimonial fa-solid fa-quote-left"></i>
               <img src={Testemunha3} alt="Lucas Almeida" className="card-image-testimonial"/>
 
@@ -377,7 +378,7 @@ Acesso rápido e seguro ao histórico médico para decisões ágeis em emergênc
 
     {/* 4 */}
     <div className="col-12 col-sm-6 col-lg-3 d-flex justify-content-center">
-      <section className="card-testimonial">
+      <section className="card-testimonial"  tabIndex="0">
         <i className="card-quote-testimonial fa-solid fa-quote-left"></i>
                 <img src={Testemunha4} alt="Juliana Alves" className="card-image-testimonial"/>
 
@@ -405,7 +406,7 @@ Acesso rápido e seguro ao histórico médico para decisões ágeis em emergênc
 
         {/* 5 */}
         <div className="col-12 col-sm-6 col-lg-3 d-flex justify-content-center">
-          <section className="card-testimonial">
+          <section className="card-testimonial"  tabIndex="0">
             <i className="card-quote-testimonial fa-solid fa-quote-left"></i>
               <img src={Testemunha5} alt="Yasmin Costa" className="card-image-testimonial"/>
 
@@ -426,7 +427,7 @@ Acesso rápido e seguro ao histórico médico para decisões ágeis em emergênc
 
         {/* 6 */}
         <div className="col-12 col-sm-6 col-lg-3 d-flex justify-content-center">
-          <section className="card-testimonial">
+          <section className="card-testimonial"  tabIndex="0">
             <i className="card-quote-testimonial fa-solid fa-quote-left"></i>
                <img src={Testemunha6} alt="Eduardo Lima" className="card-image-testimonial"/>
 
@@ -447,7 +448,7 @@ Acesso rápido e seguro ao histórico médico para decisões ágeis em emergênc
 
         {/* 7 */}
         <div className="col-12 col-sm-6 col-lg-3 d-flex justify-content-center">
-          <section className="card-testimonial">
+          <section className="card-testimonial"  tabIndex="0">
             <i className="card-quote-testimonial fa-solid fa-quote-left"></i>
             <img src={Testemunha7} alt="Helena Rocha" className="card-image-testimonial"/>
 
@@ -468,7 +469,7 @@ Acesso rápido e seguro ao histórico médico para decisões ágeis em emergênc
 
         {/* 8 */}
         <div className="col-12 col-sm-6 col-lg-3 d-flex justify-content-center">
-          <section className="card-testimonial">
+          <section className="card-testimonial"  tabIndex="0">
             <i className="card-quote-testimonial fa-solid fa-quote-left"></i>
           <img src={Testemunha8} alt="Ricardo Martins" className="card-image-testimonial"/>
 
@@ -511,7 +512,7 @@ Acesso rápido e seguro ao histórico médico para decisões ágeis em emergênc
           <div className="row">
 
             <div className="col-12 col-md-6 mb-3">
-              <div className="emergency-card h-100">
+              <div className="emergency-card h-100"  tabIndex="0">
                 <h3>Contatos de Emergência</h3>
                 <ul className="list-unstyled mb-0">
                   <li>SAMU - 192</li>
@@ -522,7 +523,7 @@ Acesso rápido e seguro ao histórico médico para decisões ágeis em emergênc
             </div>
 
             <div className="col-12 col-md-6 mb-3">
-              <div className="emergency-card h-100">
+              <div className="emergency-card h-100"  tabIndex="0">
                 <h3>Dicas de Primeiros Socorros</h3>
                 <ul className="list-unstyled mb-0">
                   <li>Parar hemorragias com compressão direta</li>
@@ -533,7 +534,7 @@ Acesso rápido e seguro ao histórico médico para decisões ágeis em emergênc
             </div>
 
             <div className="col-12 col-md-6 mb-3">
-              <div className="emergency-card h-100">
+              <div className="emergency-card h-100"  tabIndex="0">
                 <h3>Kit de Primeiros Socorros</h3>
                 <ul className="list-unstyled mb-0">
                   <li>Curativos</li>
@@ -546,7 +547,7 @@ Acesso rápido e seguro ao histórico médico para decisões ágeis em emergênc
             </div>
 
             <div className="col-12 col-md-6 mb-3">
-              <div className="emergency-card h-100">
+              <div className="emergency-card h-100"  tabIndex="0">
                 <h3>Hospitais Próximos</h3>
                 <ul className="list-unstyled mb-0">
                   <li>Hospital Central - Rua Principal, 123</li>

@@ -1,0 +1,41 @@
+/* ============================================
+   ACESSIBILIDADE - APENAS PARA CARDS DA HOME
+   ============================================ */
+
+/* Cards "Porque somos os melhores" */
+.card-info-destaque:focus-visible {
+  outline: 3px solid #00AD88 !important;
+  outline-offset: 4px !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 0 10px 25px rgba(0, 173, 136, 0.25) !important;
+}
+
+/* Cards de Testemunhos */
+.card-testimonial:focus-visible {
+  outline: 3px solid #00AD88 !important;
+  outline-offset: 4px !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 0 10px 25px rgba(0, 173, 136, 0.25) !important;
+}
+
+/* Cards de Emergência */
+.emergency-card:focus-visible {
+  outline: 3px solid #00AD88 !important;
+  outline-offset: 4px !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Botões em geral */
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid #00AD88 !important;
+  outline-offset: 3px !important;
+}
+
+/* Para navegadores que não suportam :focus-visible */
+.card-info-destaque:focus,
+.card-testimonial:focus,
+.emergency-card:focus {
+  outline: 3px solid #00AD88;
+  outline-offset: 4px;
+}
