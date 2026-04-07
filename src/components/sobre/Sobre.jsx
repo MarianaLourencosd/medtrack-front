@@ -27,6 +27,7 @@ import { initKeyboardShortcuts } from "../../utils/keyboardShortcuts";
 import { initFontSizeControls } from "../../utils/fontSize";
 import { initDaltonismo } from "../../utils/daltonismo";
 import "../../utils/daltonismo.css";
+import VLibras from "../../utils/VLibras";
 
 // Dados dos desenvolvedores
 const developers = [
@@ -483,13 +484,8 @@ function Sobre() {
         </p>
       </div>
 
-      {/* VLibras */}
-      <div vw="true" className="enabled">
-        <div vw-access-button="true" className="active"></div>
-        <div vw-plugin-wrapper="true">
-          <div className="vw-plugin-top-wrapper"></div>
-        </div>
-      </div>
+      <VLibras />
+
     </>
   );
 }
