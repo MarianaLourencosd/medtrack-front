@@ -1,3 +1,4 @@
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Home.css";
 import React, { useEffect, useState } from "react";
@@ -20,32 +21,38 @@ import { initScrollButtons } from "../../utils/scrollButtons";
 import { initNavbarMobile } from "../../utils/navbarMobile";
 import { initKeyboardShortcuts } from "../../utils/keyboardShortcuts";
 import { initFontSizeControls } from "../../utils/fontSize";
+import { initDaltonismo } from "../../utils/daltonismo";
+import "../../utils/daltonismo.css";
 
 function Home() {
   const [darkMode, setDarkMode] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // === Inicializações ===
-    initDarkMode(setDarkMode);
     const cleanupNavbar = initNavbarMobile();
     const cleanupScroll = initScrollButtons();
     const cleanupShortcuts = initKeyboardShortcuts(navigate);
-
-    // === Fonte ===
     const fontControls = initFontSizeControls();
+
     document.getElementById("decrease")?.addEventListener("click", fontControls.decrease);
     document.getElementById("increase")?.addEventListener("click", fontControls.increase);
     document.getElementById("reset")?.addEventListener("click", fontControls.reset);
 
-    // === Cleanup ===
+    // Daltonismo
+    const daltonismoBtn = document.getElementById("daltonismo-toggle");
+    const { toggleDaltonismo } = initDaltonismo();
+    const cleanupDaltonismo = toggleDaltonismo(daltonismoBtn);
+
     return () => {
-      if (cleanupNavbar) cleanupNavbar();
-      if (cleanupScroll) cleanupScroll();
-      if (cleanupShortcuts) cleanupShortcuts();
+      cleanupNavbar?.();
+      cleanupScroll?.();
+      cleanupShortcuts?.();
+
       document.getElementById("decrease")?.removeEventListener("click", fontControls.decrease);
       document.getElementById("increase")?.removeEventListener("click", fontControls.increase);
       document.getElementById("reset")?.removeEventListener("click", fontControls.reset);
+
+      cleanupDaltonismo?.();
     };
   }, [navigate]);
 
@@ -89,6 +96,14 @@ function Home() {
             onClick={() => toggleDarkMode(darkMode, setDarkMode)}
           >
             <i className={`fa-solid ${darkMode ? "fa-sun" : "fa-moon"}`}></i>
+          </button>
+
+           <button
+            id="daltonismo-toggle"
+            className="navbar-btn-item"
+            title="Alternar modo daltonismo"
+          >
+            🟢 Daltonismo
           </button>
 
           <a className="navbar-btn-profile" href="/perfil">
