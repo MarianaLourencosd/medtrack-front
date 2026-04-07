@@ -244,7 +244,7 @@ function Home() {
 
 <h2 className="title-card-info">Porque somos os melhores</h2>
 
-<div className="row content-info-destaque justify-content-center">
+<div className= "row content-info-destaque justify-content-center">
 
 <div className="col-md-6 col-lg-3 mb-4">
 <section className="card-info-destaque" tabIndex="0">
