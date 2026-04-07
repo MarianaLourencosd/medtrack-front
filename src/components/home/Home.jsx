@@ -1,4 +1,3 @@
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Home.css";
 import React, { useEffect, useState } from "react";
@@ -22,11 +21,32 @@ import { initNavbarMobile } from "../../utils/navbarMobile";
 import { initKeyboardShortcuts } from "../../utils/keyboardShortcuts";
 import { initFontSizeControls } from "../../utils/fontSize";
 import { initDaltonismo } from "../../utils/daltonismo";
+import { hasAcceptedTerms, acceptTerms, showDeclineAlert } from "../../utils/termsModal";
 import "../../utils/daltonismo.css";
 
 function Home() {
   const [darkMode, setDarkMode] = useState(false);
+  const [showTermsModal, setShowTermsModal] = useState(false);
   const navigate = useNavigate();
+
+  // Verificar se os termos já foram aceitos
+  useEffect(() => {
+    const accepted = hasAcceptedTerms();
+    if (!accepted) {
+      setShowTermsModal(true);
+    }
+  }, []);
+
+  // Aceitar termos
+  const handleAcceptTerms = () => {
+    acceptTerms();
+    setShowTermsModal(false);
+  };
+
+  // Recusar termos
+  const handleDeclineTerms = () => {
+    showDeclineAlert();
+  };
 
   useEffect(() => {
     const cleanupNavbar = initNavbarMobile();
@@ -58,6 +78,48 @@ function Home() {
 
   return (
     <>
+      {/* MODAL DE TERMOS DE USO */}
+      {showTermsModal && (
+        <div className="terms-overlay" onClick={(e) => {
+          if (e.target === e.currentTarget) handleDeclineTerms();
+        }}>
+          <div className="terms-modal">
+            <div className="terms-modal-header">
+              <h2>📋 Termos de Uso - MedTrack</h2>
+            </div>
+            
+            <div className="terms-modal-content">
+              <p>Bem-vindo ao MedTrack. Ao acessar este sistema, você concorda com os termos descritos a seguir.</p>
+              
+              <p>O MedTrack tem como objetivo auxiliar no acompanhamento de informações médicas de forma prática e segura.</p>
+              
+              <p>Você se compromete a utilizar a plataforma de maneira responsável, não realizando atividades que possam comprometer sua segurança ou de outros usuários.</p>
+              
+              <p>Seus dados serão tratados com confidencialidade, respeitando boas práticas de privacidade.</p>
+              
+              <p>O uso indevido da plataforma poderá resultar em bloqueio de acesso sem aviso prévio.</p>
+              
+              <p>O MedTrack não se responsabiliza por informações inseridas incorretamente pelos usuários.</p>
+              
+              <p>Em caso de emergência, sempre procure atendimento médico presencial imediatamente.</p>
+              
+              <p>Os dados fornecidos são de responsabilidade do usuário, sendo essencial mantê-los sempre atualizados.</p>
+              
+              <p><strong>Ao clicar em "Aceitar", você concorda integralmente com estes termos.</strong></p>
+            </div>
+            
+            <div className="terms-buttons">
+              <button className="terms-btn accept" onClick={handleAcceptTerms}>
+                ✅ Aceitar
+              </button>
+              <button className="terms-btn decline" onClick={handleDeclineTerms}>
+                ❌ Não aceitar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      
       {/* Botões de ajuste de fonte */}
       <div className="font-size-controls">
         <button id="decrease" title="Diminuir fonte">A-</button>
