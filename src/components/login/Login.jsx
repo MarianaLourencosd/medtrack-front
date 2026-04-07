@@ -31,10 +31,14 @@ function Login() {
     }
   };
 
+  // Função para voltar para home
+  const handleVoltar = () => {
+    window.location.href = "/";
+  };
+
   // Função de envio do formulário
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aqui você pode adicionar validação ou enviar para backend
     alert("Login realizado com sucesso!");
   };
 
@@ -42,6 +46,24 @@ function Login() {
     <main className="main d-flex align-items-center justify-content-center min-vh-100">
       <section className="container-login d-flex flex-wrap shadow rounded overflow-hidden">
         
+        {/* Botão Voltar - ESTILO DO FORMULARIO */}
+        <button 
+          onClick={handleVoltar} 
+          className="login-action-btn login-back-btn"
+          aria-label="Voltar"
+        >
+          <i className="fa-solid fa-arrow-left"></i>
+        </button>
+        
+        {/* Botão Modo Escuro/Claro - ESTILO DO FORMULARIO */}
+        <button 
+          onClick={toggleDarkMode} 
+          className="login-action-btn login-theme-btn"
+          aria-label="Modo escuro"
+        >
+          <i className={`fa-solid ${darkMode ? "fa-sun" : "fa-moon"}`}></i>
+        </button>
+
         {/* Coluna Imagem */}
         <div className="container-imagem-1 d-flex align-items-center justify-content-center p-3 col-12 col-md-6">
           <img

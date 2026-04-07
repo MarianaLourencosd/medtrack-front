@@ -117,15 +117,13 @@ body.dark-mode input[type=submit]:hover {
     color: var(--cor-preto);
 }
 
-/* Estilos específicos para modo escuro no login */
-body.dark-mode .seta,
-body.dark-mode .theme-toggle {
+/* Estilos específicos para modo escuro nos botões do Formulario */
+body.dark-mode .login-action-btn {
     background-color: var(--cor-secundaria);
     color: var(--cor-preto);
 }
 
-body.dark-mode .seta:hover,
-body.dark-mode .theme-toggle:hover {
+body.dark-mode .login-action-btn:hover {
     background-color: var(--cor-primaria);
     color: var(--cor-branco);
 }
@@ -167,6 +165,40 @@ html {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     overflow: hidden;
+    position: relative;
+}
+
+/* ---------------- BOTÕES ESTILO FORMULARIO ---------------- */
+.login-action-btn {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+    z-index: 10;
+    background-color: var(--cor-primaria);
+    color: var(--cor-branco);
+    border: none;
+}
+
+.login-action-btn:hover {
+    background-color: var(--cor-secundaria);
+}
+
+.login-back-btn {
+    top: 0px;
+    left: 0px;
+    border-radius: 0;
+}
+
+.login-theme-btn {
+    top: 0px;
+    right: 0px;
+    border-radius: 0;
 }
 
 /* ---------------- COLUNA IMAGEM ---------------- */
@@ -231,7 +263,7 @@ html {
 
 .login-form .form-control {
     border-radius: 5px;
-    border: 1px solid var(--cor-branco);
+    border: 1px solid #dbdbdb;
     padding-left: 40px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     transition: border 0.3s ease, background 0.3s ease;
@@ -336,54 +368,6 @@ input#senha {
     margin-bottom: 5px;
 }
 
-/* Botões específicos do login */
-.seta {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    width: 40px;
-    height: 40px;
-    background-color: var(--cor-primaria);
-    color: var(--cor-branco);
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.seta:hover {
-    background-color: var(--cor-secundaria);
-    transform: scale(1.05);
-    color: var(--cor-branco);
-}
-
-.theme-toggle {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 40px;
-    height: 40px;
-    background-color: var(--cor-primaria);
-    color: var(--cor-branco);
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.theme-toggle:hover {
-    background-color: var(--cor-secundaria);
-    transform: scale(1.05);
-}
-
 /* ========== RESPONSIVIDADE COMPLETA ========== */
 
 /* Super small devices (celulares muito pequenos, até 360px) */
@@ -432,19 +416,10 @@ input#senha {
         max-height: 200px;
     }
     
-    .seta,
-    .theme-toggle {
-        width: 28px;
-        height: 28px;
-        top: 10px;
-    }
-    
-    .seta {
-        left: 10px;
-    }
-    
-    .theme-toggle {
-        right: 10px;
+    .login-action-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 12px;
     }
 }
 
@@ -503,19 +478,10 @@ input#senha {
         font-size: 13px;
     }
     
-    .seta,
-    .theme-toggle {
-        width: 32px;
-        height: 32px;
-        top: 12px;
-    }
-    
-    .seta {
-        left: 12px;
-    }
-    
-    .theme-toggle {
-        right: 12px;
+    .login-action-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
     }
 }
 
@@ -558,19 +524,10 @@ input#senha {
         font-size: 18px;
     }
     
-    .seta,
-    .theme-toggle {
-        width: 35px;
-        height: 35px;
-        top: 15px;
-    }
-    
-    .seta {
-        left: 15px;
-    }
-    
-    .theme-toggle {
-        right: 15px;
+    .login-action-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
     }
 }
 
@@ -657,10 +614,10 @@ input#senha {
         font-size: 24px;
     }
     
-    .seta,
-    .theme-toggle {
-        width: 45px;
-        height: 45px;
+    .login-action-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
     }
 }
 
@@ -713,11 +670,10 @@ input#senha {
         font-size: 14px;
     }
     
-    .seta,
-    .theme-toggle {
+    .login-action-btn {
         width: 30px;
         height: 30px;
-        top: 8px;
+        font-size: 12px;
     }
 }
 
@@ -747,23 +703,20 @@ input#senha {
     }
     
     .icons a:hover,
-    .seta:hover,
-    .theme-toggle:hover {
+    .login-action-btn:hover {
         transform: none;
     }
 }
 
 /* Animações suaves */
-.seta,
-.theme-toggle,
+.login-action-btn,
 .icons a,
 .login-form button {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Foco para acessibilidade */
-.seta:focus,
-.theme-toggle:focus,
+.login-action-btn:focus,
 .icons a:focus,
 .login-form button:focus,
 .login-form input:focus {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Cadastro.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../utils/daltonismo.css";
@@ -8,18 +8,63 @@ function Cadastro() {
   // Estado para dark mode
   const [darkMode, setDarkMode] = useState(false);
 
+  // Verificar preferência de modo escuro
+  useEffect(() => {
+    const savedMode = localStorage.getItem("darkMode");
+    if (savedMode === "enabled") {
+      setDarkMode(true);
+      document.body.classList.add("dark-mode");
+    }
+  }, []);
+
+  // Alternar modo escuro
+  const toggleDarkMode = () => {
+    const newDarkMode = !darkMode;
+    setDarkMode(newDarkMode);
+    if (newDarkMode) {
+      document.body.classList.add("dark-mode");
+      localStorage.setItem("darkMode", "enabled");
+    } else {
+      document.body.classList.remove("dark-mode");
+      localStorage.setItem("darkMode", "disabled");
+    }
+  };
+
+  // Voltar para home
+  const handleVoltar = () => {
+    window.location.href = "/";
+  };
+
   // Função de envio do formulário
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aqui você pode adicionar validação ou enviar para backend
     alert("Cadastro enviado com sucesso!");
   };
 
   return (
-    <main className=" main d-flex align-items-center justify-content-center min-vh-100">
+    <main className="main d-flex align-items-center justify-content-center min-vh-100">
       <section className="container-login d-flex flex-wrap shadow rounded overflow-hidden">
+        
+        {/* Botão Voltar - ESTILO DO FORMULARIO (quadrado, sem borda redonda) */}
+        <button 
+          onClick={handleVoltar} 
+          className="cadastro-action-btn cadastro-back-btn"
+          aria-label="Voltar"
+        >
+          <i className="fa-solid fa-arrow-left"></i>
+        </button>
+        
+        {/* Botão Modo Escuro/Claro - ESTILO DO FORMULARIO (quadrado, sem borda redonda) */}
+        <button 
+          onClick={toggleDarkMode} 
+          className="cadastro-action-btn cadastro-theme-btn"
+          aria-label="Modo escuro"
+        >
+          <i className={`fa-solid ${darkMode ? "fa-sun" : "fa-moon"}`}></i>
+        </button>
+
         {/* Coluna Imagem */}
-        <div className="container-imagem d-flex align-items-center justify-content-center p-3 col-12 col-md-6">
+        <div className="container-imagem-1 d-flex align-items-center justify-content-center p-3 col-12 col-md-6">
           <img
             src={cadastroImg}
             alt="Ilustração de cadastro MedTrack"
@@ -29,11 +74,8 @@ function Cadastro() {
 
         {/* Coluna Formulário */}
         <div className="container-form position-relative col-12 col-md-6 p-4">
-          {/* Botão Dark Mode */}
-        
-
           {/* Título */}
-          <h1 className="text-center title-form mt-4">FAÇA SEU CADASTRO</h1>
+          <h1 className="title-form mt-4">FAÇA SEU CADASTRO</h1>
           <p className="texto text-center mb-4">Seu espaço para cuidar da saúde.</p>
 
           {/* Formulário */}
