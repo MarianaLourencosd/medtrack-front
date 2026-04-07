@@ -1,9 +1,22 @@
 import React, { useState, useEffect } from "react";
 import "./Formulario.css";
 
+// Importar funções de validação do arquivo validacoes.js
+import { 
+  formatarCPF,
+  formatarTelefone,
+  formatarAltura,
+  validarCampoEmTempoReal,
+  mensagemSucessoFormulario,
+  mensagemErroFormulario
+} from "../../utils/validacoes";
+
 function Formulario() {
   // Estado para dark mode
   const [darkMode, setDarkMode] = useState(false);
+
+  // Estado para mensagem de feedback
+  const [mensagem, setMensagem] = useState({ texto: "", tipo: "" });
 
   // Estado do formulário
   const [formData, setFormData] = useState({
@@ -30,9 +43,6 @@ function Formulario() {
 
   // Estado para erros
   const [errors, setErrors] = useState({});
-  
-  // Estado para mensagem de sucesso
-  const [successMessage, setSuccessMessage] = useState("");
   
   // Estado para controlar seções abertas
   const [openSections, setOpenSections] = useState({
@@ -68,31 +78,43 @@ function Formulario() {
     window.location.href = "/";
   };
 
-  // Formatar CPF
-  const formatCPF = (value) => {
-    const cpf = value.replace(/\D/g, "");
-    if (cpf.length <= 3) return cpf;
-    if (cpf.length <= 6) return cpf.replace(/(\d{3})(\d+)/, "$1.$2");
-    if (cpf.length <= 9) return cpf.replace(/(\d{3})(\d{3})(\d+)/, "$1.$2.$3");
-    return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d+)/, "$1.$2.$3-$4");
+  // Limpar erro de um campo específico
+  const limparErro = (campo) => {
+    if (errors[campo]) {
+      setErrors(prev => ({ ...prev, [campo]: "" }));
+    }
   };
 
-  // Formatar telefone
-  const formatTelefone = (value) => {
-    const telefone = value.replace(/\D/g, "");
-    if (telefone.length <= 2) return telefone;
-    if (telefone.length <= 6) return telefone.replace(/(\d{2})(\d+)/, "($1) $2");
-    if (telefone.length <= 10) return telefone.replace(/(\d{2})(\d{4})(\d+)/, "($1) $2-$3");
-    return telefone.replace(/(\d{2})(\d{5})(\d+)/, "($1) $2-$3");
+  // Mostrar mensagem de sucesso
+  const mostrarMensagemSucesso = () => {
+    setMensagem({
+      texto: mensagemSucessoFormulario(),
+      tipo: "success"
+    });
+    
+    // Limpar formulário após 3 segundos
+    setTimeout(() => {
+      setFormData({
+        nome: "", cpf: "", dataNascimento: "", sexo: "",
+        altura: "", peso: "", tipoSanguineo: "", sus: "",
+        nomeContato: "", telefoneContato: "", relacionamento: "",
+        medicamento: "", dosagem: "", frequencia: "", observacoes: ""
+      });
+      setMensagem({ texto: "", tipo: "" });
+    }, 3000);
   };
 
-  // Formatar altura
-  const formatAltura = (value) => {
-    let altura = value.replace(/[^\d]/g, "");
-    if (altura.length === 0) return "";
-    if (altura.length === 1) return altura;
-    if (altura.length === 2) return `${altura.charAt(0)}.${altura.charAt(1)}`;
-    return `${altura.substring(0, altura.length - 2)}.${altura.substring(altura.length - 2)}`;
+  // Mostrar mensagem de erro
+  const mostrarMensagemErro = () => {
+    setMensagem({
+      texto: mensagemErroFormulario(),
+      tipo: "error"
+    });
+    
+    // Limpar mensagem após 3 segundos
+    setTimeout(() => {
+      setMensagem({ texto: "", tipo: "" });
+    }, 3000);
   };
 
   // Lidar com mudanças nos inputs
@@ -101,52 +123,36 @@ function Formulario() {
     let formattedValue = value;
     
     if (id === "cpf") {
-      formattedValue = formatCPF(value);
+      formattedValue = formatarCPF(value);
     } else if (id === "telefoneContato") {
-      formattedValue = formatTelefone(value);
+      formattedValue = formatarTelefone(value);
     } else if (id === "altura") {
-      formattedValue = formatAltura(value);
+      formattedValue = formatarAltura(value);
     }
     
     setFormData(prev => ({ ...prev, [id]: formattedValue }));
+    limparErro(id);
+  };
+
+  // Validação em tempo real ao perder o foco
+  const handleBlur = (e) => {
+    const { id, value } = e.target;
+    const erro = validarCampoEmTempoReal(id, value, formData);
     
-    // Limpar erro do campo
-    if (errors[id]) {
-      setErrors(prev => ({ ...prev, [id]: "" }));
+    if (erro) {
+      setErrors(prev => ({ ...prev, [id]: erro }));
+    } else {
+      limparErro(id);
     }
   };
 
-  // Validar CPF
-  const validateCPF = (cpf) => {
-    cpf = cpf.replace(/[^\d]/g, "");
-    if (cpf.length !== 11) return false;
-    if (/^(\d)\1{10}$/.test(cpf)) return false;
-    
-    let sum = 0;
-    for (let i = 0; i < 9; i++) {
-      sum += parseInt(cpf.charAt(i)) * (10 - i);
-    }
-    let digit = 11 - (sum % 11);
-    if (digit > 9) digit = 0;
-    if (digit !== parseInt(cpf.charAt(9))) return false;
-    
-    sum = 0;
-    for (let i = 0; i < 10; i++) {
-      sum += parseInt(cpf.charAt(i)) * (11 - i);
-    }
-    digit = 11 - (sum % 11);
-    if (digit > 9) digit = 0;
-    return digit === parseInt(cpf.charAt(10));
-  };
-
-  // Validar formulário
-  const validateForm = () => {
+  // Validar formulário completo
+  const validarFormularioCompleto = () => {
     const newErrors = {};
     
-    if (!formData.nome) newErrors.nome = "Nome completo é obrigatório";
+    // Dados Pessoais
+    if (!formData.nome?.trim()) newErrors.nome = "Nome completo é obrigatório";
     if (!formData.cpf) newErrors.cpf = "CPF é obrigatório";
-    else if (!validateCPF(formData.cpf)) newErrors.cpf = "CPF inválido";
-    
     if (!formData.dataNascimento) newErrors.dataNascimento = "Data de nascimento é obrigatória";
     if (!formData.sexo) newErrors.sexo = "Sexo é obrigatório";
     if (!formData.altura) newErrors.altura = "Altura é obrigatória";
@@ -154,48 +160,50 @@ function Formulario() {
     if (!formData.tipoSanguineo) newErrors.tipoSanguineo = "Tipo sanguíneo é obrigatório";
     if (!formData.sus) newErrors.sus = "Cartão SUS é obrigatório";
     
-    if (!formData.nomeContato) newErrors.nomeContato = "Nome do contato é obrigatório";
+    // Contato de Emergência
+    if (!formData.nomeContato?.trim()) newErrors.nomeContato = "Nome do contato é obrigatório";
     if (!formData.telefoneContato) newErrors.telefoneContato = "Telefone é obrigatório";
-    if (!formData.relacionamento) newErrors.relacionamento = "Relacionamento é obrigatório";
+    if (!formData.relacionamento?.trim()) newErrors.relacionamento = "Relacionamento é obrigatório";
     
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    // Medicamentos
+    if (!formData.medicamento?.trim()) newErrors.medicamento = "Nome do medicamento é obrigatório";
+    if (!formData.dosagem?.trim()) newErrors.dosagem = "Dosagem é obrigatória";
+    if (!formData.frequencia?.trim()) newErrors.frequencia = "Frequência é obrigatória";
+    
+    // Observações
+    if (!formData.observacoes?.trim()) newErrors.observacoes = "Observações são obrigatórias";
+    
+    return newErrors;
   };
 
   // Enviar formulário
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    if (!validateForm()) {
-      alert("Por favor, preencha todos os campos obrigatórios corretamente.");
-      return;
+    const validationErrors = validarFormularioCompleto();
+    
+    if (Object.keys(validationErrors).length === 0) {
+      // Salvar no localStorage
+      const existingData = localStorage.getItem("formularios");
+      const formularios = existingData ? JSON.parse(existingData) : [];
+      
+      const novoRegistro = {
+        id: Date.now(),
+        ...formData,
+        dataEnvio: new Date().toLocaleString()
+      };
+      
+      formularios.push(novoRegistro);
+      localStorage.setItem("formularios", JSON.stringify(formularios));
+      
+      mostrarMensagemSucesso();
+      console.log("Formulário válido, enviando dados...", formData);
+    } else {
+      setErrors(validationErrors);
+      mostrarMensagemErro();
+      // Rolar para o topo do formulário
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
-    
-    // Salvar no localStorage
-    const existingData = localStorage.getItem("formularios");
-    const formularios = existingData ? JSON.parse(existingData) : [];
-    
-    const novoRegistro = {
-      id: Date.now(),
-      ...formData,
-      dataEnvio: new Date().toLocaleString()
-    };
-    
-    formularios.push(novoRegistro);
-    localStorage.setItem("formularios", JSON.stringify(formularios));
-    
-    setSuccessMessage("Formulário enviado com sucesso!");
-    
-    // Limpar formulário após 2 segundos
-    setTimeout(() => {
-      setFormData({
-        nome: "", cpf: "", dataNascimento: "", sexo: "",
-        altura: "", peso: "", tipoSanguineo: "", sus: "",
-        nomeContato: "", telefoneContato: "", relacionamento: "",
-        medicamento: "", dosagem: "", frequencia: "", observacoes: ""
-      });
-      setSuccessMessage("");
-    }, 2000);
   };
 
   // Alternar seções
@@ -232,15 +240,15 @@ function Formulario() {
           <h1 className="formulario-title">Preencha o Formulário</h1>
           <p className="formulario-subtitle">Seu espaço para cuidar da saúde.</p>
 
-          {/* Mensagem de sucesso */}
-          {successMessage && (
-            <div className="formulario-success-msg">
-              {successMessage}
+          {/* Mensagem de feedback */}
+          {mensagem.texto && (
+            <div className={`formulario-feedback ${mensagem.tipo}`}>
+              {mensagem.texto}
             </div>
           )}
 
           {/* Formulário */}
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} noValidate>
             
             {/* Seção Dados Pessoais */}
             <details className="formulario-section" open={openSections.dadosPessoais}>
@@ -264,6 +272,7 @@ function Formulario() {
                       placeholder="Digite seu nome completo"
                       value={formData.nome}
                       onChange={handleChange}
+                      onBlur={handleBlur}
                     />
                     {errors.nome && <div className="formulario-error-msg">{errors.nome}</div>}
                   </div>
@@ -279,6 +288,7 @@ function Formulario() {
                       placeholder="Digite seu CPF"
                       value={formData.cpf}
                       onChange={handleChange}
+                      onBlur={handleBlur}
                       maxLength="14"
                     />
                     {errors.cpf && <div className="formulario-error-msg">{errors.cpf}</div>}
@@ -294,6 +304,7 @@ function Formulario() {
                       className={`formulario-input formulario-input-data ${errors.dataNascimento ? "formulario-input-error" : ""}`}
                       value={formData.dataNascimento}
                       onChange={handleChange}
+                      onBlur={handleBlur}
                     />
                     {errors.dataNascimento && <div className="formulario-error-msg">{errors.dataNascimento}</div>}
                   </div>
@@ -307,6 +318,7 @@ function Formulario() {
                       className={`formulario-select formulario-select-sexo ${errors.sexo ? "formulario-input-error" : ""}`}
                       value={formData.sexo}
                       onChange={handleChange}
+                      onBlur={handleBlur}
                     >
                       <option value="">Selecione</option>
                       <option value="Masculino">Masculino</option>
@@ -327,6 +339,7 @@ function Formulario() {
                       placeholder="Ex: 1.75"
                       value={formData.altura}
                       onChange={handleChange}
+                      onBlur={handleBlur}
                     />
                     {errors.altura && <div className="formulario-error-msg">{errors.altura}</div>}
                   </div>
@@ -342,6 +355,7 @@ function Formulario() {
                       placeholder="Ex: 70"
                       value={formData.peso}
                       onChange={handleChange}
+                      onBlur={handleBlur}
                     />
                     {errors.peso && <div className="formulario-error-msg">{errors.peso}</div>}
                   </div>
@@ -355,6 +369,7 @@ function Formulario() {
                       className={`formulario-select formulario-select-tipoSanguineo ${errors.tipoSanguineo ? "formulario-input-error" : ""}`}
                       value={formData.tipoSanguineo}
                       onChange={handleChange}
+                      onBlur={handleBlur}
                     >
                       <option value="">Selecione</option>
                       <option value="A+">A+</option>
@@ -380,6 +395,7 @@ function Formulario() {
                       placeholder="Digite o número do cartão SUS"
                       value={formData.sus}
                       onChange={handleChange}
+                      onBlur={handleBlur}
                     />
                     {errors.sus && <div className="formulario-error-msg">{errors.sus}</div>}
                   </div>
@@ -410,6 +426,7 @@ function Formulario() {
                       placeholder="Digite o nome do contato"
                       value={formData.nomeContato}
                       onChange={handleChange}
+                      onBlur={handleBlur}
                     />
                     {errors.nomeContato && <div className="formulario-error-msg">{errors.nomeContato}</div>}
                   </div>
@@ -425,6 +442,7 @@ function Formulario() {
                       placeholder="(00) 00000-0000"
                       value={formData.telefoneContato}
                       onChange={handleChange}
+                      onBlur={handleBlur}
                       maxLength="15"
                     />
                     {errors.telefoneContato && <div className="formulario-error-msg">{errors.telefoneContato}</div>}
@@ -441,6 +459,7 @@ function Formulario() {
                       placeholder="Ex: Mãe, Pai, Irmão"
                       value={formData.relacionamento}
                       onChange={handleChange}
+                      onBlur={handleBlur}
                     />
                     {errors.relacionamento && <div className="formulario-error-msg">{errors.relacionamento}</div>}
                   </div>
@@ -455,45 +474,57 @@ function Formulario() {
                 e.preventDefault();
                 toggleSection("medicamentos");
               }}>
-                Medicamentos
+                Medicamentos <span className="formulario-label-required">*</span>
               </summary>
               <div className="formulario-section-content">
                 <div className="formulario-grid">
                   
                   <div className="formulario-field">
-                    <label className="formulario-label">Nome do Medicamento</label>
+                    <label className="formulario-label">
+                      Nome do Medicamento <span className="formulario-label-required">*</span>
+                    </label>
                     <input
                       type="text"
                       id="medicamento"
-                      className="formulario-input formulario-input-medicamento"
+                      className={`formulario-input formulario-input-medicamento ${errors.medicamento ? "formulario-input-error" : ""}`}
                       placeholder="Ex: Paracetamol"
                       value={formData.medicamento}
                       onChange={handleChange}
+                      onBlur={handleBlur}
                     />
+                    {errors.medicamento && <div className="formulario-error-msg">{errors.medicamento}</div>}
                   </div>
 
                   <div className="formulario-field">
-                    <label className="formulario-label">Dosagem</label>
+                    <label className="formulario-label">
+                      Dosagem <span className="formulario-label-required">*</span>
+                    </label>
                     <input
                       type="text"
                       id="dosagem"
-                      className="formulario-input formulario-input-dosagem"
+                      className={`formulario-input formulario-input-dosagem ${errors.dosagem ? "formulario-input-error" : ""}`}
                       placeholder="Ex: 500mg"
                       value={formData.dosagem}
                       onChange={handleChange}
+                      onBlur={handleBlur}
                     />
+                    {errors.dosagem && <div className="formulario-error-msg">{errors.dosagem}</div>}
                   </div>
 
                   <div className="formulario-field">
-                    <label className="formulario-label">Frequência</label>
+                    <label className="formulario-label">
+                      Frequência <span className="formulario-label-required">*</span>
+                    </label>
                     <input
                       type="text"
                       id="frequencia"
-                      className="formulario-input formulario-input-frequencia"
+                      className={`formulario-input formulario-input-frequencia ${errors.frequencia ? "formulario-input-error" : ""}`}
                       placeholder="Ex: 2x/dia"
                       value={formData.frequencia}
                       onChange={handleChange}
+                      onBlur={handleBlur}
                     />
+                    {errors.frequencia && <div className="formulario-error-msg">{errors.frequencia}</div>}
                   </div>
 
                 </div>
@@ -502,15 +533,19 @@ function Formulario() {
 
             {/* Observações */}
             <div className="formulario-field">
-              <label className="formulario-label">Observações</label>
+              <label className="formulario-label">
+                Observações <span className="formulario-label-required">*</span>
+              </label>
               <textarea
                 id="observacoes"
-                className="formulario-textarea formulario-textarea-obs"
+                className={`formulario-textarea formulario-textarea-obs ${errors.observacoes ? "formulario-input-error" : ""}`}
                 rows="4"
                 placeholder="Ex: alergias, restrições ou informações importantes"
                 value={formData.observacoes}
                 onChange={handleChange}
+                onBlur={handleBlur}
               ></textarea>
+              {errors.observacoes && <div className="formulario-error-msg">{errors.observacoes}</div>}
             </div>
 
             {/* Botão submit */}
