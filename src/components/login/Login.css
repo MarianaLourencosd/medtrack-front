@@ -723,3 +723,117 @@ input#senha {
     outline: 2px solid var(--cor-primaria);
     outline-offset: 2px;
 }
+
+/* Botões de ação no estilo Formulario */
+.login-action-btn {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 45px;
+  height: 45px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+  background-color: var(--cor-primaria);
+  color: var(--cor-branco);
+  border: none;
+}
+
+.login-action-btn:hover {
+  background-color: var(--cor-secundaria);
+}
+
+.login-back-btn {
+  top: 0px;
+  left: 0px;
+  border-radius: 0;
+}
+
+.login-theme-btn {
+  top: 0px;
+  right: 0px;
+  border-radius: 0;
+}
+
+/* Container com position relative */
+.container-login {
+  position: relative;
+}
+
+/* Mensagens de feedback */
+.mensagem-feedback-login {
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-weight: 500;
+  text-align: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.mensagem-feedback-login.success {
+  background-color: #d1e7dd;
+  color: #0f5132;
+  border: 1px solid #a3cfbb;
+}
+
+.mensagem-feedback-login.error {
+  background-color: #f8d7da;
+  color: #dc3545;
+  border: 1px solid #f5c2c7;
+}
+
+/* Campos inválidos */
+.form-control.is-invalid {
+  border-color: #dc3545 !important;
+  background-color: #fff0f0;
+}
+
+.invalid-feedback {
+  color: #dc3545;
+  font-size: 0.75rem;
+  margin-top: 4px;
+  display: block;
+}
+
+/* Animações */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsividade */
+@media (max-width: 576px) {
+  .login-action-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 14px;
+  }
+}
+
+/* Modo escuro para os botões */
+body.dark-mode .login-action-btn {
+  background-color: var(--cor-secundaria);
+  color: var(--cor-preto);
+}
+
+body.dark-mode .login-action-btn:hover {
+  background-color: var(--cor-primaria);
+  color: var(--cor-branco);
+}
+
+body.dark-mode .form-control.is-invalid {
+  background-color: #2a1a1a;
+  border-color: #dc3545 !important;
+}
+
+body.dark-mode .invalid-feedback {
+  color: #ff6b6b;
+}

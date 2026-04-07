@@ -4,9 +4,29 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../../utils/daltonismo.css";
 import loginImg from "../../assets/images/imagem-header-login.svg";
 
+// Importar funções de validação do arquivo validacoes.js
+import { 
+  validarLogin, 
+  validarCampoEmTempoReal,
+  mensagemSucessoLogin,
+  mensagemErroLogin
+} from "../../utils/validacoes";
+
 function Login() {
   // Estado para dark mode
   const [darkMode, setDarkMode] = useState(false);
+  
+  // Estado para mensagens
+  const [mensagem, setMensagem] = useState({ texto: "", tipo: "" });
+  
+  // Estado para os campos do formulário
+  const [formData, setFormData] = useState({
+    email: "",
+    senha: ""
+  });
+  
+  // Estado para erros
+  const [errors, setErrors] = useState({});
 
   // Verificar preferência salva no localStorage ao carregar
   useEffect(() => {
@@ -36,15 +56,86 @@ function Login() {
     window.location.href = "/";
   };
 
-  // Função de envio do formulário
+  // Limpar erro de um campo específico
+  const limparErro = (campo) => {
+    if (errors[campo]) {
+      setErrors(prev => ({ ...prev, [campo]: "" }));
+    }
+  };
+
+  // Mostrar mensagem de sucesso
+  const mostrarMensagemSucesso = () => {
+    setMensagem({
+      texto: mensagemSucessoLogin(),
+      tipo: "success"
+    });
+    
+    // Limpar formulário
+    setFormData({
+      email: "",
+      senha: ""
+    });
+    
+    // Redirecionar após 2 segundos
+    setTimeout(() => {
+      window.location.href = "/";
+    }, 2000);
+  };
+
+  // Mostrar mensagem de erro
+  const mostrarMensagemErro = () => {
+    setMensagem({
+      texto: mensagemErroLogin(),
+      tipo: "error"
+    });
+    
+    // Limpar mensagem após 3 segundos
+    setTimeout(() => {
+      setMensagem({ texto: "", tipo: "" });
+    }, 3000);
+  };
+
+  // Lidar com mudanças nos inputs
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData(prev => ({ ...prev, [id]: value }));
+    limparErro(id);
+  };
+
+  // Validação em tempo real ao perder o foco
+  const handleBlur = (e) => {
+    const { id, value } = e.target;
+    const erro = validarCampoEmTempoReal(id, value, formData);
+    
+    if (erro) {
+      setErrors(prev => ({ ...prev, [id]: erro }));
+    } else {
+      limparErro(id);
+    }
+  };
+
+  // Validar e enviar formulário
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("Login realizado com sucesso!");
+    
+    // Usar a função de validação importada do arquivo validacoes.js
+    const { isValid, errors: validationErrors } = validarLogin(formData.email, formData.senha);
+    
+    if (isValid) {
+      mostrarMensagemSucesso();
+      console.log("Login válido, enviando dados...", formData);
+      // Aqui você pode adicionar a chamada para a API
+    } else {
+      setErrors(validationErrors);
+      mostrarMensagemErro();
+      // Rolar para o topo do formulário
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
 
   return (
     <main className="main d-flex align-items-center justify-content-center min-vh-100">
-      <section className="container-login d-flex flex-wrap shadow rounded overflow-hidden">
+      <section className="container-login d-flex flex-wrap shadow rounded overflow-hidden position-relative">
         
         {/* Botão Voltar - ESTILO DO FORMULARIO */}
         <button 
@@ -81,6 +172,13 @@ function Login() {
           <h1 className="text-center title-form mt-5">FAÇA SEU LOGIN</h1>
           <p className="texto text-center">Seu espaço para cuidar da saúde.</p>
 
+          {/* Mensagem de feedback */}
+          {mensagem.texto && (
+            <div className={`mensagem-feedback-login ${mensagem.tipo}`}>
+              {mensagem.texto}
+            </div>
+          )}
+
           {/* Ícones de login via redes sociais */}
           <div className="icons" role="group" aria-label="Login via redes sociais">
             <a href="#" aria-label="Login com Google">
@@ -105,11 +203,15 @@ function Login() {
                 type="email"
                 id="email"
                 name="email"
-                className="form-control"
+                className={`form-control ${errors.email ? "is-invalid" : ""}`}
                 placeholder="Digite o seu e-mail."
+                value={formData.email}
+                onChange={handleChange}
+                onBlur={handleBlur}
                 required
                 aria-label="Digite o seu e-mail"
               />
+              {errors.email && <div className="invalid-feedback">{errors.email}</div>}
             </div>
 
             <div className="mb-2">
@@ -120,11 +222,15 @@ function Login() {
                 type="password"
                 id="senha"
                 name="senha"
-                className="form-control"
+                className={`form-control ${errors.senha ? "is-invalid" : ""}`}
                 placeholder="Digite a sua senha."
+                value={formData.senha}
+                onChange={handleChange}
+                onBlur={handleBlur}
                 required
                 aria-label="Digite a sua senha"
               />
+              {errors.senha && <div className="invalid-feedback">{errors.senha}</div>}
             </div>
 
             {/* Link esqueceu a senha */}
