@@ -1,4 +1,3 @@
-// Inicializa o modo escuro conforme o localStorage
 export function initDarkMode(setDarkMode) {
   const savedMode = localStorage.getItem("darkMode");
 

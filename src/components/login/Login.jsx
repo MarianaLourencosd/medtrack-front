@@ -4,7 +4,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../../utils/daltonismo.css";
 import loginImg from "../../assets/images/imagem-header-login.svg";
 
-// Importar funções de validação do arquivo validacoes.js
 import { 
   validarLogin, 
   validarCampoEmTempoReal,

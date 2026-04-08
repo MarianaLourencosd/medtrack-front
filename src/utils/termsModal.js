@@ -1,6 +1,3 @@
-// src/utils/termsModal.js
-
-// Função para verificar se os termos já foram aceitos
 export const hasAcceptedTerms = () => {
   try {
     const accepted = localStorage.getItem("termsAccepted");

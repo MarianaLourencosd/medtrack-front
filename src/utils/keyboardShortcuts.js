@@ -1,4 +1,3 @@
-// keyboardShortcuts.js
 export function initKeyboardShortcuts(navigate) {
   const handleKeyDown = (e) => {
     switch (e.key.toLowerCase()) {

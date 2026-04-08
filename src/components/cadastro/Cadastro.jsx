@@ -4,7 +4,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../../utils/daltonismo.css";
 import cadastroImg from "../../assets/images/imagem-header-cadastro.svg";
 
-// Importar funções de validação do arquivo validacoes.js
 import { 
   validarCadastro, 
   formatarCPF, 

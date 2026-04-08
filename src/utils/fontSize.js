@@ -1,4 +1,3 @@
-// utils/fontSize.js
 export function initFontSizeControls() {
   const allTextElements = document.querySelectorAll("body, body *");
 

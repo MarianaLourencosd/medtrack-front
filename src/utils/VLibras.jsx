@@ -1,4 +1,3 @@
-// src/components/VLibras/VLibras.jsx
 import { useEffect } from 'react';
 
 const VLibras = () => {

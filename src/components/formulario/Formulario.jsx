@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Formulario.css";
 
-// Importar funções de validação do arquivo validacoes.js
 import { 
   formatarCPF,
   formatarTelefone,

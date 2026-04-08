@@ -1,8 +1,3 @@
-/* ============================================
-   ACESSIBILIDADE - APENAS PARA CARDS DA HOME
-   ============================================ */
-
-/* Cards "Porque somos os melhores" */
 .card-info-destaque:focus-visible {
   outline: 3px solid #00AD88 !important;
   outline-offset: 4px !important;

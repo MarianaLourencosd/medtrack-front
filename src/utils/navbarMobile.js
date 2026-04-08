@@ -1,4 +1,3 @@
-// src/utils/navbarMobile.js
 export function initNavbarMobile() {
   const btn = document.getElementById("nav-btn-toggle");
   const menu = document.getElementById("nav-mobile");

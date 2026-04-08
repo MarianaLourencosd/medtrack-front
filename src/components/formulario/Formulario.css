@@ -1,9 +1,3 @@
-/* ---------------- FORMULARIO SPECIFIC CSS ---------------- */
-/* Este arquivo é exclusivo para o componente Formulario */
-
-/* ========== ESTILOS ESPECÍFICOS DO FORMULÁRIO ========== */
-
-/* Container principal do formulário */
 .formulario-wrapper {
     min-height: 100vh;
     display: flex;

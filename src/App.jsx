@@ -1,4 +1,3 @@
-// App.jsx
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import VLibras from "./utils/VLibras";
 
@@ -13,7 +12,7 @@ import Sobre from "./components/sobre/Sobre";
 function App() {
   return (
     <Router>
-      <VLibras /> {/* Adicione esta linha antes das rotas */}
+      <VLibras /> 
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />

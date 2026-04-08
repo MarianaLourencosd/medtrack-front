@@ -1,4 +1,3 @@
-// utils/daltonismo.js
 export function initDaltonismo() {
   const tipos = ["", "daltonismo-red-verde", "daltonismo-azul-amarelo", "daltonismo-todo"];
   const icones = ["OFF", "🔴", "🔵", "🟡"];

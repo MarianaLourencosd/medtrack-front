@@ -1,12 +1,3 @@
-// ============================================
-// VALIDAÇÕES COMPLETAS - LOGIN, CADASTRO E FORMULÁRIO
-// ============================================
-
-// ==========================================
-// FUNÇÕES DE FORMATAÇÃO
-// ==========================================
-
-// Formatar CPF
 export const formatarCPF = (value) => {
   const cpf = value.replace(/\D/g, "");
   if (cpf.length <= 3) return cpf;

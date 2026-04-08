@@ -1,4 +1,3 @@
-// Sobre.jsx
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Sobre.css";
 import React, { useEffect, useState } from "react";
