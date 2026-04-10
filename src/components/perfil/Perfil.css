@@ -1,0 +1,457 @@
+@import url("https://fonts.googleapis.com/css2?family=Karla:wght@200..800&family=Montserrat:wght@100..900&family=Spectral:wght@200..800&display=swap");
+
+/* ---------------- VARIÁVEIS GLOBAIS ---------------- */
+:root {
+  --fonte-montserrat: "Montserrat", sans-serif;
+  --fonte-karla: "Karla", sans-serif;
+  --fonte-spectral: "Spectral", serif;
+
+  --cor-preto: #000000;
+  --cor-primaria: #00614C;
+  --cor-secundaria: #00AD88;
+  --cor-cinza: #B4BEC9;
+  --cor-cinza-claro: #e0e0e0;
+  --cor-branco: #FFFFFF;
+  --cor-fundo: #DEEFE7;
+
+  --sombra-card: 0 10px 25px rgba(0, 0, 0, 0.15);
+  --sombra-card-hover: 0 20px 40px rgba(0, 120, 94, 0.25);
+  --transicao: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---------------- RESET ---------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ---------------- MAIN ---------------- */
+.perfil-main {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background: radial-gradient(circle, #000000 0%, #00614C 100%);
+}
+
+.perfil-container {
+  width: 100%;
+  max-width: 500px;
+  position: relative;
+  margin-top: 30px; /* Espaço para os botões */
+}
+
+/* ---------------- BOTÕES ESTILO FORMULARIO - CORRIGIDO ---------------- */
+.perfil-action-btn {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: var(--transicao);
+  z-index: 10;
+  background-color: var(--cor-primaria);
+  color: var(--cor-branco);
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.perfil-action-btn:hover {
+  background-color: var(--cor-secundaria);
+  transform: scale(1.05);
+}
+
+/* Botões no TOPO - CORRIGIDO */
+.perfil-back-btn {
+  top: -50px; /* Movido para cima */
+  left: 0;
+  border-radius: 0;
+}
+
+.perfil-theme-btn {
+  top: -50px; /* Movido para cima */
+  right: 0;
+  border-radius: 0;
+}
+
+/* ---------------- CARD DE PERFIL - FUNDO BRANCO ---------------- */
+.perfil-card-container {
+  background: var(--cor-branco);
+  border-radius: 20px;
+  padding: 2rem 1.5rem;
+  box-shadow: var(--sombra-card);
+}
+
+/* Header do Perfil */
+.perfil-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--cor-cinza-claro);
+}
+
+.perfil-avatar {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+.avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--cor-primaria), var(--cor-secundaria));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+  color: var(--cor-branco);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.avatar-edit {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
+
+.edit-avatar-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--cor-primaria);
+  border: 2px solid var(--cor-branco);
+  color: var(--cor-branco);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transicao);
+}
+
+.edit-avatar-btn:hover {
+  background: var(--cor-secundaria);
+  transform: scale(1.1);
+}
+
+.perfil-nome {
+  flex: 1;
+}
+
+.nome-input {
+  width: 100%;
+  padding: 10px 15px;
+  font-size: 1rem;
+  border: 1px solid var(--cor-cinza-claro);
+  border-radius: 10px;
+  background: var(--cor-branco);
+  font-family: var(--fonte-montserrat);
+  font-weight: 600;
+  transition: var(--transicao);
+  color: var(--cor-preto);
+}
+
+.nome-input:focus {
+  outline: none;
+  border-color: var(--cor-primaria);
+  box-shadow: 0 0 0 3px rgba(0, 155, 122, 0.3);
+}
+
+/* Botões do Perfil */
+.perfil-botoes {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.perfil-btn {
+  padding: 14px 20px;
+  background: var(--cor-primaria);
+  border: none;
+  border-radius: 12px;
+  color: var(--cor-branco);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transicao);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.perfil-btn i {
+  font-size: 1.1rem;
+}
+
+.perfil-btn:hover {
+  background: var(--cor-secundaria);
+  transform: translateY(-2px);
+}
+
+/* ---------------- MODAIS ---------------- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-container {
+  background: var(--cor-branco);
+  border-radius: 20px;
+  width: 90%;
+  max-width: 900px;
+  max-height: 80vh;
+  overflow: hidden;
+  animation: slideIn 0.3s ease;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.5rem;
+  background: var(--cor-primaria);
+  color: var(--cor-branco);
+}
+
+.modal-header h2 {
+  font-family: var(--fonte-spectral);
+  font-size: 1.3rem;
+  margin: 0;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  color: var(--cor-branco);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: var(--transicao);
+}
+
+.modal-close:hover {
+  transform: scale(1.1);
+  opacity: 0.8;
+}
+
+.modal-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  max-height: calc(80vh - 70px);
+}
+
+/* Grid de Dados */
+.dados-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.dado-item {
+  padding: 0.75rem;
+  background: var(--cor-fundo);
+  border-radius: 10px;
+}
+
+.dado-label {
+  font-weight: 700;
+  color: var(--cor-primaria);
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.dado-value {
+  color: var(--cor-preto);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* Tabelas */
+.perfil-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--fonte-karla);
+}
+
+.perfil-table thead {
+  background: var(--cor-primaria);
+  color: var(--cor-branco);
+}
+
+.perfil-table th,
+.perfil-table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--cor-cinza-claro);
+}
+
+.perfil-table tbody tr:nth-child(even) {
+  background: var(--cor-fundo);
+}
+
+.perfil-table tbody tr:hover {
+  background: rgba(0, 155, 122, 0.1);
+  transition: var(--transicao);
+}
+
+/* ---------------- MODO ESCURO ---------------- */
+body.dark-mode {
+  --cor-preto: #FAFAFA;
+  --cor-branco: #1a1a2e;
+  --cor-primaria: #00AD88;
+  --cor-secundaria: #00795f;
+  --cor-fundo: #0d0d1a;
+  --cor-cinza-claro: #2a2a3a;
+}
+
+body.dark-mode .perfil-main {
+  background: radial-gradient(circle, #000000 0%, #004d3b 100%);
+}
+
+body.dark-mode .perfil-card-container {
+  background: #1a1a2e;
+}
+
+body.dark-mode .nome-input {
+  background: #2a2a3a;
+  border-color: #3a3a4a;
+  color: var(--cor-preto);
+}
+
+body.dark-mode .nome-input:focus {
+  border-color: var(--cor-primaria);
+}
+
+body.dark-mode .perfil-action-btn {
+  background-color: var(--cor-secundaria);
+  color: var(--cor-preto);
+}
+
+body.dark-mode .perfil-action-btn:hover {
+  background-color: var(--cor-primaria);
+  color: var(--cor-branco);
+}
+
+body.dark-mode .dado-item {
+  background: #2a2a3a;
+}
+
+body.dark-mode .perfil-table tbody tr:nth-child(even) {
+  background: #2a2a3a;
+}
+
+body.dark-mode .perfil-table td {
+  color: var(--cor-preto);
+}
+
+/* ---------------- ANIMAÇÕES ---------------- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ---------------- RESPONSIVIDADE ---------------- */
+@media (max-width: 576px) {
+  .perfil-main {
+    padding: 1rem;
+  }
+  
+  .perfil-container {
+    margin-top: 20px;
+  }
+  
+  .perfil-card-container {
+    padding: 1.5rem 1rem;
+  }
+  
+  .perfil-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .perfil-avatar {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .avatar-placeholder {
+    font-size: 2.5rem;
+  }
+  
+  .perfil-action-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 0.9rem;
+  }
+  
+  .perfil-back-btn {
+    top: -40px;
+  }
+  
+  .perfil-theme-btn {
+    top: -40px;
+  }
+  
+  .dados-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .perfil-table {
+    font-size: 0.8rem;
+  }
+  
+  .perfil-table th,
+  .perfil-table td {
+    padding: 8px 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .perfil-action-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+  
+  .perfil-back-btn {
+    top: -45px;
+  }
+  
+  .perfil-theme-btn {
+    top: -45px;
+  }
+}

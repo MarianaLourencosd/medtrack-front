@@ -1,0 +1,564 @@
+@import url("https://fonts.googleapis.com/css2?family=Karla:wght@200..800&family=Montserrat:wght@100..900&family=Spectral:wght@200..800&display=swap");
+
+/* ---------------- VARIÁVEIS GLOBAIS ---------------- */
+:root {
+  --fonte-montserrat: "Montserrat", sans-serif;
+  --fonte-karla: "Karla", sans-serif;
+  --fonte-spectral: "Spectral", serif;
+
+  --cor-preto: #000000;
+  --cor-primaria: #00614C;
+  --cor-secundaria: #00AD88;
+  --cor-cinza: #B4BEC9;
+  --cor-cinza-claro: #e0e0e0;
+  --cor-branco: #FAFAFA;
+  --cor-erro: #dc3545;
+
+  --sombra-card: 0 10px 25px rgba(0, 0, 0, 0.15);
+  --sombra-card-hover: 0 20px 40px rgba(0, 120, 94, 0.25);
+  --sombra-input: 0 4px 15px rgba(0, 0, 0, 0.1);
+  --transicao: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---------------- RESET ---------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ---------------- BODY E MAIN ---------------- */
+html,
+body {
+  min-height: 100%;
+  font-family: var(--fonte-montserrat);
+  scroll-behavior: smooth;
+}
+
+.busca-main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: radial-gradient(circle, #000000 0%, #00614C 100%);
+}
+
+.busca-container {
+  width: 100%;
+  max-width: 1300px;
+  position: relative;
+}
+
+/* ---------------- BOTÕES ESTILO FORMULARIO ---------------- */
+.busca-action-btn {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: var(--transicao);
+  z-index: 10;
+  background-color: var(--cor-primaria);
+  color: var(--cor-branco);
+  border: none;
+  box-shadow: var(--sombra-input);
+}
+
+.busca-action-btn:hover {
+  background-color: var(--cor-secundaria);
+  transform: scale(1.05);
+}
+
+.busca-back-btn {
+  top: 0;
+  left: 0;
+  border-radius: 0;
+}
+
+.busca-theme-btn {
+  top: 0;
+  right: 0;
+  border-radius: 0;
+}
+
+/* ---------------- SEÇÃO DE FILTRO ---------------- */
+.filter-section {
+  margin: 4rem auto 3rem;
+  text-align: center;
+}
+
+.filter-header {
+  margin-bottom: 2rem;
+}
+
+.filter-title {
+  font-family: var(--fonte-spectral);
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 700;
+  color: var(--cor-branco);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.filter-subtitle {
+  font-family: var(--fonte-karla);
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 400;
+}
+
+.filter-wrapper {
+  max-width: 550px;
+  margin: 0 auto;
+}
+
+.filter-box {
+  display: flex;
+  align-items: center;
+  background: var(--cor-branco);
+  border-radius: 60px;
+  padding: 0.5rem 1rem;
+  box-shadow: var(--sombra-input);
+  transition: var(--transicao);
+  border: 2px solid transparent;
+}
+
+.filter-box:focus-within {
+  border-color: var(--cor-primaria);
+  box-shadow: 0 0 0 4px rgba(0, 97, 76, 0.2);
+  transform: translateY(-2px);
+}
+
+.filter-icon {
+  color: var(--cor-primaria);
+  font-size: 1.2rem;
+  margin-right: 0.75rem;
+}
+
+.filter-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-family: var(--fonte-montserrat);
+  font-size: 1rem;
+  padding: 0.875rem 0;
+  outline: none;
+  color: var(--cor-preto);
+}
+
+.filter-input::placeholder {
+  color: #aaa;
+  font-weight: 400;
+}
+
+.filter-clear {
+  background: none;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: var(--transicao);
+  border-radius: 50%;
+}
+
+.filter-clear:hover {
+  color: var(--cor-erro);
+  transform: scale(1.1);
+}
+
+.filter-stats {
+  margin-top: 0.75rem;
+  text-align: left;
+  padding-left: 1rem;
+}
+
+.result-count {
+  font-family: var(--fonte-karla);
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+}
+
+/* ---------------- SEÇÃO DE CARDS ---------------- */
+.cards-section {
+  margin: 2rem 0;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  justify-content: center;
+}
+
+/* ---------------- CARD DO PACIENTE ---------------- */
+.patient-card {
+  background: var(--cor-branco);
+  border-radius: 1rem;
+  overflow: hidden;
+  position: relative;
+  transition: var(--transicao);
+  cursor: pointer;
+  box-shadow: var(--sombra-card);
+}
+
+.patient-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--sombra-card-hover);
+}
+
+.patient-card:focus-within {
+  outline: 3px solid var(--cor-secundaria);
+  outline-offset: 2px;
+}
+
+/* BANNER */
+.card-banner {
+  height: 100px;
+  background: linear-gradient(135deg, var(--cor-primaria), var(--cor-secundaria));
+  position: relative;
+}
+
+/* AVATAR - CORRIGIDO */
+.card-avatar {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 50px; /* Reduzido de 55px para 50px */
+  width: 100px; /* Reduzido de 110px para 100px */
+  height: 100px; /* Reduzido de 110px para 100px */
+  border-radius: 50%;
+  border: 4px solid var(--cor-branco); /* Reduzido de 5px para 4px */
+  overflow: hidden;
+  background: var(--cor-branco);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: var(--transicao);
+  z-index: 2;
+}
+
+.patient-card:hover .card-avatar {
+  transform: translateX(-50%) scale(1.02);
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.patient-card:hover .avatar-img {
+  transform: scale(1.1);
+}
+
+/* CORPO DO CARD - AUMENTADO O PADDING TOP */
+.card-body {
+  padding: 3.5rem 1rem 1.25rem; /* Aumentado de 3rem para 3.5rem */
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.patient-name {
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: var(--cor-preto);
+  margin-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.patient-age {
+  font-size: 0.85rem;
+  color: var(--cor-primaria);
+  font-weight: 600;
+  background: rgba(0, 97, 76, 0.1);
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+}
+
+.patient-city {
+  color: #666;
+  font-size: 0.85rem;
+  margin: 0.5rem 0 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+}
+
+.patient-city i {
+  color: var(--cor-primaria);
+  font-size: 0.75rem;
+}
+
+/* ---------------- ESTATÍSTICAS DO CARD ---------------- */
+.patient-stats {
+  display: flex;
+  border-top: 1px solid var(--cor-cinza-claro);
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+}
+
+.stat-item {
+  flex: 1;
+  text-align: center;
+  transition: var(--transicao);
+}
+
+.stat-item + .stat-item {
+  border-left: 1px solid var(--cor-cinza-claro);
+}
+
+.stat-value {
+  display: block;
+  font-weight: 800;
+  font-size: 1rem;
+  color: var(--cor-primaria);
+  margin-bottom: 0.2rem;
+}
+
+.stat-label {
+  font-size: 0.65rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.patient-card:hover .stat-value {
+  color: var(--cor-secundaria);
+}
+
+/* ---------------- SEM RESULTADOS ---------------- */
+.no-results {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 1rem;
+  backdrop-filter: blur(10px);
+}
+
+.no-results-icon {
+  font-size: 4rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 1rem;
+}
+
+.no-results h3 {
+  font-family: var(--fonte-spectral);
+  font-size: 1.5rem;
+  color: var(--cor-branco);
+  margin-bottom: 0.5rem;
+}
+
+.no-results p {
+  font-family: var(--fonte-karla);
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 1.5rem;
+}
+
+.no-results-btn {
+  background: var(--cor-primaria);
+  color: var(--cor-branco);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 30px;
+  font-family: var(--fonte-karla);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transicao);
+}
+
+.no-results-btn:hover {
+  background: var(--cor-secundaria);
+  transform: translateY(-2px);
+}
+
+/* ---------------- MODO ESCURO ---------------- */
+body.dark-mode {
+  --cor-preto: #FAFAFA;
+  --cor-branco: #0a0a0a;
+  --cor-primaria: #00AD88;
+  --cor-secundaria: #00795f;
+  --cor-cinza-claro: #2a2a2a;
+}
+
+body.dark-mode .busca-main {
+  background: radial-gradient(circle, #000000 0%, #004d3b 100%);
+}
+
+body.dark-mode .filter-title {
+  color: var(--cor-preto);
+}
+
+body.dark-mode .filter-box {
+  background: #1a1a1a;
+  border-color: #333;
+}
+
+body.dark-mode .filter-input {
+  color: var(--cor-preto);
+}
+
+body.dark-mode .filter-input::placeholder {
+  color: #666;
+}
+
+body.dark-mode .filter-icon {
+  color: var(--cor-primaria);
+}
+
+body.dark-mode .result-count {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+body.dark-mode .busca-action-btn {
+  background-color: var(--cor-secundaria);
+  color: var(--cor-preto);
+}
+
+body.dark-mode .busca-action-btn:hover {
+  background-color: var(--cor-primaria);
+  color: var(--cor-branco);
+}
+
+body.dark-mode .patient-city {
+  color: #aaa;
+}
+
+body.dark-mode .stat-label {
+  color: #aaa;
+}
+
+body.dark-mode .no-results {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* ---------------- RESPONSIVIDADE ---------------- */
+@media (max-width: 768px) {
+  .busca-main {
+    padding: 1rem;
+  }
+  
+  .cards-grid {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .busca-action-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+  
+  .filter-section {
+    margin: 3rem auto 2rem;
+  }
+  
+  .filter-title {
+    font-size: 1.8rem;
+  }
+  
+  /* Ajuste para mobile */
+  .card-avatar {
+    width: 90px;
+    height: 90px;
+    top: 45px;
+  }
+  
+  .card-body {
+    padding-top: 3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .busca-action-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 0.9rem;
+  }
+  
+  .filter-title {
+    font-size: 1.5rem;
+  }
+  
+  .filter-subtitle {
+    font-size: 0.85rem;
+  }
+  
+  .filter-box {
+    padding: 0.35rem 0.75rem;
+  }
+  
+  .filter-input {
+    padding: 0.65rem 0;
+    font-size: 0.9rem;
+  }
+  
+  .patient-name {
+    font-size: 1rem;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .stat-value {
+    font-size: 0.9rem;
+  }
+  
+  /* Ajuste para mobile pequeno */
+  .card-avatar {
+    width: 80px;
+    height: 80px;
+    top: 40px;
+  }
+  
+  .card-body {
+    padding-top: 2.8rem;
+  }
+}
+
+/* ---------------- ANIMAÇÕES ---------------- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.patient-card {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+/* ---------------- ACESSIBILIDADE ---------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .patient-card:hover {
+    transform: none;
+  }
+}

@@ -1,347 +1,162 @@
-@import url("https://fonts.googleapis.com/css2?family=Karla:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&family=Spectral:wght@400;600;700&display=swap");
+/* ========== BOTÕES NO ESTILO DO FORMULARIO (QUADRADOS) ========== */
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
+/* Botões de ação no estilo Formulario (quadrados, sem border-radius) */
+.cadastro-action-btn {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+    z-index: 10;
+    background-color: var(--cor-primaria);
+    color: var(--cor-branco);
+    border: none;
 }
 
-:root{
---fonte-montserrat:"Montserrat",sans-serif;
---fonte-karla:"Karla",sans-serif;
---fonte-spectral:"Spectral",serif;
-
---cor-preto:#000;
---cor-primaria:#00614C;
---cor-secundaria:#00AD88;
---cor-cinza:#B4BEC9;
---cor-branco:#FAFAFA;
+.cadastro-action-btn:hover {
+    background-color: var(--cor-secundaria);
 }
 
-body.dark-mode{
---cor-preto:#FAFAFA;
---cor-primaria:#00AD88;
---cor-secundaria:#00614C;
---cor-branco:#000;
+/* Botão voltar - canto superior esquerdo */
+.cadastro-back-btn {
+    top: 0px;
+    left: 0px;
+    border-radius: 0 !important;  /* Força borda quadrada */
 }
 
-body.dark-mode input.form-control{
-background:#2c2c2c;
-border:1px solid #444;
-color:#fff;
+/* Botão tema - canto superior direito */
+.cadastro-theme-btn {
+    top: 0px;
+    right: 0px;
+    border-radius: 0 !important;  /* Força borda quadrada */
 }
 
-body.dark-mode input::placeholder{
-color:#aaa;
+/* Ajuste para o container-login ter position relative */
+.container-login {
+    position: relative;
 }
 
-body.dark-mode .icons a{
-border:1px solid var(--cor-preto);
+/* Modo escuro para os botões estilo Formulario */
+body.dark-mode .cadastro-action-btn {
+    background-color: var(--cor-secundaria);
+    color: var(--cor-preto);
 }
 
-body,html{
-height:100%;
-font-family:var(--fonte-montserrat);
+body.dark-mode .cadastro-action-btn:hover {
+    background-color: var(--cor-primaria);
+    color: var(--cor-branco);
 }
 
-main{
-min-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-background:radial-gradient(circle,#000 0%,#00614C 100%);
-padding:20px;
+/* Responsividade para botões menores em telas pequenas */
+@media (max-width: 576px) {
+    .cadastro-action-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+    }
 }
 
-.container-login{
-display:flex;
-flex-wrap:wrap;
-max-width:900px;
-width:100%;
-background:var(--cor-branco);
-border-radius:8px;
-overflow:hidden;
-box-shadow:0 2px 8px rgba(0,0,0,0.1);
+@media (max-width: 360px) {
+    .cadastro-action-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 12px;
+    }
 }
 
-.container-imagem,
-.container-imagem-1{
-flex:1 1 50%;
-display:flex;
-align-items:center;
-justify-content:center;
-padding:20px;
-background:var(--cor-branco);
-position:relative;
-z-index: 0;
+/* Mensagens de feedback */
+.mensagem-feedback {
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-weight: 500;
+  text-align: center;
+  animation: fadeIn 0.3s ease;
 }
 
-.img-fluid{
-z-index: 1;
-max-width: 90%;
-position: relative;
+.mensagem-feedback.success {
+  background-color: #d1e7dd;
+  color: #0f5132;
+  border: 1px solid #a3cfbb;
 }
 
-.container-imagem img,
-.container-imagem-1 img{
-max-width:100%;
-height:auto;
-display:block;
+.mensagem-feedback.error {
+  background-color: #f8d7da;
+  color: #dc3545;
+  border: 1px solid #f5c2c7;
 }
 
-.container-imagem img{
-max-height:70%;
-object-fit:contain;
+/* Campos inválidos */
+.form-control.is-invalid {
+  border-color: #dc3545;
+  background-color: #fff0f0;
 }
 
-.container-imagem-1 img{
-max-height:90%;
-object-fit:contain;
+.invalid-feedback {
+  color: #dc3545;
+  font-size: 0.75rem;
+  margin-top: 4px;
 }
 
-.container-form{
-flex:1 1 400px;
-display:flex;
-flex-direction:column;
-padding:40px 30px;
-position:relative;
-background:var(--cor-branco);
-border-left:1px solid #e6e6e6;
+/* Botões de ação */
+.cadastro-action-btn {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 45px;
+  height: 45px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+  background-color: var(--cor-primaria);
+  color: var(--cor-branco);
+  border: none;
 }
 
-.title-form{
-font-family:var(--fonte-spectral);
-text-align:center;
-color:var(--cor-primaria);
-font-size:40px;
-font-weight:700;
-margin-bottom:10px;
-text-transform:uppercase;
+.cadastro-action-btn:hover {
+  background-color: var(--cor-secundaria);
 }
 
-.texto{
-font-family:var(--fonte-karla);
-text-align:center;
-font-size:18px;
-margin-bottom:20px;
-color:var(--cor-preto);
+.cadastro-back-btn {
+  top: 0px;
+  left: 0px;
+  border-radius: 0;
 }
 
-.input-icon{
-position:relative;
+.cadastro-theme-btn {
+  top: 0px;
+  right: 0px;
+  border-radius: 0;
 }
 
-.input-img{
-position:absolute;
-left:12px;
-top:42px;
-width:20px;
-height:20px;
-pointer-events:none;
+/* Container com position relative */
+.container-login {
+  position: relative;
 }
 
-.input-icon input{
-padding-left:40px;
+/* Animações */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.login-form .form-label{
-font-weight:500;
-color:var(--cor-preto);
-}
-
-.login-form .form-control{
-border-radius:5px;
-border:1px solid #dbdbdb;
-padding:10px 12px 10px 40px;
-box-shadow:0 2px 8px rgba(0,0,0,0.05);
-transition:0.3s;
-}
-
-.login-form .form-control:focus{
-outline:none;
-border-color:var(--cor-cinza);
-}
-
-.login-form button{
-background:var(--cor-primaria);
-color:var(--cor-branco);
-font-family:var(--fonte-karla);
-font-weight:600;
-padding:12px;
-border-radius:5px;
-border:none;
-width:100%;
-margin-top:15px;
-cursor:pointer;
-transition:0.3s;
-}
-
-.login-form button:hover{
-background:var(--cor-secundaria);
-}
-
-.icons{
-display:flex;
-justify-content:center;
-gap:10px;
-margin-bottom:15px;
-}
-
-.icons a{
-width:45px;
-height:45px;
-display:flex;
-align-items:center;
-justify-content:center;
-border-radius:50%;
-border:1px solid #fff;
-color:var(--cor-primaria);
-font-size:20px;
-text-decoration:none;
-box-shadow:0 2px 8px #0000001a;
-transition:0.3s;
-}
-
-.icons a:hover{
-color:#fff;
-background:var(--cor-primaria);
-transform:scale(1.05);
-}
-
-.esqueceu-senha{
-text-align:right;
-font-size:15px;
-margin-top:10px;
-}
-
-.esqueceu-senha a{
-font-family:var(--fonte-karla);
-color:var(--cor-primaria);
-text-decoration:none;
-}
-
-.esqueceu-senha a:hover{
-color:var(--cor-secundaria);
-}
-
-#dark-mode-toggle,
-.seta{
-position:absolute;
-display:flex;
-align-items:center;
-justify-content:center;
-width:45px;
-height:45px;
-font-size:18px;
-cursor:pointer;
-background:var(--cor-primaria);
-color:#fff;
-transition:0.3s;
-z-index:10;
-}
-
-#dark-mode-toggle{
-top:0;
-left:0;
-}
-
-.seta{
-top:0;
-right:0;
-}
-
-#dark-mode-toggle:hover,
-.seta:hover{
-background:var(--cor-secundaria);
-}
-
-#dark-mode-toggle{
-border-radius:0 !important;
-}
-
-@media (max-width:992px){
-
-.container-login{
-flex-direction:column;
-max-width:90%;
-}
-
-.container-imagem,
-.container-imagem-1,
-.container-form{
-flex:1 1 100%;
-width:100%;
-}
-
-.container-imagem img,
-.container-imagem-1 img{
-max-height:420px;
-object-fit:contain;
-}
-
-.title-form{
-font-size:32px;
-}
-
-.texto{
-font-size:16px;
-}
-}
-
-@media (max-width:768px){
-
-.container-form{
-padding:25px 20px;
-border-left:none;
-border-top:1px solid #e6e6e6;
-}
-
-.icons a{
-width:40px;
-height:40px;
-font-size:18px;
-}
-
-.login-form .form-control{
-font-size:14px;
-padding:10px 12px 10px 38px;
-}
-
-.login-form button{
-font-size:14px;
-padding:10px;
-}
-
-.title-form{
-font-size:28px;
-}
-}
-
-@media (max-width:480px){
-
-.title-form{
-font-size:24px;
-}
-
-.texto{
-font-size:14px;
-}
-
-.icons a{
-width:36px;
-height:36px;
-font-size:16px;
-}
-
-.container-imagem img,
-.container-imagem-1 img{
-max-height:280px;
-}
-
-#dark-mode-toggle,
-.seta{
-width:38px;
-height:38px;
-font-size:16px;
-}
+/* Responsividade */
+@media (max-width: 576px) {
+  .cadastro-action-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 14px;
+  }
 }
