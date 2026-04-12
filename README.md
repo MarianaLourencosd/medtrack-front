@@ -1,16 +1,101 @@
-# React + Vite
+---
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# MedTrack
 
-Currently, two official plugins are available:
+Sistema web desenvolvido com React e Vite para gerenciamento de informações pessoais e de saúde dos usuários, com integração ao Firebase para autenticação e armazenamento de dados. O projeto tem como foco a organização de dados, validação de informações e melhoria da experiência do usuário por meio de uma interface estruturada e funcional.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Sobre o Projeto
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+O MedTrack foi concebido com o objetivo de oferecer uma solução digital para registro e acompanhamento de informações de saúde de forma centralizada. A aplicação permite que o usuário cadastre seus dados, realize autenticação segura e preencha formulários com informações pessoais e médicas relevantes.
 
-## Expanding the ESLint configuration
+O sistema foi desenvolvido utilizando uma arquitetura baseada em componentes, promovendo reutilização de código, organização e escalabilidade. Além disso, foram aplicadas boas práticas de desenvolvimento, como separação de responsabilidades, validações robustas e navegação estruturada.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## Objetivos do Sistema
+
+* Centralizar informações pessoais e de saúde dos usuários
+* Garantir a integridade dos dados por meio de validações eficientes
+* Oferecer uma interface simples, intuitiva e funcional
+* Permitir autenticação segura de usuários
+* Facilitar a manutenção e evolução do sistema
+
+---
+
+## Tecnologias Utilizadas
+
+O projeto foi desenvolvido utilizando as seguintes tecnologias:
+
+* **React**: Biblioteca para construção da interface de usuário baseada em componentes
+* **Vite**: Ferramenta de build rápida para desenvolvimento moderno
+* **Firebase**:
+
+  * Authentication (autenticação de usuários)
+  * Banco de dados (armazenamento de informações)
+* **JavaScript**: Linguagem principal da aplicação
+* **CSS**: Estilização da interface
+
+---
+
+## Funcionalidades
+
+O sistema permite cadastro e login de usuários com validações completas (e-mail, senha e CPF), preenchimento de formulário de saúde, visualização e busca de perfis, além de navegação entre páginas de forma dinâmica utilizando React Router.
+
+---
+
+## Estrutura do Projeto
+
+A aplicação segue uma organização modular, facilitando a manutenção e entendimento:
+
+```bash
+MEDTRACK-FRONT/
+├── src/
+│   ├── assets/         
+│   ├── components/     
+│   │   ├── buscaPerfil/
+│   │   ├── cadastro/
+│   │   ├── formulario/
+│   │   ├── home/
+│   │   ├── login/
+│   │   ├── perfil/
+│   │   └── sobre/
+│   ├── services/   
+│   ├── utils/       
+│   ├── App.jsx         
+│   └── main.jsx        
+├── public/       
+├── index.html  
+└── package.json 
+```
+---
+
+## Como Executar o Projeto
+
+Para rodar o projeto localmente, siga os passos:
+
+```bash
+# Clonar o repositório
+git clone <url-do-repositorio>
+
+# Entrar na pasta do projeto
+cd MEDTRACK-FRONT
+
+# Instalar dependências
+npm install
+
+# Executar o projeto
+npm run dev
+```
+
+Após a execução, o sistema estará disponível no navegador no endereço informado pelo terminal.
+
+---
+
+## Status do Projeto
+
+Projeto em desenvolvimento para fins acadêmicos.
+
+---
+
