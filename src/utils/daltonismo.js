@@ -2,7 +2,6 @@ export function initDaltonismo() {
   const tipos = ["", "daltonismo-red-verde", "daltonismo-azul-amarelo", "daltonismo-todo"];
   const icones = ["OFF", "🔴", "🔵", "🟡"];
 
-  // Função de toggle
   function toggleDaltonismo(buttonEl) {
     if (!buttonEl) return () => {};
 
@@ -24,7 +23,6 @@ export function initDaltonismo() {
 
     buttonEl.addEventListener("click", handleClick);
 
-    // Cleanup
     return () => buttonEl.removeEventListener("click", handleClick);
   }
 

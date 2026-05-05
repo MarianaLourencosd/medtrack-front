@@ -7,7 +7,6 @@ export const hasAcceptedTerms = () => {
   }
 };
 
-// Função para aceitar os termos
 export const acceptTerms = () => {
   try {
     localStorage.setItem("termsAccepted", "true");
@@ -16,7 +15,6 @@ export const acceptTerms = () => {
   }
 };
 
-// Função para recusar os termos
 export const declineTerms = () => {
   try {
     localStorage.setItem("termsAccepted", "false");
@@ -25,7 +23,6 @@ export const declineTerms = () => {
   }
 };
 
-// Função para resetar os termos (útil para testes)
 export const resetTerms = () => {
   try {
     localStorage.removeItem("termsAccepted");
@@ -35,12 +32,10 @@ export const resetTerms = () => {
   }
 };
 
-// Função para mostrar alerta de recusa
 export const showDeclineAlert = () => {
   alert("Você precisa aceitar os termos para acessar o MedTrack.");
 };
 
-// HTML do Modal
 export const getTermsModalHTML = () => {
   return `
     <div id="terms-overlay" class="terms-overlay">
@@ -84,7 +79,6 @@ export const getTermsModalHTML = () => {
   `;
 };
 
-// CSS do Modal (sem conflito com CSS existente)
 export const getTermsModalCSS = () => {
   return `
     /* Modal de Termos de Uso - Sem conflito com CSS existente */
@@ -249,19 +243,15 @@ export const getTermsModalCSS = () => {
   `;
 };
 
-// Função para inicializar o modal de termos
 export const initTermsModal = () => {
-  // Verificar se já existe o modal
   if (document.getElementById("terms-overlay")) {
     return;
   }
 
-  // Verificar se os termos já foram aceitos
   if (hasAcceptedTerms()) {
     return;
   }
 
-  // Verificar se o CSS já foi injetado
   if (!document.querySelector("style[data-terms-modal]")) {
     const style = document.createElement("style");
     style.setAttribute("data-terms-modal", "true");
@@ -269,12 +259,10 @@ export const initTermsModal = () => {
     document.head.appendChild(style);
   }
 
-  // Injetar HTML do modal
   const modalDiv = document.createElement("div");
   modalDiv.innerHTML = getTermsModalHTML();
   document.body.appendChild(modalDiv.firstElementChild);
 
-  // Adicionar eventos
   const overlay = document.getElementById("terms-overlay");
   const acceptBtn = document.getElementById("terms-accept-btn");
   const declineBtn = document.getElementById("terms-decline-btn");
@@ -301,7 +289,6 @@ export const initTermsModal = () => {
   }
 };
 
-// Função para remover o modal
 export const removeTermsModal = () => {
   const overlay = document.getElementById("terms-overlay");
   if (overlay) {
@@ -309,7 +296,7 @@ export const removeTermsModal = () => {
   }
 };
 
-// Exportar tudo como objeto padrão
+
 const termsModal = {
   hasAcceptedTerms,
   acceptTerms,

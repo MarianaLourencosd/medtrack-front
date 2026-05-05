@@ -10,6 +10,5 @@ export function initNavbarMobile() {
 
   btn.addEventListener("click", handleClick);
 
-  // Cleanup: remove listener quando o componente desmonta
   return () => btn.removeEventListener("click", handleClick);
 }

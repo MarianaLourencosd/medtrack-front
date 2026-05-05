@@ -4,12 +4,12 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../utils/acessibilidade.css";
 
-// Imagens
+
 import LogoClaro from "../../assets/images/logo-claro.svg";
 import ImagemHeaderSobre from "../../assets/images/imagem-header-sobre.svg";
 import ImagemInfoSobre from "../../assets/images/imagem-info-sobre.svg";
 
-// Imagens dos desenvolvedores
+
 import DevNicolas from "../../assets/images/dev-nicolas.png";
 import DevJoao from "../../assets/images/dev-joao.png";
 import DevJose from "../../assets/images/dev-jose.png";
@@ -18,7 +18,6 @@ import DevSophia from "../../assets/images/dev-sophia.png";
 import DevMariana from "../../assets/images/dev-mariana.png";
 import DevFernanda from "../../assets/images/dev-fernanda.jpeg";
 
-// Utils
 import { initDarkMode, toggleDarkMode } from "../../utils/darkMode";
 import { initScrollButtons } from "../../utils/scrollButtons";
 import { initNavbarMobile } from "../../utils/navbarMobile";
@@ -28,7 +27,7 @@ import { initDaltonismo } from "../../utils/daltonismo";
 import "../../utils/daltonismo.css";
 import VLibras from "../../utils/VLibras";
 
-// Dados dos desenvolvedores
+
 const developers = [
   {
     name: "Nicolas Alves",
@@ -74,7 +73,7 @@ const developers = [
   },
 ];
 
-// Dados das diretrizes
+
 const guidelines = [
   {
     icon: "fa-solid fa-chart-simple",
@@ -98,7 +97,7 @@ const guidelines = [
   },
 ];
 
-// Dados da central de emergências
+
 const emergencyItems = [
   {
     title: "1. O Problema Identificado",
@@ -134,7 +133,7 @@ const emergencyItems = [
   },
 ];
 
-// Dados do FAQ
+
 const faqItems = [
   {
     question: "O que é a Prancheta Médica Online?",
@@ -183,12 +182,12 @@ function Sobre() {
     document.getElementById("increase")?.addEventListener("click", fontControls.increase);
     document.getElementById("reset")?.addEventListener("click", fontControls.reset);
 
-    // Daltonismo
+
     const daltonismoBtn = document.getElementById("daltonismo-toggle");
     const { toggleDaltonismo } = initDaltonismo();
     const cleanupDaltonismo = toggleDaltonismo(daltonismoBtn);
 
-    // Dark mode inicial
+
     const savedDarkMode = localStorage.getItem("darkMode") === "true";
     setDarkMode(savedDarkMode);
     if (savedDarkMode) {
@@ -208,7 +207,7 @@ function Sobre() {
     };
   }, [navigate]);
 
-  // Gerenciar dark mode
+
   const handleToggleDarkMode = () => {
     const newDarkMode = !darkMode;
     setDarkMode(newDarkMode);
@@ -223,19 +222,19 @@ function Sobre() {
 
   return (
     <>
-      {/* Botões de ajuste de fonte */}
+
       <div className="font-size-controls">
         <button id="decrease" title="Diminuir fonte">A-</button>
         <button id="reset" title="Restaurar fonte">A</button>
         <button id="increase" title="Aumentar fonte">A+</button>
       </div>
 
-      {/* Botão Voltar ao Topo */}
+
       <button id="btnTopo" title="Voltar ao topo">
         <i className="fa-solid fa-arrow-up"></i>
       </button>
 
-      {/* Navbar Desktop */}
+
       <nav className="navbar">
         <div className="logotipo">
           <img className="navbar-logo" src={LogoClaro} alt="LogoTipo da MedTrack" />
@@ -279,7 +278,6 @@ function Sobre() {
         </div>
       </nav>
 
-      {/* Navbar Mobile */}
       <div className="navbar-mobile" id="nav-mobile">
         <ul className="nav-list-mobile">
           <li><a className="nav-items" href="/">Home</a></li>
@@ -291,7 +289,7 @@ function Sobre() {
       </div>
 
       <main>
-        {/* Seção do Cabeçalho */}
+
         <div className="div-header my-2 mx-1">
           <div className="row align-items-center">
             <div className="col-lg-6 mb-4 mb-lg-0">
@@ -334,7 +332,6 @@ function Sobre() {
           </div>
         </div>
 
-        {/* Título da Seção e Cards - Diretrizes */}
         <div className="container-fluid my-4 px-4">
           <h2 className="title-card-info">Diretrizes da nossa atuação</h2>
 
@@ -353,7 +350,6 @@ function Sobre() {
           </div>
         </div>
 
-        {/* Central de Emergências */}
         <div className="container-fluid my-4 px-4">
           <div className="emergency-header" role="region" aria-labelledby="emergency-title">
             <div className="header-layout">
@@ -392,7 +388,6 @@ function Sobre() {
           </div>
         </div>
 
-        {/* Sobre os Desenvolvedores */}
         <h2 className="title-card-team text-center my-5">Sobre os Desenvolvedores</h2>
 
         <div className="container my-5 px-2">
@@ -416,7 +411,6 @@ function Sobre() {
           </div>
         </div>
 
-        {/* Perguntas Frequentes - FAQ Accordion */}
         <h2 className="title-card-faq">Perguntas Frequentes</h2>
 
         <section className="section-faq">
@@ -457,7 +451,7 @@ function Sobre() {
         </section>
       </main>
 
-      {/* Rodapé */}
+
       <footer className="footer">
         <div className="footer-social">
           <a className="footer-social-link" href="#"><i className="fa-brands fa-facebook-f"></i></a>

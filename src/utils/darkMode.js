@@ -10,7 +10,6 @@ export function initDarkMode(setDarkMode) {
   }
 }
 
-// Alterna entre modo escuro e claro
 export function toggleDarkMode(darkMode, setDarkMode) {
   if (darkMode) {
     document.body.classList.remove("dark-mode");

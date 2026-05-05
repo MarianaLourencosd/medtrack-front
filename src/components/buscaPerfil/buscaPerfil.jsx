@@ -4,7 +4,6 @@ import "./buscaPerfil.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../utils/daltonismo.css";
 
-// Imagens dos perfis
 import perfil1 from "../../assets/images/imagem-perfil1.jpg";
 import perfil2 from "../../assets/images/imagem-perfil2.jpg";
 import perfil3 from "../../assets/images/imagem-perfil3.jpg";
@@ -13,13 +12,10 @@ import perfil4 from "../../assets/images/imagem-perfil4.jpg";
 function BuscaPerfil() {
   const navigate = useNavigate();
   
-  // Estado para dark mode
   const [darkMode, setDarkMode] = useState(false);
   
-  // Estado para busca
   const [searchTerm, setSearchTerm] = useState("");
   
-  // Dados dos pacientes
   const patients = useMemo(() => [
     {
       id: 1,
@@ -67,7 +63,6 @@ function BuscaPerfil() {
     }
   ], []);
 
-  // Filtro em tempo real - MELHORADO
   const filteredPatients = useMemo(() => {
     if (!searchTerm.trim()) {
       return patients;
@@ -81,7 +76,6 @@ function BuscaPerfil() {
     );
   }, [patients, searchTerm]);
 
-  // Verificar preferência de modo escuro
   useEffect(() => {
     const savedMode = localStorage.getItem("darkMode");
     if (savedMode === "enabled") {
@@ -90,7 +84,6 @@ function BuscaPerfil() {
     }
   }, []);
 
-  // Alternar modo escuro
   const toggleDarkMode = () => {
     const newDarkMode = !darkMode;
     setDarkMode(newDarkMode);
@@ -103,29 +96,24 @@ function BuscaPerfil() {
     }
   };
 
-  // Voltar para home
   const handleVoltar = () => {
     navigate("/");
   };
 
-  // Limpar busca
   const handleClearSearch = () => {
     setSearchTerm("");
   };
 
-  // Abrir perfil do paciente
   const openPatientProfile = (patientId) => {
     navigate(`/perfil?id=${patientId}`);
   };
 
-  // Contador de resultados
   const resultCount = filteredPatients.length;
 
   return (
     <main className="busca-main" role="main">
       <div className="busca-container">
         
-        {/* Botão Voltar */}
         <button 
           onClick={handleVoltar} 
           className="busca-action-btn busca-back-btn"
@@ -134,7 +122,6 @@ function BuscaPerfil() {
           <i className="fa-solid fa-arrow-left"></i>
         </button>
         
-        {/* Botão Modo Escuro/Claro */}
         <button 
           onClick={toggleDarkMode} 
           className="busca-action-btn busca-theme-btn"
@@ -143,7 +130,6 @@ function BuscaPerfil() {
           <i className={`fa-solid ${darkMode ? "fa-sun" : "fa-moon"}`}></i>
         </button>
 
-        {/* Seção de Filtro/Busca */}
         <section className="filter-section" role="region" aria-label="Busca de pacientes">
           <div className="filter-header">
             <h2 className="filter-title">BUSCAR PACIENTES</h2>
@@ -180,7 +166,6 @@ function BuscaPerfil() {
           </div>
         </section>
 
-        {/* Cards dos Pacientes */}
         <section className="cards-section" role="region" aria-label="Lista de pacientes">
           <div className="cards-grid">
             {filteredPatients.length > 0 ? (
@@ -243,7 +228,6 @@ function BuscaPerfil() {
         </section>
       </div>
 
-      {/* Seção do VLibras */}
       <div vw className="enabled">
         <div vw-access-button className="active"></div>
         <div vw-plugin-wrapper>

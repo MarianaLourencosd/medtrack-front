@@ -18,13 +18,10 @@ import {
 } from "../../utils/validacoes";
 
 function Cadastro() {
-  // Estado para dark mode
   const [darkMode, setDarkMode] = useState(false);
   
-  // Estado para mensagens
   const [mensagem, setMensagem] = useState({ texto: "", tipo: "" });
   
-  // Estado para os campos do formulário
   const [formData, setFormData] = useState({
     nome: "",
     cpf: "",
@@ -34,10 +31,8 @@ function Cadastro() {
     confirmarSenha: ""
   });
   
-  // Estado para erros
   const [errors, setErrors] = useState({});
 
-  // Verificar preferência de modo escuro
   useEffect(() => {
     const savedMode = localStorage.getItem("darkMode");
     if (savedMode === "enabled") {
@@ -46,7 +41,6 @@ function Cadastro() {
     }
   }, []);
 
-  // Alternar modo escuro
   const toggleDarkMode = () => {
     const newDarkMode = !darkMode;
     setDarkMode(newDarkMode);
@@ -59,26 +53,22 @@ function Cadastro() {
     }
   };
 
-  // Voltar para home
   const handleVoltar = () => {
     window.location.href = "/";
   };
 
-  // Limpar erro de um campo específico
   const limparErro = (campo) => {
     if (errors[campo]) {
       setErrors(prev => ({ ...prev, [campo]: "" }));
     }
   };
 
-  // Mostrar mensagem de sucesso
   const mostrarMensagemSucesso = () => {
     setMensagem({
       texto: mensagemSucessoCadastro(),
       tipo: "success"
     });
     
-    // Limpar formulário
     setFormData({
       nome: "",
       cpf: "",
@@ -88,31 +78,26 @@ function Cadastro() {
       confirmarSenha: ""
     });
     
-    // Limpar mensagem após 3 segundos
     setTimeout(() => {
       setMensagem({ texto: "", tipo: "" });
     }, 3000);
   };
 
-  // Mostrar mensagem de erro
   const mostrarMensagemErro = () => {
     setMensagem({
       texto: mensagemErroCadastro(),
       tipo: "error"
     });
     
-    // Limpar mensagem após 3 segundos
     setTimeout(() => {
       setMensagem({ texto: "", tipo: "" });
     }, 3000);
   };
 
-  // Lidar com mudanças nos inputs
   const handleChange = (e) => {
     const { id, value } = e.target;
     let formattedValue = value;
     
-    // Formatar CPF usando a função importada
     if (id === "cpf") {
       formattedValue = formatarCPF(value);
     }
@@ -121,7 +106,6 @@ function Cadastro() {
     limparErro(id);
   };
 
-  // Validação em tempo real ao perder o foco
   const handleBlur = (e) => {
     const { id, value } = e.target;
     const erro = validarCampoEmTempoReal(id, value, formData);
@@ -133,7 +117,6 @@ function Cadastro() {
     }
   };
 
-  // Validação em tempo real para confirmação de email
   const handleConfirmarEmailChange = (e) => {
     const value = e.target.value;
     setFormData(prev => ({ ...prev, confirmarEmail: value }));
@@ -145,7 +128,6 @@ function Cadastro() {
     }
   };
 
-  // Validação em tempo real para confirmação de senha
   const handleConfirmarSenhaChange = (e) => {
     const value = e.target.value;
     setFormData(prev => ({ ...prev, confirmarSenha: value }));
@@ -228,11 +210,18 @@ const handleSubmit = async (e) => {
 
       console.log("Usuário criado:", userCredential.user);
 
-      mostrarMensagemSucesso();
+      setMensagem({
+        texto: "✅ Cadastro realizado com sucesso! Redirecionando para o login...",
+        tipo: "success"
+      });
+      
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 2000);
 
     } catch (error) {
       console.error("ERRO:", error);
-      alert(error.message);
+      mostrarMensagemErro();
     }
 
   } else {
@@ -245,7 +234,6 @@ const handleSubmit = async (e) => {
     <main className="main d-flex align-items-center justify-content-center min-vh-100">
       <section className="container-login d-flex flex-wrap shadow rounded overflow-hidden position-relative">
         
-        {/* Botão Voltar */}
         <button 
           onClick={handleVoltar} 
           className="cadastro-action-btn cadastro-back-btn"
@@ -254,7 +242,6 @@ const handleSubmit = async (e) => {
           <i className="fa-solid fa-arrow-left"></i>
         </button>
         
-        {/* Botão Modo Escuro/Claro */}
         <button 
           onClick={toggleDarkMode} 
           className="cadastro-action-btn cadastro-theme-btn"
@@ -263,7 +250,6 @@ const handleSubmit = async (e) => {
           <i className={`fa-solid ${darkMode ? "fa-sun" : "fa-moon"}`}></i>
         </button>
 
-        {/* Coluna Imagem */}
         <div className="container-imagem-1 d-flex align-items-center justify-content-center p-3 col-12 col-md-6">
           <img
             src={cadastroImg}
@@ -272,24 +258,19 @@ const handleSubmit = async (e) => {
           />
         </div>
 
-        {/* Coluna Formulário */}
         <div className="container-form position-relative col-12 col-md-6 p-4">
           
-          {/* Título */}
           <h1 className="title-form mt-4">FAÇA SEU CADASTRO</h1>
           <p className="texto text-center mb-4">Seu espaço para cuidar da saúde.</p>
 
-          {/* Mensagem de feedback */}
           {mensagem.texto && (
             <div className={`mensagem-feedback ${mensagem.tipo}`}>
               {mensagem.texto}
             </div>
           )}
 
-          {/* Formulário */}
           <form className="login-form" onSubmit={handleSubmit} noValidate>
             
-            {/* Campo Nome */}
             <div className="mb-3">
               <label htmlFor="nome" className="form-label">
                 Nome Completo: <span className="text-danger">*</span>
@@ -308,7 +289,6 @@ const handleSubmit = async (e) => {
               {errors.nome && <div className="invalid-feedback">{errors.nome}</div>}
             </div>
 
-            {/* Campo CPF */}
             <div className="mb-3">
               <label htmlFor="cpf" className="form-label">
                 CPF: <span className="text-danger">*</span>
@@ -328,7 +308,6 @@ const handleSubmit = async (e) => {
               {errors.cpf && <div className="invalid-feedback">{errors.cpf}</div>}
             </div>
 
-            {/* Campo E-mail */}
             <div className="mb-3">
               <label htmlFor="email" className="form-label">
                 E-mail: <span className="text-danger">*</span>
@@ -347,7 +326,6 @@ const handleSubmit = async (e) => {
               {errors.email && <div className="invalid-feedback">{errors.email}</div>}
             </div>
 
-            {/* Campo Confirmar E-mail */}
             <div className="mb-3">
               <label htmlFor="confirmarEmail" className="form-label">
                 Repetir E-mail: <span className="text-danger">*</span>
@@ -366,7 +344,6 @@ const handleSubmit = async (e) => {
               {errors.confirmarEmail && <div className="invalid-feedback">{errors.confirmarEmail}</div>}
             </div>
 
-            {/* Campo Senha */}
             <div className="mb-3">
               <label htmlFor="senha" className="form-label">
                 Senha: <span className="text-danger">*</span>
@@ -386,7 +363,6 @@ const handleSubmit = async (e) => {
               <small className="text-muted">Mínimo 6 caracteres, com letras e números</small>
             </div>
 
-            {/* Campo Confirmar Senha */}
             <div className="mb-3">
               <label htmlFor="confirmarSenha" className="form-label">
                 Repetir Senha: <span className="text-danger">*</span>
@@ -405,12 +381,10 @@ const handleSubmit = async (e) => {
               {errors.confirmarSenha && <div className="invalid-feedback">{errors.confirmarSenha}</div>}
             </div>
 
-            {/* Link Login */}
             <div className="text-end mb-3">
               <a href="/login">Já tem conta? Entrar</a>
             </div>
 
-            {/* Botão Enviar */}
             <button type="submit" className="btn w-100 btn-primary">
               Cadastrar
             </button>

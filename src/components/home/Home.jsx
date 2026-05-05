@@ -29,8 +29,7 @@ function Home() {
   const [darkMode, setDarkMode] = useState(false);
   const [showTermsModal, setShowTermsModal] = useState(false);
   const navigate = useNavigate();
-
-  // Verificar se os termos já foram aceitos
+  
   useEffect(() => {
     const accepted = hasAcceptedTerms();
     if (!accepted) {
@@ -38,13 +37,13 @@ function Home() {
     }
   }, []);
 
-  // Aceitar termos
+
   const handleAcceptTerms = () => {
     acceptTerms();
     setShowTermsModal(false);
   };
 
-  // Recusar termos
+
   const handleDeclineTerms = () => {
     showDeclineAlert();
   };
@@ -59,7 +58,6 @@ function Home() {
     document.getElementById("increase")?.addEventListener("click", fontControls.increase);
     document.getElementById("reset")?.addEventListener("click", fontControls.reset);
 
-    // Daltonismo
     const daltonismoBtn = document.getElementById("daltonismo-toggle");
     const { toggleDaltonismo } = initDaltonismo();
     const cleanupDaltonismo = toggleDaltonismo(daltonismoBtn);
@@ -79,7 +77,6 @@ function Home() {
 
   return (
     <>
-      {/* MODAL DE TERMOS DE USO */}
       {showTermsModal && (
         <div className="terms-overlay" onClick={(e) => {
           if (e.target === e.currentTarget) handleDeclineTerms();
@@ -121,38 +118,32 @@ function Home() {
         </div>
       )}
       
-      {/* Botões de ajuste de fonte */}
       <div className="font-size-controls">
         <button id="decrease" title="Diminuir fonte">A-</button>
         <button id="reset" title="Restaurar fonte">A</button>
         <button id="increase" title="Aumentar fonte">A+</button>
       </div>
       
-      {/* Botão Voltar ao Topo */}
+
       <button id="btnTopo" title="Voltar ao topo">
         <i className="fa-solid fa-arrow-up"></i>
       </button>
 
-      {/* Navbar Desktop */}
       <nav className="navbar">
         <div className="logotipo">
           <img className="navbar-logo" src={LogoClaro} alt="Logo MedTrack" />
           <p>MedTrack</p>
         </div>
 
-        {/* Links do menu */}
         <ul className="navbar-list">
           <li><a className="navbar-item" href="/">Home</a></li>
           <li><a className="navbar-item" href="/sobre">Sobre</a></li>
         </ul>
-
-        {/* Botões do menu */}
         <div className="navbar-btn">
           <a className="navbar-btn-item" href="/login">Login</a>
           <a className="navbar-btn-item" href="/cadastro">Cadastro</a>
           <a className="navbar-btn-item" href="/formulario">Formulário</a>
 
-           {/* Botão dark mode */}
       <button
             id="dark-mode-toggle"
             className="navbar-btn-item"
@@ -173,7 +164,6 @@ function Home() {
             <i className="fa-solid fa-user"></i>
           </a>
 
-          {/* Botão menu mobile */}
          <button className="nav-btn-items" id="nav-btn-toggle" aria-label="Abrir menu">
           <i className="fa-solid fa-bars"></i>
         </button>
@@ -181,7 +171,6 @@ function Home() {
         </div>
       </nav>
 
-      {/* Navbar Mobile */}
       <div className="navbar-mobile" id="nav-mobile">
         <ul className="nav-list-mobile">
           <li><a className="nav-items" href="/">Home</a></li>
@@ -192,11 +181,10 @@ function Home() {
         </ul>
       </div>
 
-      {/* Header */}
       <main>
         <div className="div-header my-2 mx-1">
           <div className="row align-items-center">
-            {/* Texto do Header */}
+
             <div className="col-lg-6 mb-4 mb-lg-0">
               <h1 className="display-4 fw-bold title-header">
                 Sua Vida Organizada para <span>Emergências</span>
@@ -309,11 +297,9 @@ Acesso rápido e seguro ao histórico médico para decisões ágeis em emergênc
 >
   <div className="carousel-inner">
 
-   {/* ----------------- SLIDE 1 ----------------- */}
 <div className="carousel-item active">
   <div className="row g-5 justify-content-center">
 
-    {/* 1 */}
     <div className="col-12 col-sm-6 col-lg-3 d-flex justify-content-center">
       <section className="card-testimonial" tabIndex="0">
         <i className="card-quote-testimonial fa-solid fa-quote-left"></i>
@@ -334,7 +320,6 @@ Acesso rápido e seguro ao histórico médico para decisões ágeis em emergênc
       </section>
     </div>
 
-    {/* 2 */}
     <div className="col-12 col-sm-6 col-lg-3 d-flex justify-content-center">
       <section className="card-testimonial" tabIndex="0">
         <i className="card-quote-testimonial fa-solid fa-quote-left"></i>
@@ -355,7 +340,6 @@ Acesso rápido e seguro ao histórico médico para decisões ágeis em emergênc
       </section>
     </div>
 
-    {/* 3 */}
     <div className="col-12 col-sm-6 col-lg-3 d-flex justify-content-center">
       <section className="card-testimonial" tabIndex="0">
         <i className="card-quote-testimonial fa-solid fa-quote-left"></i>
@@ -376,7 +360,6 @@ Acesso rápido e seguro ao histórico médico para decisões ágeis em emergênc
       </section>
     </div>
 
-    {/* 4 */}
     <div className="col-12 col-sm-6 col-lg-3 d-flex justify-content-center">
       <section className="card-testimonial" tabIndex="0">
         <i className="card-quote-testimonial fa-solid fa-quote-left"></i>
@@ -400,11 +383,9 @@ Acesso rápido e seguro ao histórico médico para decisões ágeis em emergênc
   </div>
 </div>
 
-    {/* ----------------- SLIDE 2 ----------------- */}
     <div className="carousel-item">
       <div className="row g-5 justify-content-center">
 
-        {/* 5 */}
         <div className="col-12 col-sm-6 col-lg-3 d-flex justify-content-center">
           <section className="card-testimonial" tabIndex="0">
             <i className="card-quote-testimonial fa-solid fa-quote-left"></i>
@@ -425,7 +406,6 @@ Acesso rápido e seguro ao histórico médico para decisões ágeis em emergênc
           </section>
         </div>
 
-        {/* 6 */}
         <div className="col-12 col-sm-6 col-lg-3 d-flex justify-content-center">
           <section className="card-testimonial" tabIndex="0">
             <i className="card-quote-testimonial fa-solid fa-quote-left"></i>
@@ -446,7 +426,7 @@ Acesso rápido e seguro ao histórico médico para decisões ágeis em emergênc
           </section>
         </div>
 
-        {/* 7 */}
+
         <div className="col-12 col-sm-6 col-lg-3 d-flex justify-content-center">
           <section className="card-testimonial" tabIndex="0">
             <i className="card-quote-testimonial fa-solid fa-quote-left"></i>
@@ -467,7 +447,6 @@ Acesso rápido e seguro ao histórico médico para decisões ágeis em emergênc
           </section>
         </div>
 
-        {/* 8 */}
         <div className="col-12 col-sm-6 col-lg-3 d-flex justify-content-center">
           <section className="card-testimonial" tabIndex="0">
             <i className="card-quote-testimonial fa-solid fa-quote-left"></i>
@@ -499,7 +478,6 @@ Acesso rápido e seguro ao histórico médico para decisões ágeis em emergênc
 
       <div className="header-layout">
 
-        {/* Coluna esquerda */}
         <section>
           <h1 id="emergency-title" className="title-header">
             Central de Emergências
@@ -560,7 +538,6 @@ Acesso rápido e seguro ao histórico médico para decisões ágeis em emergênc
           </div>
         </section>
 
-        {/* Coluna direita */}
         <aside className="image-header-container">
           <img src={ImagemInfo} alt="Imagem ilustrativa de emergência" className="image-header" />
         </aside>
@@ -569,7 +546,6 @@ Acesso rápido e seguro ao histórico médico para decisões ágeis em emergênc
     </div>
   </div>
 
-  {/* ----------------- FOOTER ----------------- */}
 
   <footer className="footer">
 

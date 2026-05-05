@@ -2,14 +2,11 @@ import { useEffect } from 'react';
 
 const VLibras = () => {
   useEffect(() => {
-    // Função para carregar o VLibras
     const loadVLibras = () => {
-      // Verifica se já existe
       if (document.querySelector('.vw-plugin-top-wrapper')) {
         return;
       }
 
-      // Cria o elemento div se não existir
       if (!document.querySelector('[vw]')) {
         const vwDiv = document.createElement('div');
         vwDiv.setAttribute('vw', 'true');
@@ -23,7 +20,6 @@ const VLibras = () => {
         document.body.appendChild(vwDiv);
       }
 
-      // Carrega o script
       if (!document.querySelector('script[src="https://vlibras.gov.br/app/vlibras-plugin.js"]')) {
         const script = document.createElement('script');
         script.src = 'https://vlibras.gov.br/app/vlibras-plugin.js';
@@ -42,7 +38,7 @@ const VLibras = () => {
     loadVLibras();
   }, []);
 
-  return null; // Não renderiza nada visual, apenas carrega o script
+  return null;
 };
 
 export default VLibras;

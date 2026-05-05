@@ -6,7 +6,6 @@ export const formatarCPF = (value) => {
   return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d+)/, "$1.$2.$3-$4");
 };
 
-// Formatar Telefone
 export const formatarTelefone = (value) => {
   const telefone = value.replace(/\D/g, "");
   if (telefone.length <= 2) return telefone;
@@ -15,7 +14,6 @@ export const formatarTelefone = (value) => {
   return telefone.replace(/(\d{2})(\d{5})(\d+)/, "($1) $2-$3");
 };
 
-// Formatar Altura
 export const formatarAltura = (value) => {
   let altura = value.replace(/[^\d]/g, "");
   if (altura.length === 0) return "";
@@ -24,11 +22,7 @@ export const formatarAltura = (value) => {
   return `${altura.substring(0, altura.length - 2)}.${altura.substring(altura.length - 2)}`;
 };
 
-// ==========================================
-// FUNÇÕES DE VALIDAÇÃO ESPECÍFICAS
-// ==========================================
 
-// Validar CPF
 export const validarCPF = (cpf) => {
   cpf = cpf.replace(/\D/g, "");
   if (cpf.length !== 11) return false;
@@ -51,44 +45,37 @@ export const validarCPF = (cpf) => {
   return digit === parseInt(cpf.charAt(10));
 };
 
-// Validar Email
 export const validarEmail = (email) => {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return regex.test(email);
 };
 
-// Validar Senha (mínimo 6 caracteres)
 export const validarSenha = (senha) => {
   return senha && senha.length >= 6;
 };
 
-// Validar Senha Forte (letras e números, mínimo 6 caracteres)
 export const validarSenhaForte = (senha) => {
   const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
   return regex.test(senha);
 };
 
-// Validar Telefone
 export const validarTelefone = (telefone) => {
   const telefoneLimpo = telefone.replace(/\D/g, "");
   return telefoneLimpo.length >= 10 && telefoneLimpo.length <= 11;
 };
 
-// Validar Altura
 export const validarAltura = (altura) => {
   const alturaStr = altura.toString().replace(",", ".");
   const alturaNum = parseFloat(alturaStr);
   return !isNaN(alturaNum) && alturaNum >= 0.5 && alturaNum <= 2.5;
 };
 
-// Validar Peso
 export const validarPeso = (peso) => {
   const pesoStr = peso.toString().replace(",", ".");
   const pesoNum = parseFloat(pesoStr);
   return !isNaN(pesoNum) && pesoNum >= 2 && pesoNum <= 300;
 };
 
-// Validar Data de Nascimento (maior que 1900 e menor que hoje)
 export const validarDataNascimento = (data) => {
   if (!data) return false;
   const dataNasc = new Date(data);
@@ -97,27 +84,20 @@ export const validarDataNascimento = (data) => {
   return dataNasc >= ano1900 && dataNasc <= hoje;
 };
 
-// Validar SUS (mínimo 10 dígitos)
 export const validarSUS = (sus) => {
   const susLimpo = sus.replace(/\D/g, "");
   return susLimpo.length >= 10;
 };
 
-// ==========================================
-// VALIDAÇÃO DO LOGIN
-// ==========================================
-
 export const validarLogin = (email, senha) => {
   const errors = {};
   
-  // Validar email
   if (!email || !email.trim()) {
     errors.email = "E-mail é obrigatório";
   } else if (!validarEmail(email)) {
     errors.email = "Digite um e-mail válido (ex: usuario@email.com)";
   }
   
-  // Validar senha
   if (!senha) {
     errors.senha = "Senha é obrigatória";
   } else if (!validarSenha(senha)) {
@@ -130,49 +110,40 @@ export const validarLogin = (email, senha) => {
   };
 };
 
-// ==========================================
-// VALIDAÇÃO DO CADASTRO
-// ==========================================
-
 export const validarCadastro = (dados) => {
   const errors = {};
   
-  // Validar nome
   if (!dados.nome || !dados.nome.trim()) {
     errors.nome = "Nome completo é obrigatório";
   } else if (dados.nome.trim().length < 3) {
     errors.nome = "Digite um nome válido (mínimo 3 caracteres)";
   }
   
-  // Validar CPF
   if (!dados.cpf) {
     errors.cpf = "CPF é obrigatório";
   } else if (!validarCPF(dados.cpf)) {
     errors.cpf = "CPF inválido";
   }
   
-  // Validar email
   if (!dados.email || !dados.email.trim()) {
     errors.email = "E-mail é obrigatório";
   } else if (!validarEmail(dados.email)) {
     errors.email = "Digite um e-mail válido (ex: usuario@email.com)";
   }
   
-  // Validar confirmação de email
+
   if (!dados.confirmarEmail || !dados.confirmarEmail.trim()) {
     errors.confirmarEmail = "Confirmação de e-mail é obrigatória";
   } else if (dados.email !== dados.confirmarEmail) {
     errors.confirmarEmail = "Os e-mails não conferem";
   }
   
-  // Validar senha
   if (!dados.senha) {
     errors.senha = "Senha é obrigatória";
   } else if (!validarSenhaForte(dados.senha)) {
     errors.senha = "A senha deve ter no mínimo 6 caracteres, com letras e números";
   }
   
-  // Validar confirmação de senha
   if (!dados.confirmarSenha) {
     errors.confirmarSenha = "Confirmação de senha é obrigatória";
   } else if (dados.senha !== dados.confirmarSenha) {
@@ -185,14 +156,10 @@ export const validarCadastro = (dados) => {
   };
 };
 
-// ==========================================
-// VALIDAÇÃO DO FORMULÁRIO COMPLETO
-// ==========================================
-
 export const validarFormulario = (dados) => {
   const errors = {};
   
-  // Dados Pessoais
+
   if (!dados.nome || !dados.nome.trim()) {
     errors.nome = "Nome completo é obrigatório";
   } else if (dados.nome.trim().length < 3) {
@@ -237,7 +204,6 @@ export const validarFormulario = (dados) => {
     errors.sus = "Número do SUS inválido (mínimo 10 dígitos)";
   }
   
-  // Contato de Emergência
   if (!dados.nomeContato || !dados.nomeContato.trim()) {
     errors.nomeContato = "Nome do contato é obrigatório";
   }
@@ -258,11 +224,6 @@ export const validarFormulario = (dados) => {
   };
 };
 
-// ==========================================
-// FUNÇÕES PARA MENSAGENS
-// ==========================================
-
-// Mensagens de sucesso
 export const mensagemSucessoLogin = () => {
   return "✓ Login realizado com sucesso! Redirecionando...";
 };
@@ -275,7 +236,6 @@ export const mensagemSucessoFormulario = () => {
   return "✓ Formulário enviado com sucesso!";
 };
 
-// Mensagens de erro
 export const mensagemErroLogin = () => {
   return "✗ E-mail ou senha inválidos. Tente novamente.";
 };
@@ -288,11 +248,7 @@ export const mensagemErroFormulario = () => {
   return "✗ Preencha todos os campos obrigatórios corretamente.";
 };
 
-// ==========================================
-// FUNÇÕES PARA VALIDAÇÃO EM TEMPO REAL
-// ==========================================
 
-// Validar campo específico em tempo real
 export const validarCampoEmTempoReal = (campo, valor, todosDados = {}) => {
   switch (campo) {
     case "nome":
@@ -345,17 +301,12 @@ export const validarCampoEmTempoReal = (campo, valor, todosDados = {}) => {
   }
 };
 
-// ==========================================
-// EXPORTAÇÃO PADRÃO PARA USO GERAL
-// ==========================================
-
 const validacoes = {
-  // Formatação
+
   formatarCPF,
   formatarTelefone,
   formatarAltura,
   
-  // Validações específicas
   validarCPF,
   validarEmail,
   validarSenha,
@@ -366,12 +317,10 @@ const validacoes = {
   validarDataNascimento,
   validarSUS,
   
-  // Validações completas
   validarLogin,
   validarCadastro,
   validarFormulario,
   
-  // Mensagens
   mensagemSucessoLogin,
   mensagemSucessoCadastro,
   mensagemSucessoFormulario,
@@ -379,7 +328,6 @@ const validacoes = {
   mensagemErroCadastro,
   mensagemErroFormulario,
   
-  // Tempo real
   validarCampoEmTempoReal
 };
 

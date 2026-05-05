@@ -304,7 +304,6 @@
 //   );
 // }
 
-// export default Perfil;
 
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -466,7 +465,7 @@ useEffect(() => {
           </div>
         </div>
 
-        {/* MODAL DADOS */}
+
         {showDadosModal && (
           <div className="modal-overlay" onClick={(e) => handleModalClick(e, setShowDadosModal)}>
             <div className="modal-container">
@@ -484,8 +483,7 @@ useEffect(() => {
           </div>
         )}
 
-        {/* MODAL CONTATOS */}
-        {showContatosModal && (
+        {/* MODAL CONTATOS */}        {showContatosModal && (
           <div className="modal-overlay" onClick={(e) => handleModalClick(e, setShowContatosModal)}>
             <div className="modal-container">
               <h2>Contatos</h2>
@@ -499,7 +497,7 @@ useEffect(() => {
           </div>
         )}
 
-        {/* MODAL REMÉDIOS */}
+
         {showRemediosModal && (
           <div className="modal-overlay" onClick={(e) => handleModalClick(e, setShowRemediosModal)}>
             <div className="modal-container">

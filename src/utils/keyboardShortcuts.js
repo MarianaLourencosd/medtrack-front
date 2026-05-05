@@ -2,32 +2,30 @@ export function initKeyboardShortcuts(navigate) {
   const handleKeyDown = (e) => {
     switch (e.key.toLowerCase()) {
       case "h":
-        navigate("/"); // Home
+        navigate("/"); 
         break;
       case "s":
-        navigate("/sobre"); // Sobre
+        navigate("/sobre");
         break;
       case "l":
-        navigate("/login"); // Login
+        navigate("/login"); 
         break;
       case "c":
-        navigate("/cadastro"); // Cadastro
+        navigate("/cadastro");
         break;
       case "f":
-        navigate("/formulario"); // Formulário
+        navigate("/formulario");
         break;
       case "p":
-        navigate("/perfil"); // Perfil
+        navigate("/perfil");
         break;
       default:
         break;
     }
   };
 
-  // Adiciona o listener de teclado
   document.addEventListener("keydown", handleKeyDown);
 
-  // Cria a caixa de atalhos na tela
   const caixa = document.createElement("div");
   caixa.className = "caixa-atalhos";
   caixa.innerHTML = `
@@ -46,7 +44,6 @@ export function initKeyboardShortcuts(navigate) {
     caixa.style.display = "none";
   });
 
-  // Retorna função de cleanup
   return () => {
     document.removeEventListener("keydown", handleKeyDown);
     caixa.remove();

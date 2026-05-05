@@ -15,22 +15,18 @@ import {
 } from "../../utils/validacoes";
 
 function Login() {
-  // Estado para dark mode
+
   const [darkMode, setDarkMode] = useState(false);
   
-  // Estado para mensagens
   const [mensagem, setMensagem] = useState({ texto: "", tipo: "" });
   
-  // Estado para os campos do formulário
   const [formData, setFormData] = useState({
     email: "",
     senha: ""
   });
   
-  // Estado para erros
   const [errors, setErrors] = useState({});
 
-  // Verificar preferência salva no localStorage ao carregar
   useEffect(() => {
     const savedMode = localStorage.getItem("darkMode");
     if (savedMode === "enabled") {
@@ -39,7 +35,6 @@ function Login() {
     }
   }, []);
 
-  // Função para alternar modo escuro
   const toggleDarkMode = () => {
     const newDarkMode = !darkMode;
     setDarkMode(newDarkMode);
@@ -53,58 +48,49 @@ function Login() {
     }
   };
 
-  // Função para voltar para home
   const handleVoltar = () => {
     window.location.href = "/";
   };
 
-  // Limpar erro de um campo específico
   const limparErro = (campo) => {
     if (errors[campo]) {
       setErrors(prev => ({ ...prev, [campo]: "" }));
     }
   };
 
-  // Mostrar mensagem de sucesso
   const mostrarMensagemSucesso = () => {
     setMensagem({
       texto: mensagemSucessoLogin(),
       tipo: "success"
     });
-    
-    // Limpar formulário
+
     setFormData({
       email: "",
       senha: ""
     });
     
-    // Redirecionar após 2 segundos
     setTimeout(() => {
       window.location.href = "/";
     }, 2000);
   };
 
-  // Mostrar mensagem de erro
   const mostrarMensagemErro = () => {
     setMensagem({
       texto: mensagemErroLogin(),
       tipo: "error"
     });
     
-    // Limpar mensagem após 3 segundos
     setTimeout(() => {
       setMensagem({ texto: "", tipo: "" });
     }, 3000);
   };
 
-  // Lidar com mudanças nos inputs
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData(prev => ({ ...prev, [id]: value }));
     limparErro(id);
   };
 
-  // Validação em tempo real ao perder o foco
   const handleBlur = (e) => {
     const { id, value } = e.target;
     const erro = validarCampoEmTempoReal(id, value, formData);
@@ -116,69 +102,6 @@ function Login() {
     }
   };
 
-  // Validar e enviar formulário
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-    
-  //   // Usar a função de validação importada do arquivo validacoes.js
-  //   const { isValid, errors: validationErrors } = validarLogin(formData.email, formData.senha);
-    
-  //   if (isValid) {
-  //     mostrarMensagemSucesso();
-  //     console.log("Login válido, enviando dados...", formData);
-  //     // Aqui você pode adicionar a chamada para a API
-  //   } else {
-  //     setErrors(validationErrors);
-  //     mostrarMensagemErro();
-  //     // Rolar para o topo do formulário
-  //     window.scrollTo({ top: 0, behavior: "smooth" });
-  //   }
-  // };
-
-// const handleSubmit = async (e) => {
-//   e.preventDefault();
-
-//   const { isValid, errors: validationErrors } = validarLogin(
-//     formData.email,
-//     formData.senha
-//   );
-
-//   if (isValid) {
-//     try {
-//       // 🔐 Login com Firebase
-//       const userCredential = await signInWithEmailAndPassword(
-//         auth,
-//         formData.email,
-//         formData.senha
-//       );
-
-//       console.log("Usuário logado:", userCredential.user);
-
-//       mostrarMensagemSucesso();
-
-//     } catch (error) {
-//       console.error("Erro no login:", error);
-
-//       // Mensagens mais amigáveis 👇
-//       if (error.code === "auth/user-not-found") {
-//         setErrors({ email: "Usuário não encontrado" });
-//       } else if (error.code === "auth/wrong-password") {
-//         setErrors({ senha: "Senha incorreta" });
-//       } else if (error.code === "auth/invalid-email") {
-//         setErrors({ email: "E-mail inválido" });
-//       } else {
-//         mostrarMensagemErro();
-//       }
-
-//       window.scrollTo({ top: 0, behavior: "smooth" });
-//     }
-
-//   } else {
-//     setErrors(validationErrors);
-//     mostrarMensagemErro();
-//     window.scrollTo({ top: 0, behavior: "smooth" });
-//   }
-// };
 
 const handleSubmit = async (e) => {
   e.preventDefault();
@@ -196,17 +119,48 @@ const handleSubmit = async (e) => {
       );
 
       console.log("Logado:", userCredential.user);
-
-      mostrarMensagemSucesso();
+      
+      setMensagem({
+        texto: "✅ Login realizado com sucesso! Redirecionando para o formulário...",
+        tipo: "success"
+      });
+      
+      setTimeout(() => {
+        window.location.href = "/formulario";
+      }, 2000);
 
     } catch (error) {
       console.error("ERRO:", error);
-      alert(error.message);
+      
+      if (error.code === "auth/user-not-found") {
+        setMensagem({
+          texto: "❌ Usuário não encontrado! Verifique seu e-mail.",
+          tipo: "error"
+        });
+      } else if (error.code === "auth/wrong-password") {
+        setMensagem({
+          texto: "❌ Senha incorreta! Tente novamente.",
+          tipo: "error"
+        });
+      } else if (error.code === "auth/invalid-email") {
+        setMensagem({
+          texto: "❌ E-mail inválido! Digite um e-mail válido.",
+          tipo: "error"
+        });
+      } else {
+        setMensagem({
+          texto: "❌ Erro no login! Tente novamente.",
+          tipo: "error"
+        });
+      }
     }
 
   } else {
     setErrors(validationErrors);
-    mostrarMensagemErro();
+    setMensagem({
+      texto: "❌ Por favor, corrija os campos destacados.",
+      tipo: "error"
+    });
   }
 };
 
@@ -214,7 +168,6 @@ const handleSubmit = async (e) => {
     <main className="main d-flex align-items-center justify-content-center min-vh-100">
       <section className="container-login d-flex flex-wrap shadow rounded overflow-hidden position-relative">
         
-        {/* Botão Voltar - ESTILO DO FORMULARIO */}
         <button 
           onClick={handleVoltar} 
           className="login-action-btn login-back-btn"
@@ -223,7 +176,6 @@ const handleSubmit = async (e) => {
           <i className="fa-solid fa-arrow-left"></i>
         </button>
         
-        {/* Botão Modo Escuro/Claro - ESTILO DO FORMULARIO */}
         <button 
           onClick={toggleDarkMode} 
           className="login-action-btn login-theme-btn"
@@ -232,7 +184,6 @@ const handleSubmit = async (e) => {
           <i className={`fa-solid ${darkMode ? "fa-sun" : "fa-moon"}`}></i>
         </button>
 
-        {/* Coluna Imagem */}
         <div className="container-imagem-1 d-flex align-items-center justify-content-center p-3 col-12 col-md-6">
           <img
             src={loginImg}
@@ -242,21 +193,17 @@ const handleSubmit = async (e) => {
           />
         </div>
 
-        {/* Coluna Formulário */}
         <div className="container-form position-relative col-12 col-md-6 p-4">
           
-          {/* Título */}
           <h1 className="text-center title-form mt-5">FAÇA SEU LOGIN</h1>
           <p className="texto text-center">Seu espaço para cuidar da saúde.</p>
 
-          {/* Mensagem de feedback */}
           {mensagem.texto && (
             <div className={`mensagem-feedback-login ${mensagem.tipo}`}>
               {mensagem.texto}
             </div>
           )}
 
-          {/* Ícones de login via redes sociais */}
           <div className="icons" role="group" aria-label="Login via redes sociais">
             <a href="#" aria-label="Login com Google">
               <i className="fa-brands fa-google" aria-hidden="true"></i>
@@ -269,7 +216,6 @@ const handleSubmit = async (e) => {
             </a>
           </div>
 
-          {/* Formulário */}
           <form className="login-form" onSubmit={handleSubmit} noValidate>
             
             <div className="mb-2">
@@ -310,19 +256,16 @@ const handleSubmit = async (e) => {
               {errors.senha && <div className="invalid-feedback">{errors.senha}</div>}
             </div>
 
-            {/* Link esqueceu a senha */}
             <div className="esqueceu-senha text-end mb-2">
               <a href="/recuperar-senha" aria-label="Esqueceu a senha?">
                 Esqueceu a senha?
               </a>
             </div>
 
-            {/* Botão enviar */}
             <button type="submit" className="btn w-100" aria-label="Entrar na conta">
               Entrar na Conta
             </button>
 
-            {/* Link cadastro */}
             <div className="esqueceu-senha text-end mt-2">
               <a href="/cadastro" aria-label="Não tem conta? Cadastre-se">
                 Não tem conta? Cadastre-se
