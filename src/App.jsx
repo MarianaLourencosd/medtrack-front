@@ -1,13 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import VLibras from "./utils/VLibras";
 
-import Login from "./components/Login/Login";
-import Cadastro from "./components/Cadastro/Cadastro";
-import Perfil from "./components/Perfil/Perfil";
-import Formulario from "./components/Formulario/Formulario";
-import Home from "./components/home/Home";
-import BuscaPerfil from "./components/BuscaPerfil/BuscaPerfil";
-import Sobre from "./components/sobre/Sobre";
+import Login from "./components/login/Login.jsx";
+import Cadastro from "./components/cadastro/Cadastro.jsx";
+import Perfil from "./components/perfil/Perfil.jsx";
+import Formulario from "./components/formulario/Formulario.jsx";
+import Home from "./components/home/Home.jsx";
+import BuscaPerfil from "./components/buscaPerfil/buscaPerfil.jsx";
+import Sobre from "./components/sobre/Sobre.jsx";
 
 function App() {
   return (

@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./Sobre.css";
+import "./sobre.css";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../utils/acessibilidade.css";
