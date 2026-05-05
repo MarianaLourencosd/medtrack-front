@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./Cadastro.css";
+import "./cadastro.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../utils/daltonismo.css";
 import cadastroImg from "../../assets/images/imagem-header-cadastro.svg";

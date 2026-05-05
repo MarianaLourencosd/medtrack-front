@@ -1,6 +1,6 @@
 // import React, { useState, useEffect } from "react";
 // import { useNavigate } from "react-router-dom";
-// import "./Perfil.css";
+// import "./perfil.css";
 // import "bootstrap/dist/css/bootstrap.min.css";
 // import "../../utils/daltonismo.css";
 // import { db, auth } from "../../services/firebaseConfig";
