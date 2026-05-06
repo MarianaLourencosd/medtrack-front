@@ -319,6 +319,7 @@ function Perfil() {
   const navigate = useNavigate();
 
   const [darkMode, setDarkMode] = useState(false);
+  const [fotoPerfil, setFotoPerfil] = useState(null);
 
   const [showDadosModal, setShowDadosModal] = useState(false);
   const [showContatosModal, setShowContatosModal] = useState(false);
@@ -336,6 +337,12 @@ function Perfil() {
     if (savedMode === "enabled") {
       setDarkMode(true);
       document.body.classList.add("dark-mode");
+    }
+
+    // Carregar foto de perfil do localStorage
+    const savedFoto = localStorage.getItem("fotoPerfil");
+    if (savedFoto) {
+      setFotoPerfil(savedFoto);
     }
   }, []);
 
@@ -360,6 +367,24 @@ function Perfil() {
     setNomeEditavel(e.target.value);
   };
 
+  // Manipular upload de foto
+  const handleFotoUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64 = reader.result;
+        setFotoPerfil(base64);
+        localStorage.setItem("fotoPerfil", base64);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleClickFoto = () => {
+    document.getElementById("foto-input").click();
+  };
+
   const handleNomeBlur = () => {
     setPerfilData({ ...perfilData, nome: nomeEditavel });
   };
@@ -370,8 +395,8 @@ function Perfil() {
     }
   };
 
-useEffect(() => {
-  const unsubscribe = onAuthStateChanged(auth, async (user) => {
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
     if (!user) {
       console.log("Usuário não logado");
       return;
@@ -401,7 +426,8 @@ useEffect(() => {
           sexo: docData.sexo,
           altura: docData.altura,
           tipoSanguineo: docData.tipoSanguineo,
-          sus: docData.sus
+          sus: docData.sus,
+          observacoes: docData.observacoes
         });
 
         setNomeEditavel(docData.nome);
@@ -434,80 +460,332 @@ useEffect(() => {
   return (
     <main className="perfil-main">
       <div className="perfil-container">
-
-        <button onClick={handleVoltar} className="perfil-action-btn perfil-back-btn">
+        {/* Botão Voltar */}
+        <button
+          onClick={handleVoltar}
+          className="perfil-action-btn perfil-back-btn"
+          aria-label="Voltar"
+        >
           <i className="fa-solid fa-arrow-left"></i>
         </button>
 
-        <button onClick={toggleDarkMode} className="perfil-action-btn perfil-theme-btn">
+        {/* Botão Dark Mode */}
+        <button
+          onClick={toggleDarkMode}
+          className="perfil-action-btn perfil-theme-btn"
+          aria-label="Alternar modo escuro"
+        >
           <i className={`fa-solid ${darkMode ? "fa-sun" : "fa-moon"}`}></i>
         </button>
 
+        {/* Card Principal - Prancheta Médica */}
         <div className="perfil-card-container">
+          {/* Header com Foto e Nome */}
           <div className="perfil-header">
+            {/* Avatar com foto */}
             <div className="perfil-avatar">
-              <i className="fas fa-user-circle"></i>
+              <div className={`avatar-placeholder ${fotoPerfil ? "has-image" : ""}`}>
+                {fotoPerfil ? (
+                  <img src={fotoPerfil} alt="Foto de perfil" />
+                ) : (
+                  <i className="fas fa-user-circle"></i>
+                )}
+              </div>
+              <div className="avatar-edit">
+                <button
+                  className="edit-avatar-btn"
+                  onClick={handleClickFoto}
+                  aria-label="Editar foto de perfil"
+                  title="Clique para adicionar ou alterar foto"
+                >
+                  <i className="fas fa-camera"></i>
+                </button>
+              </div>
+              {/* Input oculto para upload */}
+              <input
+                id="foto-input"
+                type="file"
+                accept="image/*"
+                onChange={handleFotoUpload}
+              />
             </div>
 
-            <input
-              type="text"
-              className="nome-input"
-              value={nomeEditavel}
-              onChange={handleNomeChange}
-              onBlur={handleNomeBlur}
-            />
+            {/* Informações do Header */}
+            <div className="perfil-nome">
+              <input
+                type="text"
+                className="nome-input"
+                value={nomeEditavel}
+                onChange={handleNomeChange}
+                onBlur={handleNomeBlur}
+                placeholder="Nome do paciente"
+              />
+
+              {/* Informações resumidas no header */}
+              <div className="perfil-info-header">
+                {perfilData.tipoSanguineo && (
+                  <div className="info-item">
+                    <i className="fas fa-droplet"></i>
+                    <span>{perfilData.tipoSanguineo}</span>
+                  </div>
+                )}
+                {perfilData.sexo && (
+                  <div className="info-item">
+                    <i className={`fas fa-${perfilData.sexo === "Feminino" ? "venus" : "mars"}`}></i>
+                    <span>{perfilData.sexo}</span>
+                  </div>
+                )}
+                {perfilData.dataNascimento && (
+                  <div className="info-item">
+                    <i className="fas fa-calendar"></i>
+                    <span>{perfilData.dataNascimento}</span>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
 
+          {/* Seção de Dados Principais */}
+          {Object.keys(perfilData).length > 0 && (
+            <div className="perfil-dados-section">
+              <div className="dados-title">
+                <i className="fas fa-id-card"></i>
+                Informações do Paciente
+              </div>
+              <div className="dados-grid">
+                {perfilData.cpf && (
+                  <div className="dado-item">
+                    <span className="dado-label">CPF</span>
+                    <span className="dado-value">{perfilData.cpf}</span>
+                  </div>
+                )}
+                {perfilData.altura && (
+                  <div className="dado-item">
+                    <span className="dado-label">Altura</span>
+                    <span className="dado-value">{perfilData.altura} m</span>
+                  </div>
+                )}
+                {perfilData.peso && (
+                  <div className="dado-item">
+                    <span className="dado-label">Peso</span>
+                    <span className="dado-value">{perfilData.peso} kg</span>
+                  </div>
+                )}
+                {perfilData.sus && (
+                  <div className="dado-item">
+                    <span className="dado-label">Cartão SUS</span>
+                    <span className="dado-value">{perfilData.sus}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Botões de Ação */}
           <div className="perfil-botoes">
-            <button onClick={() => setShowDadosModal(true)}>Dados</button>
-            <button onClick={() => setShowContatosModal(true)}>Contatos</button>
-            <button onClick={() => setShowRemediosModal(true)}>Remédios</button>
+            <button
+              className="perfil-btn"
+              onClick={() => setShowDadosModal(true)}
+              title="Ver todos os dados pessoais"
+            >
+              <i className="fas fa-id-card"></i>
+              Dados Completos
+            </button>
+            <button
+              className="perfil-btn"
+              onClick={() => setShowContatosModal(true)}
+              title="Ver contatos de emergência"
+            >
+              <i className="fas fa-phone-alt"></i>
+              Contatos
+            </button>
+            <button
+              className="perfil-btn"
+              onClick={() => setShowRemediosModal(true)}
+              title="Ver medicamentos"
+            >
+              <i className="fas fa-pills"></i>
+              Medicamentos
+            </button>
           </div>
         </div>
 
-
+        {/* MODAL - DADOS PESSOAIS */}
         {showDadosModal && (
-          <div className="modal-overlay" onClick={(e) => handleModalClick(e, setShowDadosModal)}>
-            <div className="modal-container">
-              <h2>Dados</h2>
-
-              <p>Nome: {perfilData.nome}</p>
-              <p>CPF: {perfilData.cpf}</p>
-              <p>Data: {perfilData.dataNascimento}</p>
-              <p>Sexo: {perfilData.sexo}</p>
-              <p>Altura: {perfilData.altura}</p>
-              <p>Peso: {perfilData.peso}</p>
-              <p>Tipo: {perfilData.tipoSanguineo}</p>
-              <p>SUS: {perfilData.sus}</p>
+          <div
+            className="modal-overlay"
+            onClick={(e) => handleModalClick(e, setShowDadosModal)}
+          >
+            <div className="modal-container modal-dados">
+              <div className="modal-header">
+                <h2>
+                  <i className="fas fa-id-card"></i> Dados Pessoais Completos
+                </h2>
+                <button
+                  className="modal-close"
+                  onClick={() => setShowDadosModal(false)}
+                >
+                  <i className="fas fa-times"></i>
+                </button>
+              </div>
+              <div className="modal-body">
+                <div className="dados-grid">
+                  {perfilData.nome && (
+                    <div className="dado-item">
+                      <span className="dado-label">Nome Completo</span>
+                      <span className="dado-value">{perfilData.nome}</span>
+                    </div>
+                  )}
+                  {perfilData.cpf && (
+                    <div className="dado-item">
+                      <span className="dado-label">CPF</span>
+                      <span className="dado-value">{perfilData.cpf}</span>
+                    </div>
+                  )}
+                  {perfilData.dataNascimento && (
+                    <div className="dado-item">
+                      <span className="dado-label">Data de Nascimento</span>
+                      <span className="dado-value">{perfilData.dataNascimento}</span>
+                    </div>
+                  )}
+                  {perfilData.sexo && (
+                    <div className="dado-item">
+                      <span className="dado-label">Sexo</span>
+                      <span className="dado-value">{perfilData.sexo}</span>
+                    </div>
+                  )}
+                  {perfilData.altura && (
+                    <div className="dado-item">
+                      <span className="dado-label">Altura</span>
+                      <span className="dado-value">{perfilData.altura} m</span>
+                    </div>
+                  )}
+                  {perfilData.peso && (
+                    <div className="dado-item">
+                      <span className="dado-label">Peso</span>
+                      <span className="dado-value">{perfilData.peso} kg</span>
+                    </div>
+                  )}
+                  {perfilData.tipoSanguineo && (
+                    <div className="dado-item">
+                      <span className="dado-label">Tipo Sanguíneo</span>
+                      <span className="dado-value">{perfilData.tipoSanguineo}</span>
+                    </div>
+                  )}
+                  {perfilData.sus && (
+                    <div className="dado-item">
+                      <span className="dado-label">Cartão SUS</span>
+                      <span className="dado-value">{perfilData.sus}</span>
+                    </div>
+                  )}
+                </div>
+                {perfilData.observacoes && (
+                  <div style={{ marginTop: "1.5rem" }}>
+                    <h4 style={{ color: "var(--cor-primaria)", marginBottom: "1rem" }}>
+                      Observações
+                    </h4>
+                    <p style={{ color: "var(--cor-texto)", lineHeight: "1.6" }}>
+                      {perfilData.observacoes}
+                    </p>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         )}
 
-        {/* MODAL CONTATOS */}        {showContatosModal && (
-          <div className="modal-overlay" onClick={(e) => handleModalClick(e, setShowContatosModal)}>
-            <div className="modal-container">
-              <h2>Contatos</h2>
-
-              {contatos.map((c, i) => (
-                <p key={i}>
-                  {c.nome} - {c.telefone} ({c.relacionamento})
-                </p>
-              ))}
+        {/* MODAL - CONTATOS DE EMERGÊNCIA */}
+        {showContatosModal && (
+          <div
+            className="modal-overlay"
+            onClick={(e) => handleModalClick(e, setShowContatosModal)}
+          >
+            <div className="modal-container modal-contatos">
+              <div className="modal-header">
+                <h2>
+                  <i className="fas fa-phone-alt"></i> Contatos de Emergência
+                </h2>
+                <button
+                  className="modal-close"
+                  onClick={() => setShowContatosModal(false)}
+                >
+                  <i className="fas fa-times"></i>
+                </button>
+              </div>
+              <div className="modal-body">
+                {contatos.length > 0 ? (
+                  <table className="perfil-table">
+                    <thead>
+                      <tr>
+                        <th>Nome</th>
+                        <th>Telefone</th>
+                        <th>Relacionamento</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {contatos.map((contato, index) => (
+                        <tr key={index}>
+                          <td>{contato.nome}</td>
+                          <td>{contato.telefone}</td>
+                          <td>{contato.relacionamento}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                ) : (
+                  <p style={{ textAlign: "center", color: "var(--cor-cinza)" }}>
+                    Nenhum contato de emergência registrado
+                  </p>
+                )}
+              </div>
             </div>
           </div>
         )}
 
-
+        {/* MODAL - MEDICAMENTOS */}
         {showRemediosModal && (
-          <div className="modal-overlay" onClick={(e) => handleModalClick(e, setShowRemediosModal)}>
-            <div className="modal-container">
-              <h2>Remédios</h2>
-
-              {remedios.map((r, i) => (
-                <p key={i}>
-                  {r.nome} - {r.dosagem} ({r.frequencia})
-                </p>
-              ))}
+          <div
+            className="modal-overlay"
+            onClick={(e) => handleModalClick(e, setShowRemediosModal)}
+          >
+            <div className="modal-container modal-remedios">
+              <div className="modal-header">
+                <h2>
+                  <i className="fas fa-pills"></i> Medicamentos
+                </h2>
+                <button
+                  className="modal-close"
+                  onClick={() => setShowRemediosModal(false)}
+                >
+                  <i className="fas fa-times"></i>
+                </button>
+              </div>
+              <div className="modal-body">
+                {remedios.length > 0 ? (
+                  <table className="perfil-table">
+                    <thead>
+                      <tr>
+                        <th>Medicamento</th>
+                        <th>Dosagem</th>
+                        <th>Frequência</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {remedios.map((remedio, index) => (
+                        <tr key={index}>
+                          <td>{remedio.nome}</td>
+                          <td>{remedio.dosagem}</td>
+                          <td>{remedio.frequencia}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                ) : (
+                  <p style={{ textAlign: "center", color: "var(--cor-cinza)" }}>
+                    Nenhum medicamento registrado
+                  </p>
+                )}
+              </div>
             </div>
           </div>
         )}
