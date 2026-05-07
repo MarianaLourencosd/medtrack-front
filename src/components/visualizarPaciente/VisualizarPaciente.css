@@ -1,0 +1,619 @@
+/* src/components/visualizarPaciente/VisualizarPaciente.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --cor-primaria: #00614C;
+  --cor-secundaria: #00AD88;
+  --cor-cinza: #B4BEC9;
+  --cor-branco: #FAFAFA;
+  --cor-preto: #000000;
+  --cor-risco: #E5E7EB;
+  --cor-texto: #1F2937;
+  --cor-texto-claro: #6B7280;
+  --cor-sucesso: #10B981;
+  --cor-erro: #EF4444;
+  --sombra: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --sombra-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.visualizar-main {
+  min-height: 100vh;
+  background: radial-gradient(circle, #000000 0%, #00614C 100%);
+  padding: 2rem;
+}
+
+.visualizar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Botões de ação */
+.action-btn {
+  position: absolute;
+  width: 45px;
+  height: 45px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.back-btn {
+  top: 0;
+  left: 0;
+  background: var(--cor-primaria);
+  color: white;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: auto;
+  padding: 0 1rem;
+}
+
+.back-btn:hover {
+  background: var(--cor-secundaria);
+  transform: translateX(-3px);
+}
+
+.theme-btn {
+  top: 0;
+  right: 0;
+  background: var(--cor-primaria);
+  color: white;
+  border-radius: 8px;
+}
+
+.theme-btn:hover {
+  background: var(--cor-secundaria);
+  transform: scale(1.05);
+}
+
+/* Mensagem */
+.mensagem {
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-weight: 500;
+  animation: fadeIn 0.3s ease;
+}
+
+.mensagem.success {
+  background: #d1e7dd;
+  color: #0f5132;
+  border: 1px solid #a3cfbb;
+}
+
+.mensagem.error {
+  background: #f8d7da;
+  color: #dc3545;
+  border: 1px solid #f5c2c7;
+}
+
+/* Card principal */
+.paciente-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-top: 3rem;
+  box-shadow: var(--sombra-lg);
+}
+
+/* Header */
+.paciente-header {
+  background: linear-gradient(135deg, var(--cor-primaria), var(--cor-secundaria));
+  padding: 2rem;
+  text-align: center;
+  position: relative;
+}
+
+.paciente-avatar {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+  border: 4px solid white;
+  overflow: hidden;
+  box-shadow: var(--sombra);
+}
+
+.paciente-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.paciente-titulo h1 {
+  color: white;
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.paciente-titulo .idade,
+.paciente-titulo .tipo-sangue {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  margin: 0 0.25rem;
+}
+
+.paciente-titulo .idade {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.paciente-titulo .tipo-sangue {
+  background: rgba(0, 0, 0, 0.3);
+  color: white;
+}
+
+/* Seções */
+.secao {
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid var(--cor-risco);
+}
+
+.secao:last-of-type {
+  border-bottom: none;
+}
+
+.secao h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.3rem;
+  color: var(--cor-primaria);
+  margin-bottom: 1.5rem;
+}
+
+.secao h2 i {
+  font-size: 1.2rem;
+}
+
+/* Grid */
+.grid-2-colunas {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+}
+
+.campo label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--cor-texto-claro);
+  margin-bottom: 0.25rem;
+  letter-spacing: 0.5px;
+}
+
+.campo p {
+  font-size: 1rem;
+  color: var(--cor-texto);
+  font-weight: 500;
+}
+
+.observacoes-texto {
+  background: #f9fafb;
+  padding: 1rem;
+  border-radius: 8px;
+  line-height: 1.6;
+}
+
+/* Botões de ação */
+.botoes-acao {
+  display: flex;
+  gap: 1rem;
+  padding: 1.5rem 2rem;
+  background: #f9fafb;
+}
+
+.btn-editar,
+.btn-excluir {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.btn-editar {
+  background: var(--cor-primaria);
+  color: white;
+}
+
+.btn-editar:hover {
+  background: var(--cor-secundaria);
+  transform: translateY(-2px);
+}
+
+.btn-excluir {
+  background: #fee2e2;
+  color: var(--cor-erro);
+}
+
+.btn-excluir:hover {
+  background: #fecaca;
+  transform: translateY(-2px);
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-confirmar {
+  background: white;
+  border-radius: 16px;
+  max-width: 400px;
+  width: 90%;
+  overflow: hidden;
+  animation: slideUp 0.3s ease;
+}
+
+.modal-confirmar .modal-header {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.modal-confirmar .modal-header i {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.modal-confirmar .modal-body {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.modal-confirmar .texto-aviso {
+  color: var(--cor-erro);
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+.modal-confirmar .modal-footer {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 1.5rem 1.5rem;
+}
+
+.btn-cancelar,
+.btn-confirmar {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-cancelar {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.btn-cancelar:hover {
+  background: #d1d5db;
+}
+
+.btn-confirmar {
+  background: #ef4444;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-confirmar:hover {
+  background: #dc2626;
+}
+
+/* Loading */
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top-color: var(--cor-secundaria);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 2rem auto;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Dark Mode */
+body.dark-mode .visualizar-main {
+  background: radial-gradient(circle, #000000 0%, #004d3b 100%);
+}
+
+body.dark-mode .paciente-card {
+  background: #1a1a1a;
+}
+
+body.dark-mode .campo p {
+  color: #e5e7eb;
+}
+
+body.dark-mode .observacoes-texto {
+  background: #2a2a2a;
+  color: #e5e7eb;
+}
+
+body.dark-mode .botoes-acao {
+  background: #2a2a2a;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .visualizar-main {
+    padding: 1rem;
+  }
+  
+  .grid-2-colunas {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .secao {
+    padding: 1rem;
+  }
+  
+  .paciente-titulo h1 {
+    font-size: 1.3rem;
+  }
+  
+  .paciente-avatar {
+    width: 90px;
+    height: 90px;
+  }
+  
+  .botoes-acao {
+    flex-direction: column;
+  }
+  
+  .back-btn span {
+    display: none;
+  }
+  
+  .back-btn {
+    width: 45px;
+    padding: 0;
+  }
+}
+
+/* Adicione ao final do VisualizarPaciente.css */
+
+/* Modal de Edição */
+.modal-editar {
+  background: white;
+  border-radius: 16px;
+  max-width: 800px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUp 0.3s ease;
+}
+
+.modal-editar .modal-header {
+  background: linear-gradient(135deg, var(--cor-primaria), var(--cor-secundaria));
+  color: white;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.modal-editar .modal-header h3 {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+  transform: scale(1.1);
+  opacity: 0.8;
+}
+
+.modal-editar .modal-body {
+  padding: 1.5rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group.full-width {
+  grid-column: span 2;
+}
+
+.form-group label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--cor-texto-claro);
+  margin-bottom: 0.25rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 0.6rem;
+  border: 1px solid var(--cor-risco);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--cor-primaria);
+  box-shadow: 0 0 0 3px rgba(0, 97, 76, 0.1);
+}
+
+.modal-editar .modal-footer {
+  padding: 1rem 1.5rem 1.5rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  border-top: 1px solid var(--cor-risco);
+}
+
+.btn-salvar {
+  background: var(--cor-primaria);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.btn-salvar:hover {
+  background: var(--cor-secundaria);
+  transform: translateY(-2px);
+}
+
+/* Dark mode para o modal */
+body.dark-mode .modal-editar {
+  background: #1a1a1a;
+}
+
+body.dark-mode .form-group input,
+body.dark-mode .form-group select,
+body.dark-mode .form-group textarea {
+  background: #2a2a2a;
+  border-color: #444;
+  color: white;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-group.full-width {
+    grid-column: span 1;
+  }
+  
+  .modal-editar .modal-footer {
+    flex-direction: column;
+  }
+  
+  .btn-salvar, .btn-cancelar {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Adicione ao VisualizarPaciente.css */
+
+/* Email info no header */
+.email-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  font-size: 0.8rem;
+}
+
+.email-info i {
+  font-size: 0.8rem;
+}
+
+/* Aviso de exclusão */
+.aviso-exclusao {
+  padding: 1rem 2rem;
+  background: #fef3c7;
+  border-top: 1px solid #fde68a;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+  color: #92400e;
+}
+
+.aviso-exclusao i {
+  font-size: 1rem;
+}
+
+body.dark-mode .aviso-exclusao {
+  background: #422800;
+  color: #ffd89b;
+  border-top-color: #854d0e;
+}

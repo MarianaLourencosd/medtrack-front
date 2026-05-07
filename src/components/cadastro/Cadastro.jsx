@@ -3,11 +3,9 @@ import "./cadastro.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../utils/daltonismo.css";
 import cadastroImg from "../../assets/images/imagem-header-cadastro.svg";
-import { auth } from "../../services/firebaseConfig";
+import { auth, db } from "../../services/firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { db } from "../../services/firebaseConfig";
 import { doc, setDoc } from "firebase/firestore";
-import { register } from "../../services/auth";
 
 import { 
   validarCadastro, 
@@ -19,9 +17,7 @@ import {
 
 function Cadastro() {
   const [darkMode, setDarkMode] = useState(false);
-  
   const [mensagem, setMensagem] = useState({ texto: "", tipo: "" });
-  
   const [formData, setFormData] = useState({
     nome: "",
     cpf: "",
@@ -30,7 +26,6 @@ function Cadastro() {
     senha: "",
     confirmarSenha: ""
   });
-  
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
@@ -61,37 +56,6 @@ function Cadastro() {
     if (errors[campo]) {
       setErrors(prev => ({ ...prev, [campo]: "" }));
     }
-  };
-
-  const mostrarMensagemSucesso = () => {
-    setMensagem({
-      texto: mensagemSucessoCadastro(),
-      tipo: "success"
-    });
-    
-    setFormData({
-      nome: "",
-      cpf: "",
-      email: "",
-      confirmarEmail: "",
-      senha: "",
-      confirmarSenha: ""
-    });
-    
-    setTimeout(() => {
-      setMensagem({ texto: "", tipo: "" });
-    }, 3000);
-  };
-
-  const mostrarMensagemErro = () => {
-    setMensagem({
-      texto: mensagemErroCadastro(),
-      tipo: "error"
-    });
-    
-    setTimeout(() => {
-      setMensagem({ texto: "", tipo: "" });
-    }, 3000);
   };
 
   const handleChange = (e) => {
@@ -139,96 +103,66 @@ function Cadastro() {
     }
   };
 
-  // Validar e enviar formulário
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-    
-  //   // Usar a função de validação importada do arquivo validacoes.js
-  //   const { isValid, errors: validationErrors } = validarCadastro(formData);
-    
-  //   if (isValid) {
-  //     mostrarMensagemSucesso();
-  //     console.log("Cadastro válido, enviando dados...", formData);
-  //     // Aqui você pode adicionar a chamada para a API
-  //   } else {
-  //     setErrors(validationErrors);
-  //     mostrarMensagemErro();
-  //     // Rolar para o topo do formulário
-  //     window.scrollTo({ top: 0, behavior: "smooth" });
-  //   }
-  // };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-//   const handleSubmit = async (e) => {
-//   e.preventDefault();
+    const { isValid, errors: validationErrors } = validarCadastro(formData);
 
-//   const { isValid, errors: validationErrors } = validarCadastro(formData);
+    if (isValid) {
+      try {
+        
+        const userCredential = await createUserWithEmailAndPassword(
+          auth,
+          formData.email,
+          formData.senha
+        );
 
-//   if (isValid) {
-//     try {
-//       // 🔐 Cria usuário no Auth
-//       const userCredential = await createUserWithEmailAndPassword(
-//         auth,
-//         formData.email,
-//         formData.senha
-//       );
+        const user = userCredential.user;
 
-//       const user = userCredential.user;
+        await setDoc(doc(db, "usuarios", user.uid), {
+          nome: formData.nome,
+          cpf: formData.cpf,
+          email: formData.email,
+          role: "comum", 
+          createdAt: new Date()
+        });
 
-//       // 💾 Salva dados extras no Firestore
-//       await setDoc(doc(db, "usuarios", user.uid), {
-//         nome: formData.nome,
-//         cpf: formData.cpf,
-//         email: formData.email,
-//         createdAt: new Date()
-//       });
+        console.log("✅ Usuário criado no Auth:", user.email);
+        console.log("✅ Documento criado no Firestore para:", user.uid);
 
-//       mostrarMensagemSucesso();
+        setMensagem({
+          texto: "✅ Cadastro realizado com sucesso! Redirecionando para o login...",
+          tipo: "success"
+        });
+        
+        setTimeout(() => {
+          window.location.href = "/login";
+        }, 2000);
 
-//     } catch (error) {
-//       console.error("Erro no cadastro:", error);
-//       mostrarMensagemErro();
-//     }
+      } catch (error) {
+        console.error("ERRO no cadastro:", error);
+        
+        if (error.code === "auth/email-already-in-use") {
+          setMensagem({
+            texto: "❌ Este e-mail já está cadastrado!",
+            tipo: "error"
+          });
+        } else {
+          setMensagem({
+            texto: "❌ Erro ao cadastrar! Tente novamente.",
+            tipo: "error"
+          });
+        }
+      }
 
-//   } else {
-//     setErrors(validationErrors);
-//     mostrarMensagemErro();
-//     window.scrollTo({ top: 0, behavior: "smooth" });
-//   }
-// };
-
-const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  const { isValid, errors: validationErrors } = validarCadastro(formData);
-
-  if (isValid) {
-    try {
-      const userCredential = await register(
-        formData.email,
-        formData.senha
-      );
-
-      console.log("Usuário criado:", userCredential.user);
-
+    } else {
+      setErrors(validationErrors);
       setMensagem({
-        texto: "✅ Cadastro realizado com sucesso! Redirecionando para o login...",
-        tipo: "success"
+        texto: "❌ Por favor, corrija os campos destacados.",
+        tipo: "error"
       });
-      
-      setTimeout(() => {
-        window.location.href = "/login";
-      }, 2000);
-
-    } catch (error) {
-      console.error("ERRO:", error);
-      mostrarMensagemErro();
     }
-
-  } else {
-    setErrors(validationErrors);
-    mostrarMensagemErro();
-  }
-};
+  };
 
   return (
     <main className="main d-flex align-items-center justify-content-center min-vh-100">
@@ -360,7 +294,7 @@ const handleSubmit = async (e) => {
                 required
               />
               {errors.senha && <div className="invalid-feedback">{errors.senha}</div>}
-              <small className="text-muted">Mínimo 6 caracteres, com letras e números</small>
+              <small className="text-muted">Mínimo 6 caracteres</small>
             </div>
 
             <div className="mb-3">

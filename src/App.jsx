@@ -1,28 +1,74 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import VLibras from "./utils/VLibras";
+// src/App.js
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ProtectedRoute from "./components/ProtectedRoute"; // ← VERIFIQUE este caminho
 
-import Login from "./components/login/Login.jsx";
-import Cadastro from "./components/cadastro/Cadastro.jsx";
-import Perfil from "./components/perfil/Perfil.jsx";
-import Formulario from "./components/formulario/Formulario.jsx";
-import Home from "./components/home/Home.jsx";
-import BuscaPerfil from "./components/buscaPerfil/buscaPerfil.jsx";
-import Sobre from "./components/sobre/Sobre.jsx";
+import Home from "./components/home/Home";
+import Login from "./components/login/Login";
+import Cadastro from "./components/cadastro/Cadastro";
+import Perfil from "./components/perfil/Perfil";
+import Formulario from "./components/formulario/Formulario";
+import BuscaPerfil from "./components/buscaPerfil/BuscaPerfil";
+import Sobre from "./components/sobre/Sobre";
+import AdminDashboard from "./components/admin/AdminDashboard";
+import VisualizarPaciente from "./components/visualizarPaciente/VisualizarPaciente";
+
 
 function App() {
   return (
-    <Router>
-      <VLibras /> 
+    <BrowserRouter>
       <Routes>
+
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/cadastro" element={<Cadastro />} />
-        <Route path="/perfil" element={<Perfil />} />
-        <Route path="/formulario" element={<Formulario />} />
-        <Route path="/busca-perfil" element={<BuscaPerfil />} />
         <Route path="/sobre" element={<Sobre />} />
+
+        <Route
+          path="/formulario"
+          element={
+            <ProtectedRoute requiredRole="comum" redirectTo="/login">
+              <Formulario />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/perfil"
+          element={
+            <ProtectedRoute requiredRole="comum" redirectTo="/login">
+              <Perfil />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/busca-perfil"
+          element={
+            <ProtectedRoute requiredRole="saude" redirectTo="/">
+              <BuscaPerfil />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/visualizar-paciente/:userId"
+          element={
+            <ProtectedRoute requiredRole="saude" redirectTo="/login">
+              <VisualizarPaciente />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute requiredRole="admin" redirectTo="/">
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 }
 
