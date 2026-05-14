@@ -627,25 +627,30 @@ function Home() {
               <a className="footer-link" href="/sobre">Sobre</a>
             </li>
 
-            <li className="footer-item">
-              <a className="footer-link" href="/login">Login</a>
-            </li>
-
-            <li className="footer-item">
-              <a className="footer-link" href="/cadastro">Cadastro</a>
-            </li>
-
-            <li className="footer-item">
-              <a className="footer-link" href="/formulario">Formulário</a>
-            </li>
-
-            <li className="footer-item">
-              <a className="footer-link" href="/busca-perfil">Busca Perfil</a>
-            </li>
-
-            <li className="footer-item">
-              <a className="footer-link" href="/perfil">Perfil</a>
-            </li>
+            {!user ? (
+              <>
+                <li className="footer-item">
+                  <a className="footer-link" href="/login">Login</a>
+                </li>
+                <li className="footer-item">
+                  <a className="footer-link" href="/cadastro">Cadastro</a>
+                </li>
+              </>
+            ) : (
+              <>
+                <li className="footer-item">
+                  <a className="footer-link" href="/formulario">Formulário</a>
+                </li>
+                <li className="footer-item">
+                  <a className="footer-link" href="/perfil">Perfil</a>
+                </li>
+                {(userRole === "saude" || userRole === "admin") && (
+                  <li className="footer-item">
+                    <a className="footer-link" href="/busca-perfil">Busca Perfil</a>
+                  </li>
+                )}
+              </>
+            )}
           </ul>
         </footer>
 

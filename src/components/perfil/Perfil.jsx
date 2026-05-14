@@ -338,12 +338,6 @@ function Perfil() {
       setDarkMode(true);
       document.body.classList.add("dark-mode");
     }
-
-    // Carregar foto de perfil do localStorage
-    const savedFoto = localStorage.getItem("fotoPerfil");
-    if (savedFoto) {
-      setFotoPerfil(savedFoto);
-    }
   }, []);
 
   const toggleDarkMode = () => {
@@ -375,7 +369,10 @@ function Perfil() {
       reader.onloadend = () => {
         const base64 = reader.result;
         setFotoPerfil(base64);
-        localStorage.setItem("fotoPerfil", base64);
+        const currentUser = auth.currentUser;
+        if (currentUser) {
+          localStorage.setItem(`fotoPerfil_${currentUser.uid}`, base64);
+        }
       };
       reader.readAsDataURL(file);
     }
@@ -400,6 +397,14 @@ function Perfil() {
     if (!user) {
       console.log("Usuário não logado");
       return;
+    }
+
+    // Carregar foto de perfil específica do usuário logado
+    const savedFoto = localStorage.getItem(`fotoPerfil_${user.uid}`);
+    if (savedFoto) {
+      setFotoPerfil(savedFoto);
+    } else {
+      setFotoPerfil(null);
     }
 
     try {
@@ -432,21 +437,34 @@ function Perfil() {
 
         setNomeEditavel(docData.nome);
 
-        setContatos([
-          {
+        // Suporte ao formato novo (array) e antigo (campos únicos)
+        if (Array.isArray(docData.contatos) && docData.contatos.length > 0) {
+          setContatos(docData.contatos.map((c) => ({
+            nome: c.nomeContato || "",
+            telefone: c.telefoneContato || "",
+            relacionamento: c.relacionamento || "",
+          })));
+        } else if (docData.nomeContato) {
+          setContatos([{
             nome: docData.nomeContato,
             telefone: docData.telefoneContato,
-            relacionamento: docData.relacionamento
-          }
-        ]);
+            relacionamento: docData.relacionamento,
+          }]);
+        }
 
-        setRemedios([
-          {
+        if (Array.isArray(docData.medicamentos) && docData.medicamentos.length > 0) {
+          setRemedios(docData.medicamentos.map((m) => ({
+            nome: m.medicamento || "",
+            dosagem: m.dosagem || "",
+            frequencia: m.frequencia || "",
+          })));
+        } else if (docData.medicamento) {
+          setRemedios([{
             nome: docData.medicamento,
             dosagem: docData.dosagem,
-            frequencia: docData.frequencia
-          }
-        ]);
+            frequencia: docData.frequencia,
+          }]);
+        }
       }
 
     } catch (error) {

@@ -26,6 +26,10 @@ import { initFontSizeControls } from "../../utils/fontSize";
 import { initDaltonismo } from "../../utils/daltonismo";
 import "../../utils/daltonismo.css";
 import VLibras from "../../utils/VLibras";
+import { auth, db } from "../../services/firebaseConfig";
+import { signOut } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
+import UserDropdown from "../UserDropdown";
 
 
 const developers = [
@@ -167,6 +171,52 @@ function Sobre() {
   const [openFaqIndex, setOpenFaqIndex] = useState(null);
   const navigate = useNavigate();
 
+  const [user, setUser] = useState(null);
+  const [userRole, setUserRole] = useState(null);
+  const [userName, setUserName] = useState("");
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(async (firebaseUser) => {
+      if (firebaseUser) {
+        setUser(firebaseUser);
+        try {
+          const userDoc = await getDoc(doc(db, "usuarios", firebaseUser.uid));
+          if (userDoc.exists()) {
+            const data = userDoc.data();
+            setUserRole(data.role || "comum");
+            setUserName(data.nome || firebaseUser.email);
+          } else {
+            setUserName(firebaseUser.email);
+          }
+        } catch (error) {
+          console.error("Erro ao buscar dados do usuário:", error);
+        }
+      } else {
+        setUser(null);
+        setUserRole(null);
+        setUserName("");
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    await signOut(auth);
+    navigate("/login");
+    setMenuOpen(false);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuOpen && !event.target.closest('.user-dropdown-container')) {
+        setMenuOpen(false);
+      }
+    };
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [menuOpen]);
+
   // Alternar FAQ
   const toggleFaq = (index) => {
     setOpenFaqIndex(openFaqIndex === index ? null : index);
@@ -244,12 +294,27 @@ function Sobre() {
         <ul className="navbar-list">
           <li><a className="navbar-item" href="/">Home</a></li>
           <li><a className="navbar-item" href="/sobre">Sobre</a></li>
+          {user && <li><a className="navbar-item" href="/formulario">Formulário</a></li>}
+          {(userRole === "saude" || userRole === "admin") && (
+            <li><a className="navbar-item" href="/busca-perfil">Buscar Pacientes</a></li>
+          )}
+          {userRole === "admin" && <li><a className="navbar-item" href="/admin">Admin</a></li>}
         </ul>
 
         <div className="navbar-btn">
-          <a className="navbar-btn-item" href="/login">Login</a>
-          <a className="navbar-btn-item" href="/cadastro">Cadastro</a>
-          <a className="navbar-btn-item" href="/formulario">Formulário</a>
+          {!user ? (
+            <>
+              <a className="navbar-btn-item" href="/login">Login</a>
+              <a className="navbar-btn-item" href="/cadastro">Cadastro</a>
+            </>
+          ) : (
+            <UserDropdown
+              user={user}
+              userName={userName}
+              userRole={userRole}
+              onLogout={handleLogout}
+            />
+          )}
 
           <button
             id="dark-mode-toggle"
@@ -268,10 +333,6 @@ function Sobre() {
             🟢 Daltonismo
           </button>
 
-          <a className="navbar-btn-profile" href="/perfil">
-            <i className="fa-solid fa-user"></i>
-          </a>
-
           <button className="nav-btn-items" id="nav-btn-toggle" aria-label="Abrir menu">
             <i className="fa-solid fa-bars"></i>
           </button>
@@ -282,9 +343,22 @@ function Sobre() {
         <ul className="nav-list-mobile">
           <li><a className="nav-items" href="/">Home</a></li>
           <li><a className="nav-items" href="/sobre">Sobre</a></li>
-          <li><a className="nav-items" href="/login">Login</a></li>
-          <li><a className="nav-items" href="/cadastro">Cadastro</a></li>
-          <li><a className="nav-items" href="/formulario">Formulário</a></li>
+          {!user ? (
+            <>
+              <li><a className="nav-items" href="/login">Login</a></li>
+              <li><a className="nav-items" href="/cadastro">Cadastro</a></li>
+            </>
+          ) : (
+            <>
+              <li><a className="nav-items" href="/formulario">Formulário</a></li>
+              <li><a className="nav-items" href="/perfil">Meu Perfil</a></li>
+              {(userRole === "saude" || userRole === "admin") && (
+                <li><a className="nav-items" href="/busca-perfil">Buscar Pacientes</a></li>
+              )}
+              {userRole === "admin" && <li><a className="nav-items" href="/admin">Admin</a></li>}
+              <li><button className="nav-items" onClick={handleLogout}>Sair</button></li>
+            </>
+          )}
         </ul>
       </div>
 
@@ -463,11 +537,20 @@ function Sobre() {
         <ul className="footer-menu">
           <li className="footer-item"><a className="footer-link" href="/">Home</a></li>
           <li className="footer-item"><a className="footer-link" href="/sobre">Sobre</a></li>
-          <li className="footer-item"><a className="footer-link" href="/login">Login</a></li>
-          <li className="footer-item"><a className="footer-link" href="/cadastro">Cadastro</a></li>
-          <li className="footer-item"><a className="footer-link" href="/formulario">Formulário</a></li>
-          <li className="footer-item"><a className="footer-link" href="/busca-perfil">Busca Perfil</a></li>
-          <li className="footer-item"><a className="footer-link" href="/perfil">Perfil</a></li>
+          {!user ? (
+            <>
+              <li className="footer-item"><a className="footer-link" href="/login">Login</a></li>
+              <li className="footer-item"><a className="footer-link" href="/cadastro">Cadastro</a></li>
+            </>
+          ) : (
+            <>
+              <li className="footer-item"><a className="footer-link" href="/formulario">Formulário</a></li>
+              <li className="footer-item"><a className="footer-link" href="/perfil">Perfil</a></li>
+              {(userRole === "saude" || userRole === "admin") && (
+                <li className="footer-item"><a className="footer-link" href="/busca-perfil">Busca Perfil</a></li>
+              )}
+            </>
+          )}
         </ul>
       </footer>
 
