@@ -85,7 +85,6 @@
 //     <main className="perfil-main">
 //       <div className="perfil-container">
         
-//         {/* Botão Voltar - ESTILO DO FORMULARIO */}
 //         <button 
 //           onClick={handleVoltar} 
 //           className="perfil-action-btn perfil-back-btn"
@@ -94,7 +93,6 @@
 //           <i className="fa-solid fa-arrow-left"></i>
 //         </button>
         
-//         {/* Botão Modo Escuro/Claro - ESTILO DO FORMULARIO */}
 //         <button 
 //           onClick={toggleDarkMode} 
 //           className="perfil-action-btn perfil-theme-btn"
@@ -103,9 +101,8 @@
 //           <i className={`fa-solid ${darkMode ? "fa-sun" : "fa-moon"}`}></i>
 //         </button>
 
-//         {/* Card de Perfil - Fundo Branco */}
 //         <div className="perfil-card-container">
-//           {/* Header do Perfil */}
+
 //           <div className="perfil-header">
 //             <div className="perfil-avatar">
 //               <div className="avatar-placeholder">
@@ -129,7 +126,6 @@
 //             </div>
 //           </div>
 
-//           {/* Botões do Perfil */}
 //           <div className="perfil-botoes">
 //             <button className="perfil-btn" onClick={() => setShowDadosModal(true)}>
 //               <i className="fas fa-id-card"></i> Dados
@@ -146,7 +142,6 @@
 //           </div>
 //         </div>
 
-//         {/* MODAL DADOS */}
 //         {showDadosModal && (
 //           <div className="modal-overlay" onClick={(e) => handleModalClick(e, setShowDadosModal)}>
 //             <div className="modal-container modal-dados">
@@ -196,7 +191,6 @@
 //           </div>
 //         )}
 
-//         {/* MODAL CONTATOS */}
 //         {showContatosModal && (
 //           <div className="modal-overlay" onClick={(e) => handleModalClick(e, setShowContatosModal)}>
 //             <div className="modal-container modal-contatos">
@@ -230,7 +224,6 @@
 //           </div>
 //         )}
 
-//         {/* MODAL REMÉDIOS */}
 //         {showRemediosModal && (
 //           <div className="modal-overlay" onClick={(e) => handleModalClick(e, setShowRemediosModal)}>
 //             <div className="modal-container modal-remedios">
@@ -264,7 +257,7 @@
 //           </div>
 //         )}
 
-//         {/* MODAL ALERGIAS */}
+//
 //         {showAlergiasModal && (
 //           <div className="modal-overlay" onClick={(e) => handleModalClick(e, setShowAlergiasModal)}>
 //             <div className="modal-container modal-alergias">
@@ -331,7 +324,6 @@ function Perfil() {
   const [contatos, setContatos] = useState([]);
   const [remedios, setRemedios] = useState([]);
 
-  // 🌙 Dark Mode
   useEffect(() => {
     const savedMode = localStorage.getItem("darkMode");
     if (savedMode === "enabled") {
@@ -361,7 +353,6 @@ function Perfil() {
     setNomeEditavel(e.target.value);
   };
 
-  // Manipular upload de foto
   const handleFotoUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -399,7 +390,6 @@ function Perfil() {
       return;
     }
 
-    // Carregar foto de perfil específica do usuário logado
     const savedFoto = localStorage.getItem(`fotoPerfil_${user.uid}`);
     if (savedFoto) {
       setFotoPerfil(savedFoto);
@@ -437,7 +427,6 @@ function Perfil() {
 
         setNomeEditavel(docData.nome);
 
-        // Suporte ao formato novo (array) e antigo (campos únicos)
         if (Array.isArray(docData.contatos) && docData.contatos.length > 0) {
           setContatos(docData.contatos.map((c) => ({
             nome: c.nomeContato || "",
@@ -478,7 +467,7 @@ function Perfil() {
   return (
     <main className="perfil-main">
       <div className="perfil-container">
-        {/* Botão Voltar */}
+    
         <button
           onClick={handleVoltar}
           className="perfil-action-btn perfil-back-btn"
@@ -487,7 +476,6 @@ function Perfil() {
           <i className="fa-solid fa-arrow-left"></i>
         </button>
 
-        {/* Botão Dark Mode */}
         <button
           onClick={toggleDarkMode}
           className="perfil-action-btn perfil-theme-btn"
@@ -496,11 +484,10 @@ function Perfil() {
           <i className={`fa-solid ${darkMode ? "fa-sun" : "fa-moon"}`}></i>
         </button>
 
-        {/* Card Principal - Prancheta Médica */}
         <div className="perfil-card-container">
-          {/* Header com Foto e Nome */}
+          
           <div className="perfil-header">
-            {/* Avatar com foto */}
+            
             <div className="perfil-avatar">
               <div className={`avatar-placeholder ${fotoPerfil ? "has-image" : ""}`}>
                 {fotoPerfil ? (
@@ -519,7 +506,7 @@ function Perfil() {
                   <i className="fas fa-camera"></i>
                 </button>
               </div>
-              {/* Input oculto para upload */}
+              
               <input
                 id="foto-input"
                 type="file"
@@ -528,7 +515,6 @@ function Perfil() {
               />
             </div>
 
-            {/* Informações do Header */}
             <div className="perfil-nome">
               <input
                 type="text"
@@ -539,7 +525,6 @@ function Perfil() {
                 placeholder="Nome do paciente"
               />
 
-              {/* Informações resumidas no header */}
               <div className="perfil-info-header">
                 {perfilData.tipoSanguineo && (
                   <div className="info-item">
@@ -563,7 +548,6 @@ function Perfil() {
             </div>
           </div>
 
-          {/* Seção de Dados Principais */}
           {Object.keys(perfilData).length > 0 && (
             <div className="perfil-dados-section">
               <div className="dados-title">
@@ -599,7 +583,6 @@ function Perfil() {
             </div>
           )}
 
-          {/* Botões de Ação */}
           <div className="perfil-botoes">
             <button
               className="perfil-btn"
@@ -628,7 +611,6 @@ function Perfil() {
           </div>
         </div>
 
-        {/* MODAL - DADOS PESSOAIS */}
         {showDadosModal && (
           <div
             className="modal-overlay"
@@ -712,7 +694,6 @@ function Perfil() {
           </div>
         )}
 
-        {/* MODAL - CONTATOS DE EMERGÊNCIA */}
         {showContatosModal && (
           <div
             className="modal-overlay"
@@ -760,7 +741,6 @@ function Perfil() {
           </div>
         )}
 
-        {/* MODAL - MEDICAMENTOS */}
         {showRemediosModal && (
           <div
             className="modal-overlay"

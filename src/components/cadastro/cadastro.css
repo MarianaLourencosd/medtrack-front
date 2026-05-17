@@ -1,6 +1,3 @@
-/* ========== BOTÕES NO ESTILO DO FORMULARIO (QUADRADOS) ========== */
-
-/* Botões de ação no estilo Formulario (quadrados, sem border-radius) */
 .cadastro-action-btn {
     position: absolute;
     display: flex;
@@ -21,26 +18,22 @@
     background-color: var(--cor-secundaria);
 }
 
-/* Botão voltar - canto superior esquerdo */
 .cadastro-back-btn {
     top: 0px;
     left: 0px;
-    border-radius: 0 !important;  /* Força borda quadrada */
+    border-radius: 0 !important; 
 }
 
-/* Botão tema - canto superior direito */
 .cadastro-theme-btn {
     top: 0px;
     right: 0px;
-    border-radius: 0 !important;  /* Força borda quadrada */
+    border-radius: 0 !important;
 }
 
-/* Ajuste para o container-login ter position relative */
 .container-login {
     position: relative;
 }
 
-/* Modo escuro para os botões estilo Formulario */
 body.dark-mode .cadastro-action-btn {
     background-color: var(--cor-secundaria);
     color: var(--cor-preto);
@@ -51,7 +44,6 @@ body.dark-mode .cadastro-action-btn:hover {
     color: var(--cor-branco);
 }
 
-/* Responsividade para botões menores em telas pequenas */
 @media (max-width: 576px) {
     .cadastro-action-btn {
         width: 35px;
@@ -68,7 +60,6 @@ body.dark-mode .cadastro-action-btn:hover {
     }
 }
 
-/* Mensagens de feedback */
 .mensagem-feedback {
   padding: 12px;
   border-radius: 8px;
@@ -90,7 +81,6 @@ body.dark-mode .cadastro-action-btn:hover {
   border: 1px solid #f5c2c7;
 }
 
-/* Campos inválidos */
 .form-control.is-invalid {
   border-color: #dc3545;
   background-color: #fff0f0;
@@ -102,7 +92,6 @@ body.dark-mode .cadastro-action-btn:hover {
   margin-top: 4px;
 }
 
-/* Botões de ação */
 .cadastro-action-btn {
   position: absolute;
   display: flex;
@@ -135,12 +124,10 @@ body.dark-mode .cadastro-action-btn:hover {
   border-radius: 0;
 }
 
-/* Container com position relative */
 .container-login {
   position: relative;
 }
 
-/* Animações */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -152,7 +139,6 @@ body.dark-mode .cadastro-action-btn:hover {
   }
 }
 
-/* Responsividade */
 @media (max-width: 576px) {
   .cadastro-action-btn {
     width: 35px;

@@ -39,7 +39,6 @@ function Formulario() {
     medicamentos: false,
   });
 
-  // Autocomplete
   const [historicoMedicamentos, setHistoricoMedicamentos] = useState([]);
   const [sugestoes, setSugestoes] = useState({});
   const [sugestaoAberta, setSugestaoAberta] = useState(null);
@@ -53,7 +52,6 @@ function Formulario() {
     }
   }, []);
 
-  // Carregar histórico de medicamentos já cadastrados pelo usuário
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (!user) return;
@@ -63,7 +61,6 @@ function Formulario() {
         const nomes = new Set();
         snap.docs.forEach((doc) => {
           const data = doc.data();
-          // Suporte ao formato novo (array) e antigo (string única)
           if (Array.isArray(data.medicamentos)) {
             data.medicamentos.forEach((m) => m.medicamento && nomes.add(m.medicamento.trim()));
           } else if (data.medicamento) {
@@ -78,7 +75,6 @@ function Formulario() {
     return () => unsubscribe();
   }, []);
 
-  // Fechar dropdown ao clicar fora
   useEffect(() => {
     const handleClickOutside = (e) => {
       const clickouDentro = Object.values(autocompleteRefs.current).some(
@@ -99,7 +95,6 @@ function Formulario() {
 
   const handleVoltar = () => { window.location.href = "/"; };
 
-  // ── Dados pessoais ──
   const handleChange = (e) => {
     const { id, value } = e.target;
     let v = value;
@@ -116,7 +111,6 @@ function Formulario() {
     else setErrors((prev) => ({ ...prev, [id]: "" }));
   };
 
-  // ── Contatos ──
   const handleContatoChange = (index, field, value) => {
     let v = value;
     if (field === "telefoneContato") v = formatarTelefone(value);
@@ -134,7 +128,6 @@ function Formulario() {
     setContatos((prev) => prev.filter((_, i) => i !== index));
   };
 
-  // ── Medicamentos ──
   const handleMedicamentoChange = (index, field, value) => {
     setMedicamentos((prev) => {
       const updated = [...prev];
@@ -174,7 +167,6 @@ function Formulario() {
     setMedicamentos((prev) => prev.filter((_, i) => i !== index));
   };
 
-  // ── Validação ──
   const validarFormularioCompleto = () => {
     const newErrors = {};
     if (!formData.nome?.trim()) newErrors.nome = "Nome completo é obrigatório";
@@ -202,7 +194,6 @@ function Formulario() {
     return newErrors;
   };
 
-  // ── Submit ──
   const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validarFormularioCompleto();
@@ -266,7 +257,6 @@ function Formulario() {
 
           <form onSubmit={handleSubmit} noValidate>
 
-            {/* ── DADOS PESSOAIS ── */}
             <details className="formulario-section" open={openSections.dadosPessoais}>
               <summary onClick={(e) => { e.preventDefault(); toggleSection("dadosPessoais"); }}>
                 Dados Pessoais
@@ -345,7 +335,6 @@ function Formulario() {
               </div>
             </details>
 
-            {/* ── CONTATOS DE EMERGÊNCIA ── */}
             <details className="formulario-section" open={openSections.contatoEmergencia}>
               <summary onClick={(e) => { e.preventDefault(); toggleSection("contatoEmergencia"); }}>
                 Contatos de Emergência
@@ -399,7 +388,6 @@ function Formulario() {
               </div>
             </details>
 
-            {/* ── MEDICAMENTOS ── */}
             <details className="formulario-section" open={openSections.medicamentos}>
               <summary onClick={(e) => { e.preventDefault(); toggleSection("medicamentos"); }}>
                 Medicamentos <span className="formulario-label-required">*</span>
@@ -421,7 +409,6 @@ function Formulario() {
 
                     <div className="formulario-grid">
 
-                      {/* Campo com autocomplete */}
                       <div
                         className="formulario-field autocomplete-wrapper"
                         ref={(el) => (autocompleteRefs.current[index] = el)}
@@ -458,7 +445,6 @@ function Formulario() {
                           <div className="formulario-error-msg">{errors[`med_${index}_medicamento`]}</div>
                         )}
 
-                        {/* Dropdown de sugestões */}
                         {sugestaoAberta === index && sugestoes[index]?.length > 0 && (
                           <ul className="autocomplete-dropdown">
                             <li className="autocomplete-header">
@@ -499,7 +485,6 @@ function Formulario() {
               </div>
             </details>
 
-            {/* ── OBSERVAÇÕES ── */}
             <div className="formulario-field">
               <label className="formulario-label">
                 Observações <span className="formulario-label-required">*</span>

@@ -1,30 +1,30 @@
 @import url("https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap");
 
-/* ---------------- RESET ---------------- */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Campo com erro */
+
 .input-erro {
     border: 2px solid #dc3545 !important;
 }
 
-/* Campo correto */
+
 .input-sucesso {
     border: 2px solid #198754 !important;
 }
 
-/* Mensagem de erro */
+
 .mensagem-erro {
     color: #dc3545;
     font-size: 0.85rem;
     margin-top: 3px;
 }
 
-/* Mensagem de sucesso geral */
+
 .mensagem-sucesso {
     background: #d1e7dd;
     color: #0f5132;
@@ -45,7 +45,7 @@
     --cor-branco: #FAFAFA;
 }
 
-/* Container do link */
+
 .text-end.mb-3 a {
     color: var(--cor-primaria);
     text-decoration: none;
@@ -53,13 +53,13 @@
     transition: color 0.3s ease;
 }
 
-/* Efeito hover */
+
 .text-end.mb-3 a:hover {
     color: var(--cor-secundaria);
     text-decoration: underline;
 }
 
-/* ---------------- MODO ESCURO OTIMIZADO ---------------- */
+
 body.dark-mode {
     --cor-preto: #FAFAFA;
     --cor-primaria: #00AD88;
@@ -93,7 +93,7 @@ body.dark-mode .icons a {
     border: 1px solid var(--cor-preto);
 }
 
-/* Placeholder branco apenas no modo escuro */
+
 body.dark-mode input::placeholder,
 body.dark-mode textarea::placeholder {
     color: var(--cor-preto);
@@ -116,7 +116,7 @@ body.dark-mode input[type=submit]:hover {
     color: var(--cor-preto);
 }
 
-/* Estilos específicos para modo escuro nos botões do Formulario */
+
 body.dark-mode .login-action-btn {
     background-color: var(--cor-secundaria);
     color: var(--cor-preto);
@@ -138,7 +138,7 @@ body.dark-mode .icons a:hover {
     border-color: var(--cor-primaria);
 }
 
-/* ---------------- BASE BODY ---------------- */
+
 body,
 html {
     height: 100%;
@@ -154,7 +154,7 @@ html {
     padding: 20px;
 }
 
-/* ---------------- CONTAINER PRINCIPAL ---------------- */
+
 .container-login {
     display: flex;
     flex-wrap: wrap;
@@ -167,7 +167,7 @@ html {
     position: relative;
 }
 
-/* ---------------- BOTÕES ESTILO FORMULARIO ---------------- */
+
 .login-action-btn {
     position: absolute;
     display: flex;
@@ -200,7 +200,7 @@ html {
     border-radius: 0;
 }
 
-/* ---------------- COLUNA IMAGEM ---------------- */
+
 .container-imagem-1 {
     flex: 1 1 50%;
     display: flex;
@@ -221,7 +221,7 @@ html {
     object-position: top;
 }
 
-/* ---------------- COLUNA FORMULÁRIO ---------------- */
+
 .container-form {
     flex: 1 1 400px;
     display: flex;
@@ -232,7 +232,7 @@ html {
     border-left: 1px solid #e6e6e6;
 }
 
-/* Título */
+
 .title-form {
     font-family: var(--fonte-spectral);
     text-align: center;
@@ -253,7 +253,7 @@ html {
     font-weight: 400;
 }
 
-/* ---------------- FORMULÁRIO ---------------- */
+
 .login-form .form-label {
     font-weight: 500;
     margin-top: 5px;
@@ -273,7 +273,7 @@ html {
     border-color: var(--cor-cinza);
 }
 
-/* Estilos específicos para inputs do login */
+
 input#email,
 input#senha {
     background-repeat: no-repeat;
@@ -295,7 +295,7 @@ input#senha {
     background-size: 20px;
 }
 
-/* Botão submit */
+
 .login-form button {
     background-color: var(--cor-primaria);
     color: var(--cor-branco);
@@ -314,7 +314,7 @@ input#senha {
     background-color: var(--cor-secundaria);
 }
 
-/* Ícones sociais */
+
 .icons {
     display: flex;
     justify-content: center;
@@ -344,7 +344,7 @@ input#senha {
     border-color: var(--cor-primaria);
 }
 
-/* Links */
+
 .esqueceu-senha {
     text-align: right;
     margin-top: 10px;
@@ -367,9 +367,9 @@ input#senha {
     margin-bottom: 5px;
 }
 
-/* ========== RESPONSIVIDADE COMPLETA ========== */
 
-/* Super small devices (celulares muito pequenos, até 360px) */
+
+
 @media (max-width: 360px) {
     .main {
         padding: 10px;
@@ -422,7 +422,7 @@ input#senha {
     }
 }
 
-/* Small devices (celulares, 361px - 576px) */
+
 @media (max-width: 576px) {
     .container-login {
         max-width: 100%;
@@ -484,7 +484,7 @@ input#senha {
     }
 }
 
-/* Medium devices (tablets, 577px - 768px) */
+
 @media (min-width: 577px) and (max-width: 768px) {
     .container-login {
         max-width: 95%;
@@ -530,7 +530,7 @@ input#senha {
     }
 }
 
-/* Large devices (tablets grandes, 769px - 992px) */
+
 @media (min-width: 769px) and (max-width: 992px) {
     .container-login {
         max-width: 90%;
@@ -562,7 +562,7 @@ input#senha {
     }
 }
 
-/* Extra large devices (desktops pequenos, 993px - 1200px) */
+
 @media (min-width: 993px) and (max-width: 1200px) {
     .container-login {
         max-width: 950px;
@@ -573,7 +573,7 @@ input#senha {
     }
 }
 
-/* Telas muito grandes (1201px+) */
+
 @media (min-width: 1201px) {
     .container-login {
         max-width: 1100px;
@@ -620,7 +620,7 @@ input#senha {
     }
 }
 
-/* Landscape mode para celulares */
+
 @media (max-width: 768px) and (orientation: landscape) {
     .main {
         padding: 10px;
@@ -676,21 +676,21 @@ input#senha {
     }
 }
 
-/* Suporte para telas com alta densidade (retina) */
+
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
     .login-form .form-control {
         background-size: 22px;
     }
 }
 
-/* Prevenir zoom em inputs no iOS */
+
 @media (max-width: 768px) {
     .login-form input {
         font-size: 16px !important;
     }
 }
 
-/* Prefers Reduced Motion (acessibilidade) */
+
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -707,14 +707,14 @@ input#senha {
     }
 }
 
-/* Animações suaves */
+
 .login-action-btn,
 .icons a,
 .login-form button {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Foco para acessibilidade */
+
 .login-action-btn:focus,
 .icons a:focus,
 .login-form button:focus,
@@ -723,7 +723,7 @@ input#senha {
     outline-offset: 2px;
 }
 
-/* Botões de ação no estilo Formulario */
+
 .login-action-btn {
   position: absolute;
   display: flex;
@@ -756,12 +756,12 @@ input#senha {
   border-radius: 0;
 }
 
-/* Container com position relative */
+
 .container-login {
   position: relative;
 }
 
-/* Mensagens de feedback */
+
 .mensagem-feedback-login {
   padding: 12px;
   border-radius: 8px;
@@ -783,7 +783,7 @@ input#senha {
   border: 1px solid #f5c2c7;
 }
 
-/* Campos inválidos */
+
 .form-control.is-invalid {
   border-color: #dc3545 !important;
   background-color: #fff0f0;
@@ -796,7 +796,7 @@ input#senha {
   display: block;
 }
 
-/* Animações */
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -808,7 +808,7 @@ input#senha {
   }
 }
 
-/* Responsividade */
+
 @media (max-width: 576px) {
   .login-action-btn {
     width: 35px;
@@ -817,7 +817,7 @@ input#senha {
   }
 }
 
-/* Modo escuro para os botões */
+
 body.dark-mode .login-action-btn {
   background-color: var(--cor-secundaria);
   color: var(--cor-preto);

@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Karla:wght@200..800&family=Montserrat:wght@100..900&family=Spectral:wght@200..800&display=swap");
 
-/* ---------------- VARIÁVEIS GLOBAIS ---------------- */
+
 :root {
   --fonte-montserrat: "Montserrat", sans-serif;
   --fonte-karla: "Karla", sans-serif;
@@ -14,7 +14,7 @@
   --cor-branco: #FFFFFF;
   --cor-fundo: #DEEFE7;
   
-  /* Cores para prancheta médica */
+  
   --cor-prancheta-bg: #F5F5F5;
   --cor-prancheta-border: #D4AF37;
   --cor-header-prancheta: #2C3E50;
@@ -27,14 +27,14 @@
   --transicao: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ---------------- RESET ---------------- */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* ---------------- MAIN ---------------- */
+
 .perfil-main {
   min-height: 100vh;
   display: flex;
@@ -48,10 +48,10 @@
   width: 100%;
   max-width: 750px;
   position: relative;
-  margin-top: 30px; /* Espaço para os botões */
+  margin-top: 30px; 
 }
 
-/* ---------------- BOTÕES ESTILO FORMULARIO - CORRIGIDO ---------------- */
+
 .perfil-action-btn {
   position: absolute;
   display: flex;
@@ -74,7 +74,7 @@
   transform: scale(1.05);
 }
 
-/* Botões no TOPO - CORRIGIDO */
+
 .perfil-back-btn {
   top: -60px;
   left: 0;
@@ -87,7 +87,7 @@
   border-radius: 50%;
 }
 
-/* ---------------- CARD DE PRANCHETA MÉDICA ---------------- */
+
 .perfil-card-container {
   background: var(--cor-prancheta-bg);
   border-radius: 12px;
@@ -98,7 +98,7 @@
   border-left: 8px solid var(--cor-prancheta-border);
 }
 
-/* Padrão de prancheta médica (decorativo) */
+
 .perfil-card-container::before {
   content: "";
   position: absolute;
@@ -110,7 +110,7 @@
   z-index: 1;
 }
 
-/* Clip para a prancheta */
+
 .perfil-card-container::after {
   content: "📋";
   position: absolute;
@@ -121,7 +121,7 @@
   opacity: 0.3;
 }
 
-/* Header do Perfil */
+
 .perfil-header {
   display: flex;
   align-items: flex-start;
@@ -188,7 +188,7 @@
   transform: scale(1.1);
 }
 
-/* Input de arquivo oculto */
+
 #foto-input {
   display: none;
 }
@@ -225,7 +225,7 @@
   border-bottom: 2px solid rgba(255, 255, 255, 0.6);
 }
 
-/* Informações adicionais do header */
+
 .perfil-info-header {
   display: flex;
   gap: 2rem;
@@ -242,7 +242,7 @@
   font-weight: 500;
 }
 
-/* Seção de dados */
+
 .perfil-dados-section {
   padding: 2rem 1.5rem;
   background: var(--cor-prancheta-bg);
@@ -262,7 +262,7 @@
   border-bottom: 2px solid var(--cor-prancheta-border);
 }
 
-/* Botões do Perfil */
+
 .perfil-botoes {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -302,7 +302,7 @@
   transform: translateY(-2px);
 }
 
-/* ---------------- MODAIS ---------------- */
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -363,7 +363,7 @@
   max-height: calc(80vh - 70px);
 }
 
-/* Grid de Dados */
+
 .dados-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -394,7 +394,7 @@
   font-weight: 600;
 }
 
-/* Tabelas */
+
 .perfil-table {
   width: 100%;
   border-collapse: collapse;
@@ -422,7 +422,7 @@
   transition: var(--transicao);
 }
 
-/* ---------------- MODO ESCURO ---------------- */
+
 body.dark-mode {
   --cor-preto: #FAFAFA;
   --cor-branco: #1a1a2e;
@@ -486,7 +486,7 @@ body.dark-mode .perfil-table td {
   color: #E0E0E0;
 }
 
-/* ---------------- ANIMAÇÕES ---------------- */
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -507,7 +507,7 @@ body.dark-mode .perfil-table td {
   }
 }
 
-/* ---------------- RESPONSIVIDADE ---------------- */
+
 @media (max-width: 576px) {
   .perfil-main {
     padding: 1rem;

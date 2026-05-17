@@ -169,11 +169,11 @@ function Home() {
           <p>MedTrack</p>
         </div>
 
-          <ul className="navbar-list">
+        <ul className="navbar-list">
           <li><a className="navbar-item" href="/">Home</a></li>
           <li><a className="navbar-item" href="/sobre">Sobre</a></li>
           {user && <li><a className="navbar-item" href="/formulario">Formulário</a></li>}
-          {/* CORRIGIDO: Buscar Pacientes - aparece para saude OU admin */}
+  
           {(userRole === "saude" || userRole === "admin") && (
             <li><a className="navbar-item" href="/busca-perfil">Buscar Pacientes</a></li>
           )}
@@ -230,7 +230,7 @@ function Home() {
             <>
               <li><a className="nav-items" href="/formulario">Formulário</a></li>
               <li><a className="nav-items" href="/perfil">Meu Perfil</a></li>
-              {/* CORRIGIDO: Buscar Pacientes no mobile - aparece para saude OU admin */}
+              
               {(userRole === "saude" || userRole === "admin") && (
                 <li><a className="nav-items" href="/busca-perfil">Buscar Pacientes</a></li>
               )}
@@ -261,7 +261,6 @@ function Home() {
                 facilitando o atendimento e salvando vidas.
               </p>
 
-              {/* Indicadores de Impacto */}
               <div className="d-flex flex-wrap gap-3 mt-4 header-info">
                 <div className="text-center header-section-info">
                   <p className="display-5 fw-bold header-number">700+</p>

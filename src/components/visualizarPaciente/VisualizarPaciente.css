@@ -1,4 +1,3 @@
-/* src/components/visualizarPaciente/VisualizarPaciente.css */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
@@ -34,7 +33,6 @@
   position: relative;
 }
 
-/* Botões de ação */
 .action-btn {
   position: absolute;
   width: 45px;
@@ -77,7 +75,6 @@
   transform: scale(1.05);
 }
 
-/* Mensagem */
 .mensagem {
   padding: 1rem;
   border-radius: 8px;
@@ -99,7 +96,7 @@
   border: 1px solid #f5c2c7;
 }
 
-/* Card principal */
+
 .paciente-card {
   background: white;
   border-radius: 20px;
@@ -108,7 +105,7 @@
   box-shadow: var(--sombra-lg);
 }
 
-/* Header */
+
 .paciente-header {
   background: linear-gradient(135deg, var(--cor-primaria), var(--cor-secundaria));
   padding: 2rem;
@@ -157,7 +154,7 @@
   color: white;
 }
 
-/* Seções */
+
 .secao {
   padding: 1.5rem 2rem;
   border-bottom: 1px solid var(--cor-risco);
@@ -180,7 +177,7 @@
   font-size: 1.2rem;
 }
 
-/* Grid */
+
 .grid-2-colunas {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -214,7 +211,7 @@
   line-height: 1.6;
 }
 
-/* Botões de ação */
+
 .botoes-acao {
   display: flex;
   gap: 1rem;
@@ -257,7 +254,7 @@
   transform: translateY(-2px);
 }
 
-/* Modal */
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -341,7 +338,7 @@
   background: #dc2626;
 }
 
-/* Loading */
+
 .loading-spinner {
   width: 50px;
   height: 50px;
@@ -366,7 +363,7 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Dark Mode */
+
 body.dark-mode .visualizar-main {
   background: radial-gradient(circle, #000000 0%, #004d3b 100%);
 }
@@ -388,7 +385,7 @@ body.dark-mode .botoes-acao {
   background: #2a2a2a;
 }
 
-/* Responsivo */
+
 @media (max-width: 768px) {
   .visualizar-main {
     padding: 1rem;
@@ -426,9 +423,9 @@ body.dark-mode .botoes-acao {
   }
 }
 
-/* Adicione ao final do VisualizarPaciente.css */
 
-/* Modal de Edição */
+
+
 .modal-editar {
   background: white;
   border-radius: 16px;
@@ -544,7 +541,7 @@ body.dark-mode .botoes-acao {
   transform: translateY(-2px);
 }
 
-/* Dark mode para o modal */
+
 body.dark-mode .modal-editar {
   background: #1a1a1a;
 }
@@ -557,7 +554,7 @@ body.dark-mode .form-group textarea {
   color: white;
 }
 
-/* Responsivo */
+
 @media (max-width: 768px) {
   .form-grid {
     grid-template-columns: 1fr;
@@ -577,9 +574,9 @@ body.dark-mode .form-group textarea {
   }
 }
 
-/* Adicione ao VisualizarPaciente.css */
 
-/* Email info no header */
+
+
 .email-info {
   display: flex;
   align-items: center;
@@ -596,7 +593,7 @@ body.dark-mode .form-group textarea {
   font-size: 0.8rem;
 }
 
-/* Aviso de exclusão */
+
 .aviso-exclusao {
   padding: 1rem 2rem;
   background: #fef3c7;

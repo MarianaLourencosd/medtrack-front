@@ -18,11 +18,11 @@ const AdminDashboard = () => {
     totalAdmin: 0,
     totalComum: 0
   });
-  
+
   const [users, setUsers] = useState([]);
   const [loadingUsers, setLoadingUsers] = useState(false);
   const [error, setError] = useState("");
-  
+
   const [showEditModal, setShowEditModal] = useState(false);
   const [editingUser, setEditingUser] = useState(null);
   const [editFormData, setEditFormData] = useState({
@@ -33,13 +33,11 @@ const AdminDashboard = () => {
     role: ""
   });
   const [savingUser, setSavingUser] = useState(false);
-  
-  // Estado para modal de exclusão
+
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deletingUser, setDeletingUser] = useState(null);
   const [deletingUserLoading, setDeletingUserLoading] = useState(false);
 
-  // Buscar dados do admin
   useEffect(() => {
     const fetchAdminData = async () => {
       try {
@@ -55,11 +53,10 @@ const AdminDashboard = () => {
         console.error("Erro ao buscar admin:", error);
       }
     };
-    
+
     fetchAdminData();
   }, []);
 
-  // Buscar estatísticas e usuários
   const fetchStatsAndUsers = async () => {
     setLoadingUsers(true);
     setError("");
@@ -67,18 +64,18 @@ const AdminDashboard = () => {
       const usuariosRef = collection(db, "usuarios");
       const q = query(usuariosRef, orderBy("createdAt", "desc"));
       const querySnapshot = await getDocs(q);
-      
+
       let totalUsers = 0;
       let totalSaude = 0;
       let totalAdmin = 0;
       let totalComum = 0;
       const usersList = [];
-      
+
       querySnapshot.forEach((doc) => {
         const userData = doc.data();
         totalUsers++;
-        
-        switch(userData.role) {
+
+        switch (userData.role) {
           case "admin":
             totalAdmin++;
             break;
@@ -88,8 +85,7 @@ const AdminDashboard = () => {
           default:
             totalComum++;
         }
-        
-        // Adicionar à lista de usuários
+
         usersList.push({
           id: doc.id,
           nome: userData.nome || "Não informado",
@@ -100,14 +96,14 @@ const AdminDashboard = () => {
           cidade: userData.cidade || "Não informada"
         });
       });
-      
+
       setStats({
         totalUsers,
         totalSaude,
         totalAdmin,
         totalComum
       });
-      
+
       setUsers(usersList);
     } catch (error) {
       console.error("Erro ao buscar dados:", error);
@@ -117,7 +113,6 @@ const AdminDashboard = () => {
     }
   };
 
-  // Carregar dados quando a aba mudar
   useEffect(() => {
     if (activeTab === "users" || activeTab === "dashboard") {
       fetchStatsAndUsers();
@@ -138,7 +133,6 @@ const AdminDashboard = () => {
     navigate("/");
   };
 
-  // Formatar data
   const formatarData = (data) => {
     if (!data) return "Não informada";
     if (data.toDate) {
@@ -150,7 +144,6 @@ const AdminDashboard = () => {
     return "Não informada";
   };
 
-  // Função para abrir modal de edição
   const handleOpenEditModal = (user) => {
     setEditingUser(user);
     setEditFormData({
@@ -163,7 +156,6 @@ const AdminDashboard = () => {
     setShowEditModal(true);
   };
 
-  // Função para fechar modal de edição
   const handleCloseEditModal = () => {
     setShowEditModal(false);
     setEditingUser(null);
@@ -176,7 +168,6 @@ const AdminDashboard = () => {
     });
   };
 
-  // Função para lidar com mudanças no formulário de edição
   const handleEditInputChange = (e) => {
     const { name, value } = e.target;
     setEditFormData(prev => ({
@@ -185,11 +176,9 @@ const AdminDashboard = () => {
     }));
   };
 
-  // Função para salvar edição do usuário
   const handleSaveEdit = async () => {
     if (!editingUser) return;
-    
-    // Validação básica
+
     if (!editFormData.nome.trim()) {
       alert("O nome é obrigatório");
       return;
@@ -198,7 +187,7 @@ const AdminDashboard = () => {
       alert("O email é obrigatório");
       return;
     }
-    
+
     setSavingUser(true);
     try {
       const userRef = doc(db, "usuarios", editingUser.id);
@@ -210,10 +199,9 @@ const AdminDashboard = () => {
         role: editFormData.role,
         updatedAt: new Date()
       });
-      
-      // Recarregar dados
+
       await fetchStatsAndUsers();
-      
+
       alert("Usuário atualizado com sucesso!");
       handleCloseEditModal();
     } catch (error) {
@@ -224,38 +212,32 @@ const AdminDashboard = () => {
     }
   };
 
-  // Função para abrir modal de exclusão
   const handleOpenDeleteModal = (user) => {
     setDeletingUser(user);
     setShowDeleteModal(true);
   };
 
-  // Função para fechar modal de exclusão
   const handleCloseDeleteModal = () => {
     setShowDeleteModal(false);
     setDeletingUser(null);
   };
 
-  // Função para excluir usuário
   const handleDeleteUser = async () => {
     if (!deletingUser) return;
-    
-    // Verificar se não está tentando excluir a si mesmo
+
     if (deletingUser.id === auth.currentUser?.uid) {
       alert("Você não pode excluir seu próprio usuário!");
       handleCloseDeleteModal();
       return;
     }
-    
+
     setDeletingUserLoading(true);
     try {
-      // Excluir do Firestore
       const userRef = doc(db, "usuarios", deletingUser.id);
       await deleteDoc(userRef);
-      
-      // Recarregar dados
+
       await fetchStatsAndUsers();
-      
+
       alert("Usuário excluído com sucesso!");
       handleCloseDeleteModal();
     } catch (error) {
@@ -268,7 +250,6 @@ const AdminDashboard = () => {
 
   return (
     <div className="admin-dashboard">
-      {/* Header Superior */}
       <header className="admin-header">
         <div className="header-left">
           <button className="back-home-btn" onClick={handleBackToHome}>
@@ -280,7 +261,7 @@ const AdminDashboard = () => {
             <span>MedTrack Admin</span>
           </div>
         </div>
-        
+
         <div className="header-right">
           <div className="admin-info">
             <div className="admin-avatar">
@@ -299,7 +280,6 @@ const AdminDashboard = () => {
       </header>
 
       <div className="dashboard-container">
-        {/* Sidebar */}
         <aside className="dashboard-sidebar">
           <div className="sidebar-menu">
             <button
@@ -310,7 +290,7 @@ const AdminDashboard = () => {
               <span>Dashboard</span>
               {activeTab === "dashboard" && <span className="active-indicator"></span>}
             </button>
-            
+
             <button
               className={`menu-item ${activeTab === "users" ? "active" : ""}`}
               onClick={() => setActiveTab("users")}
@@ -319,7 +299,7 @@ const AdminDashboard = () => {
               <span>Usuários</span>
               {activeTab === "users" && <span className="active-indicator"></span>}
             </button>
-            
+
             <button
               className={`menu-item ${activeTab === "stats" ? "active" : ""}`}
               onClick={() => setActiveTab("stats")}
@@ -328,7 +308,7 @@ const AdminDashboard = () => {
               <span>Estatísticas</span>
               {activeTab === "stats" && <span className="active-indicator"></span>}
             </button>
-            
+
             <button
               className={`menu-item ${activeTab === "settings" ? "active" : ""}`}
               onClick={() => setActiveTab("settings")}
@@ -338,7 +318,7 @@ const AdminDashboard = () => {
               {activeTab === "settings" && <span className="active-indicator"></span>}
             </button>
           </div>
-          
+
           <div className="sidebar-footer">
             <div className="system-version">
               <i className="fas fa-code-branch"></i>
@@ -347,9 +327,7 @@ const AdminDashboard = () => {
           </div>
         </aside>
 
-        {/* Main Content */}
         <main className="dashboard-main">
-          {/* Dashboard Principal */}
           {activeTab === "dashboard" && (
             <div className="dashboard-content">
               <div className="welcome-section">
@@ -360,7 +338,6 @@ const AdminDashboard = () => {
                 <p>Bem-vindo ao painel de controle do MedTrack</p>
               </div>
 
-              {/* Cards de Estatísticas */}
               <div className="stats-grid">
                 <div className="stat-card primary">
                   <div className="stat-icon">
@@ -372,7 +349,7 @@ const AdminDashboard = () => {
                     <span className="stat-label">Usuários cadastrados</span>
                   </div>
                 </div>
-                
+
                 <div className="stat-card success">
                   <div className="stat-icon">
                     <i className="fas fa-user-md"></i>
@@ -383,7 +360,7 @@ const AdminDashboard = () => {
                     <span className="stat-label">Com papel "saude"</span>
                   </div>
                 </div>
-                
+
                 <div className="stat-card warning">
                   <div className="stat-icon">
                     <i className="fas fa-user-shield"></i>
@@ -394,7 +371,7 @@ const AdminDashboard = () => {
                     <span className="stat-label">Com papel "admin"</span>
                   </div>
                 </div>
-                
+
                 <div className="stat-card info">
                   <div className="stat-icon">
                     <i className="fas fa-user"></i>
@@ -407,7 +384,6 @@ const AdminDashboard = () => {
                 </div>
               </div>
 
-              {/* Informações do Sistema */}
               <div className="system-info">
                 <div className="info-card">
                   <h3>
@@ -431,7 +407,6 @@ const AdminDashboard = () => {
             </div>
           )}
 
-          {/* Lista de Usuários */}
           {activeTab === "users" && (
             <div className="users-content">
               <div className="content-header">
@@ -441,7 +416,7 @@ const AdminDashboard = () => {
                 </h2>
                 <p>Visualize, edite ou exclua usuários cadastrados no sistema</p>
               </div>
-              
+
               <div className="users-table-container">
                 <div className="table-responsive">
                   {loadingUsers ? (
@@ -485,13 +460,13 @@ const AdminDashboard = () => {
                             <td>{user.cidade}</td>
                             <td>
                               <span className={`role-badge ${user.role}`}>
-                                {user.role === "admin" ? "Administrador" : 
-                                 user.role === "saude" ? "Profissional Saúde" : "Usuário Comum"}
+                                {user.role === "admin" ? "Administrador" :
+                                  user.role === "saude" ? "Profissional Saúde" : "Usuário Comum"}
                               </span>
                             </td>
                             <td>{formatarData(user.createdAt)}</td>
                             <td className="actions-cell">
-                              <button 
+                              <button
                                 className="edit-user-btn"
                                 onClick={() => handleOpenEditModal(user)}
                                 title="Editar usuário"
@@ -499,7 +474,7 @@ const AdminDashboard = () => {
                                 <i className="fas fa-edit"></i>
                                 Editar
                               </button>
-                              <button 
+                              <button
                                 className="delete-user-btn"
                                 onClick={() => handleOpenDeleteModal(user)}
                                 title="Excluir usuário"
@@ -519,7 +494,6 @@ const AdminDashboard = () => {
             </div>
           )}
 
-          {/* Estatísticas Detalhadas */}
           {activeTab === "stats" && (
             <div className="stats-content">
               <div className="content-header">
@@ -529,7 +503,7 @@ const AdminDashboard = () => {
                 </h2>
                 <p>Análise detalhada da plataforma</p>
               </div>
-              
+
               <div className="stats-detailed">
                 <div className="stat-box">
                   <div className="stat-box-header">
@@ -570,7 +544,6 @@ const AdminDashboard = () => {
             </div>
           )}
 
-          {/* Configurações */}
           {activeTab === "settings" && (
             <div className="settings-content">
               <div className="content-header">
@@ -580,7 +553,7 @@ const AdminDashboard = () => {
                 </h2>
                 <p>Personalize as preferências do sistema</p>
               </div>
-              
+
               <div className="settings-card">
                 <div className="setting-group">
                   <label className="setting-label">
@@ -593,7 +566,7 @@ const AdminDashboard = () => {
                     <option>Sistema</option>
                   </select>
                 </div>
-                
+
                 <div className="setting-group">
                   <label className="setting-label">
                     <i className="fas fa-bell"></i>
@@ -604,7 +577,7 @@ const AdminDashboard = () => {
                     <span className="slider"></span>
                   </label>
                 </div>
-                
+
                 <div className="setting-group">
                   <label className="setting-label">
                     <i className="fas fa-language"></i>
@@ -622,7 +595,6 @@ const AdminDashboard = () => {
         </main>
       </div>
 
-      {/* Modal de Edição de Usuário */}
       {showEditModal && editingUser && (
         <div className="modal-overlay" onClick={handleCloseEditModal}>
           <div className="modal-content edit-modal" onClick={(e) => e.stopPropagation()}>
@@ -775,7 +747,6 @@ const AdminDashboard = () => {
         </div>
       )}
 
-      {/* Modal de Confirmação de Logout */}
       {showLogoutModal && (
         <div className="modal-overlay" onClick={() => setShowLogoutModal(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>

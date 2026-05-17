@@ -1,4 +1,3 @@
-// src/components/buscaPerfil/BuscaPerfil.jsx
 import React, { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../services/firebaseConfig";
@@ -6,7 +5,6 @@ import { db } from "../../services/firebaseConfig";
 import { collection, getDocs, getDoc, doc } from "firebase/firestore";
 import "./BuscaPerfil.css";
 
-// Importando as imagens de perfil padrão
 import perfil1 from "../../assets/images/imagem-perfil1.jpg";
 import perfil2 from "../../assets/images/imagem-perfil2.jpg";
 import perfil3 from "../../assets/images/imagem-perfil3.jpg";
@@ -24,7 +22,6 @@ function BuscaPerfil() {
   const [userRole, setUserRole] = useState(null);
   const [hasPermission, setHasPermission] = useState(false);
 
-  // Função para gerar avatar com base no ID
   const getAvatarImage = (userId, index) => {
     if (userId) {
       const hash = userId.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
@@ -33,7 +30,6 @@ function BuscaPerfil() {
     return defaultAvatars[index % defaultAvatars.length];
   };
 
-  // Buscar papel do usuário e dados do Firebase
   useEffect(() => {
     const fetchData = async () => {
       const user = auth.currentUser;
@@ -44,7 +40,6 @@ function BuscaPerfil() {
       }
 
       try {
-        // 1. Verificar papel do usuário
         const userDoc = await getDoc(doc(db, "usuarios", user.uid));
         let role = "comum";
         
@@ -61,7 +56,6 @@ function BuscaPerfil() {
           }
         }
 
-        // 2. Buscar todos os formulários do Firestore
         const formulariosRef = collection(db, "formularios");
         const querySnapshot = await getDocs(formulariosRef);
         
@@ -71,10 +65,8 @@ function BuscaPerfil() {
         for (const docSnapshot of querySnapshot.docs) {
           const data = docSnapshot.data();
           
-          // Buscar dados do usuário relacionado
           let userId = data.userId;
           
-          // Calcular idade baseado na data de nascimento
           let idade = null;
           if (data.dataNascimento) {
             const nascimento = data.dataNascimento.toDate ? data.dataNascimento.toDate() : new Date(data.dataNascimento);
@@ -86,7 +78,6 @@ function BuscaPerfil() {
             }
           }
           
-          // Calcular IMC
           let imc = null;
           let imcClass = "";
           if (data.altura && data.peso) {
@@ -137,7 +128,6 @@ function BuscaPerfil() {
     fetchData();
   }, [navigate]);
 
-  // Modo escuro
   useEffect(() => {
     const savedMode = localStorage.getItem("darkMode");
     if (savedMode === "enabled") {
@@ -166,7 +156,6 @@ function BuscaPerfil() {
     setSearchTerm("");
   };
 
-  // Abrir página de visualização do paciente (para profissionais de saúde)
   const openUserProfile = (userId) => {
     if (userId) {
       navigate(`/visualizar-paciente/${userId}`);
@@ -175,7 +164,6 @@ function BuscaPerfil() {
     }
   };
 
-  // Filtrar pacientes
   const filteredPatients = useMemo(() => {
     if (!searchTerm.trim()) {
       return patients;
@@ -190,7 +178,6 @@ function BuscaPerfil() {
 
   const resultCount = filteredPatients.length;
 
-  // Tela de carregamento
   if (loading) {
     return (
       <main className="busca-main" role="main">
@@ -204,7 +191,6 @@ function BuscaPerfil() {
     );
   }
 
-  // Verificar permissão
   if (!hasPermission) {
     return (
       <main className="busca-main" role="main">
@@ -361,7 +347,6 @@ function BuscaPerfil() {
         </section>
       </div>
 
-      {/* VLibras */}
       <div vw className="enabled">
         <div vw-access-button className="active"></div>
         <div vw-plugin-wrapper>

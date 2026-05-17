@@ -22,7 +22,7 @@
     z-index: 1000;
 }
 
-/* Hover e foco */
+
 #nav-btn-toggle:hover,
 #nav-btn-toggle:focus {
     color: var(--cor-secundaria);
@@ -53,48 +53,48 @@ select:focus {
     transition: outline 0.2s ease-in-out;
 }
 
-/* Cards interativos ou clicáveis */
+
 .card-info-destaque:focus,
 .card-testimonial:focus,
 .emergency-card:focus {
     outline: 3px solid #f39c12;
-    /* cor laranja para diferenciar do contorno padrão */
+    
     outline-offset: 4px;
     transition: outline 0.2s ease-in-out;
 }
 
-/* Ícones clicáveis (como perfil, menu, modo escuro) */
+
 .navbar-btn-item:focus,
 .navbar-btn-profile:focus,
 #dark-mode-toggle:focus,
 #nav-btn-toggle:focus {
     outline: 3px solid #9b59b6;
-    /* cor roxa */
+    
     outline-offset: 2px;
     transition: outline 0.2s ease-in-out;
 }
 
-/* Cards em links ou imagens interativas */
+
 .image-header-container img:focus {
     outline: 3px dashed #e74c3c;
-    /* contorno vermelho pontilhado para imagens */
+    
     outline-offset: 3px;
     transition: outline 0.2s ease-in-out;
 }
 
-/* FOCO VISÍVEL GLOBAL */
+
 :focus {
     outline: 3px solid #00b894;
     outline-offset: 3px;
 }
 
-/* Melhor para teclado (acessibilidade moderna) */
+
 :focus-visible {
     outline: 3px solid #00b894;
     outline-offset: 3px;
 }
 
-/* Cards */
+
 .card-info-destaque:focus,
 .card-testimonial:focus,
 .emergency-card:focus {
@@ -169,7 +169,7 @@ select:focus {
     background: #00AD88;
 }
 
-/* ---------------- BODY E MAIN ---------------- */
+
 body,
 main {
     width: 100%;
@@ -179,7 +179,7 @@ main {
     overflow-x: hidden;
 }
 
-/* ---------------- VARIÁVEIS GLOBAIS ---------------- */
+
 :root {
     --fonte-montserrat: "Montserrat", sans-serif;
     --fonte-karla: "Karla", sans-serif;
@@ -202,7 +202,7 @@ body.dark-mode .carousel-control-next-icon {
     filter: invert(0);
 }
 
-/* Botão flutuante "Voltar ao Topo" */
+
 
 #btnTopo {
     display: none;
@@ -232,7 +232,7 @@ body.dark-mode .carousel-control-next-icon {
 }
 
 
-/* Botão de alternar modo escuro/claro */
+
 #dark-mode-toggle {
     display: flex;
     align-items: center;
@@ -250,7 +250,7 @@ body.dark-mode .carousel-control-next-icon {
     text-decoration: none;
 }
 
-/* Hover do botão */
+
 #dark-mode-toggle:hover {
     background-color: var(--cor-secundaria);
     color: var(--cor-preto);
@@ -260,7 +260,7 @@ body.dark-mode .carousel-control-next-icon {
     pointer-events: none;
 }
 
-/* ---------------- MODO ESCURO OTIMIZADO ---------------- */
+
 body.dark-mode {
     --cor-preto: #FAFAFA;
     --cor-primaria: #00AD88;
@@ -269,7 +269,7 @@ body.dark-mode {
     --cor-branco: #000000;
 }
 
-/* ---------------- BOTÕES ---------------- */
+
 body.dark-mode #btnTopo,
 body.dark-mode .navbar-btn-item {
     background-color: var(--cor-primaria);
@@ -282,7 +282,7 @@ body.dark-mode .navbar-btn-item:hover {
     color: var(--cor-branco);
 }
 
-/* ---------------- TEXTO GERAL ---------------- */
+
 body.dark-mode .logotipo p,
 body.dark-mode .navbar-item,
 body.dark-mode .navbar,
@@ -307,7 +307,7 @@ body.dark-mode .list-unstyled li {
     color: var(--cor-preto);
 }
 
-/* Destaques e hovers */
+
 body.dark-mode .header-number:hover,
 body.dark-mode .title-header span,
 body.dark-mode .card-quote-testimonial:hover,
@@ -315,7 +315,7 @@ body.dark-mode .testimonial-start:hover {
     color: var(--cor-primaria);
 }
 
-/* ---------------- ICONES ---------------- */
+
 body.dark-mode .icon-info-destaque {
     color: var(--cor-secundaria);
     background-color: var(--cor-preto);
@@ -326,7 +326,7 @@ body.dark-mode .icon-info-destaque:hover {
     background-color: var(--cor-primaria);
 }
 
-/* ---------------- CARDS ---------------- */
+
 body.dark-mode .card-testimonial,
 body.dark-mode .card-info-destaque,
 body.dark-mode .card-team,
@@ -340,7 +340,7 @@ body.dark-mode .team-divider {
     background-color: var(--cor-primaria);
 }
 
-/* Social dentro dos cards */
+
 body.dark-mode .team-social-link {
     color: var(--cor-secundaria);
     background-color: var(--cor-preto);
@@ -351,12 +351,12 @@ body.dark-mode .team-social-link:hover {
     background-color: var(--cor-primaria);
 }
 
-/* ---------------- FAQ ---------------- */
+
 body.dark-mode .accordion-trigger:hover {
     background: var(--cor-secundaria);
 }
 
-/* ---------------- FOOTER ---------------- */
+
 body.dark-mode .footer,
 body.dark-mode .copyright {
     background-color: var(--cor-preto);
@@ -412,7 +412,7 @@ body.dark-mode .footer-social-link:hover {
     font-weight: 450;
 }
 
-/* Lista de links principais */
+
 .navbar-list {
     display: flex;
     gap: 30px;
@@ -433,7 +433,7 @@ body.dark-mode .footer-social-link:hover {
     padding-bottom: 7px;
 }
 
-/* Botões (Login, Cadastro, Formulário) */
+
 .navbar-btn {
     display: flex;
     gap: 25px;
@@ -457,7 +457,7 @@ body.dark-mode .footer-social-link:hover {
     background-color: var(--cor-secundaria);
 }
 
-/* Ícone do perfil */
+
 .navbar-btn-profile {
     font-size: 21px;
     color: var(--cor-primaria);
@@ -468,7 +468,7 @@ body.dark-mode .footer-social-link:hover {
     color: var(--cor-secundaria);
 }
 
-/* ---------------- NAVBAR MOBILE ---------------- */
+
 .navbar-mobile {
     display: none;
     position: absolute;
@@ -505,7 +505,7 @@ body.dark-mode .footer-social-link:hover {
     font-weight: 450;
 }
 
-/* Hover no mobile */
+
 .nav-list-mobile li:hover {
     background-color: var(--cor-primaria);
 }
@@ -514,7 +514,7 @@ body.dark-mode .footer-social-link:hover {
     color: var(--cor-branco);
 }
 
-/* Botão hamburguer (mostrado no mobile) */
+
 #nav-btn-toggle {
     display: none;
     color: var(--cor-primaria);
@@ -528,7 +528,7 @@ body.dark-mode .footer-social-link:hover {
     cursor: pointer;
 }
 
-/* ---------------- HEADER ---------------- */
+
 .div-header {
     display: flex;
     flex-wrap: wrap;
@@ -539,12 +539,12 @@ body.dark-mode .footer-social-link:hover {
     box-sizing: border-box;
 }
 
-/* Texto do cabeçalho */
+
 .section-header {
     flex: 1 1 500px;
 }
 
-/* Título principal */
+
 .title-header {
     font-size: 51px;
     font-family: var(--fonte-spectral);
@@ -556,7 +556,7 @@ body.dark-mode .footer-social-link:hover {
     color: var(--cor-primaria);
 }
 
-/* Texto descritivo */
+
 .text-header {
     font-size: 16px;
     color: var(--cor-preto);
@@ -591,7 +591,7 @@ body.dark-mode .footer-social-link:hover {
     font-weight: 450;
 }
 
-/* Imagem do cabeçalho */
+
 .image-header {
     flex: 1 1 400px;
     max-width: 100%;
@@ -603,9 +603,9 @@ body.dark-mode .footer-social-link:hover {
     background-size: auto;
 }
 
-/* ---------------- SEÇÃO "PORQUE SOMOS OS MELHORES" ---------------- */
 
-/* Título da seção */
+
+
 .title-card-info {
     font-family: var(--fonte-spectral);
     text-align: center;
@@ -616,7 +616,7 @@ body.dark-mode .footer-social-link:hover {
     font-size: 40px;
 }
 
-/* Card */
+
 .card-info-destaque {
     background-color: var(--cor-branco);
     border-radius: 20px;
@@ -637,7 +637,7 @@ body.dark-mode .footer-social-link:hover {
     box-shadow: 0 6px 15px #00251f33;
 }
 
-/* Ícone do Card */
+
 .icon-info-destaque {
     display: inline-block;
     background-color: var(--cor-primaria);
@@ -655,7 +655,7 @@ body.dark-mode .footer-social-link:hover {
     transform: scale(1.05);
 }
 
-/* Título do card */
+
 .title-info-destaque {
     font-family: var(--fonte-karla);
     font-size: 18px;
@@ -664,7 +664,7 @@ body.dark-mode .footer-social-link:hover {
     margin-bottom: 10px;
 }
 
-/* Texto descritivo do card */
+
 .text-info-destaque {
     font-size: 16px;
     text-align: center;
@@ -673,9 +673,9 @@ body.dark-mode .footer-social-link:hover {
     font-weight: 450;
 }
 
-/* ---------------- SEÇÃO DE DESENVOLVEDORES ---------------- */
 
-/* Título da Seção */
+
+
 .title-card-team {
     font-family: 'Spectral', serif;
     text-align: center;
@@ -686,7 +686,7 @@ body.dark-mode .footer-social-link:hover {
     font-size: 40px;
 }
 
-/* Container dos cards */
+
 .card-team {
     background-color: var(--cor-branco);
     border-radius: 20px;
@@ -706,7 +706,7 @@ body.dark-mode .footer-social-link:hover {
     box-shadow: 0 8px 20px rgba(0, 37, 31, 0.25);
 }
 
-/* Capa colorida atrás da imagem */
+
 .card-team-cover {
     width: 100%;
     height: 70px;
@@ -715,7 +715,7 @@ body.dark-mode .footer-social-link:hover {
     border-top-right-radius: 20px;
 }
 
-/* Imagem do desenvolvedor */
+
 .card-team-image {
     width: 120px;
     height: 120px;
@@ -725,7 +725,7 @@ body.dark-mode .footer-social-link:hover {
     border: 4px solid var(--cor-branco);
 }
 
-/* Linha divisória*/
+
 .team-divider {
     height: 2px;
     width: 100px;
@@ -736,7 +736,7 @@ body.dark-mode .footer-social-link:hover {
     opacity: 0.9;
 }
 
-/* Nome e cargo */
+
 .card-team-name {
     font-family: 'Karla', sans-serif;
     font-size: 18px;
@@ -754,7 +754,7 @@ body.dark-mode .footer-social-link:hover {
     font-weight: 500;
 }
 
-/* Links de redes sociais */
+
 .team-social-media {
     display: flex;
     gap: 12px;
@@ -782,9 +782,9 @@ body.dark-mode .footer-social-link:hover {
     transform: scale(1.1);
 }
 
-/* ------------ SEÇÃO DE TESTEMUNHOS ---------- */
 
-/* Título geral da seção de testemunhos */
+
+
 .title-card-testimonial {
     font-family: var(--fonte-spectral);
     color: var(--cor-preto);
@@ -793,7 +793,7 @@ body.dark-mode .footer-social-link:hover {
     font-size: 40px;
 }
 
-/* Card individual de cada testemunho */
+
 .card-testimonial {
     background-color: var(--cor-branco);
     border-radius: 20px;
@@ -815,7 +815,7 @@ body.dark-mode .footer-social-link:hover {
     transform: translateY(-5px);
 }
 
-/* Ícone de aspas do card de testemunho */
+
 .card-quote-testimonial {
     font-size: 40px;
     position: relative;
@@ -825,7 +825,7 @@ body.dark-mode .footer-social-link:hover {
     transition: background-color 0.8s ease, color 0.8s ease, transform 0.6s ease;
 }
 
-/* Linha divisória abaixo da imagem da testemunha */
+
 .team-divider-testimonial {
     height: 2px;
     width: 100px;
@@ -837,14 +837,14 @@ body.dark-mode .footer-social-link:hover {
     transition: all 0.3s ease;
 }
 
-/* Efeito hover sutil */
+
 .team-divider-testimonial:hover {
     width: 100px;
     opacity: 1;
 }
 
 
-/* Imagem do membro do testemunho */
+
 .card-image-testimonial {
     width: 130px;
     height: 130px;
@@ -853,7 +853,7 @@ body.dark-mode .footer-social-link:hover {
     margin: 10px 0;
 }
 
-/* Nome do membro do testemunho */
+
 .card-name-testimonial {
     font-size: 18px;
     font-weight: bold;
@@ -862,7 +862,7 @@ body.dark-mode .footer-social-link:hover {
     padding-top: 5px;
 }
 
-/* Container das estrelas de avaliação */
+
 .testimonial-start {
     color: var(--cor-preto);
     font-size: 16px;
@@ -870,13 +870,13 @@ body.dark-mode .footer-social-link:hover {
     transition: background-color 0.8s ease, color 0.8s ease, transform 0.6s ease;
 }
 
-/* Efeito hover nas estrelas de avaliação */
+
 .testimonial-start:hover {
     color: var(--cor-secundaria);
     transform: scale(1.05);
 }
 
-/* Texto descritivo do testemunho */
+
 .card-text-testimonial {
     font-size: 16px;
     text-align: left;
@@ -884,7 +884,7 @@ body.dark-mode .footer-social-link:hover {
     font-weight: 480;
 }
 
-/* ---------------- SEÇÃO DE FAQ ---------------- */
+
 
 .title-card-faq {
     font-family: 'Spectral', serif;
@@ -1014,7 +1014,7 @@ body.dark-mode .footer-social-link:hover {
     font-weight: 500;
 }
 
-/* ---------------- SEÇÃO DE INFORMAÇOES ---------------- */
+
 
 .emergency-header {
     background: var(--cor-branco);
@@ -1066,9 +1066,9 @@ body.dark-mode .footer-social-link:hover {
     font-weight: 530;
 }
 
-/* ---------------- SEÇÃO DE RODAPÉ ---------------- */
 
-/* Container principal do rodapé */
+
+
 .footer {
     justify-content: center;
     align-items: center;
@@ -1078,7 +1078,7 @@ body.dark-mode .footer-social-link:hover {
     display: flex;
 }
 
-/* Área de ícones sociais */
+
 .footer-social {
     display: flex;
     gap: 15px;
@@ -1086,7 +1086,7 @@ body.dark-mode .footer-social-link:hover {
     padding-top: 20px;
 }
 
-/* Cada link social */
+
 .footer-social-link {
     display: flex;
     align-items: center;
@@ -1102,26 +1102,26 @@ body.dark-mode .footer-social-link:hover {
     transition: background-color 0.8s ease, color 0.8s ease, transform 0.6s ease;
 }
 
-/* Efeito hover nos links sociais */
+
 .footer-social-link:hover {
     background-color: var(--cor-branco);
     color: var(--cor-primaria);
 }
 
-/* Lista de links do rodapé */
+
 .footer-menu {
     display: flex;
     padding-top: 20px;
     font-size: 16px;
 }
 
-/* Item individual da lista do rodapé */
+
 .footer-item {
     list-style: none;
     margin: 0 10px;
 }
 
-/* Link do rodapé */
+
 .footer-link {
     text-decoration: none;
     color: var(--cor-branco);
@@ -1129,16 +1129,16 @@ body.dark-mode .footer-social-link:hover {
     font-weight: 450;
 }
 
-/* Efeito hover nos links do rodapé */
+
 .footer-link:hover {
     border-bottom: 2px solid var(--cor-preto);
     padding-bottom: 6px;
     color: var(--cor-preto);
 }
 
-/* ---------------- SEÇÃO DE COPYRIGHT ---------------- */
 
-/* Container da área de copyright */
+
+
 .copyright {
     text-align: center;
     font-size: 16px;
@@ -1148,14 +1148,14 @@ body.dark-mode .footer-social-link:hover {
     padding: 15px;
 }
 
-/* Texto dentro da área de copyright */
+
 .text-copyright {
     margin: 10px 20px;
 }
 
-/* ---------------- SEÇÃO DE COPYRIGHT ---------------- */
 
-/* Container da área de copyright */
+
+
 .copyright {
     text-align: center;
     font-size: 16px;
@@ -1165,17 +1165,17 @@ body.dark-mode .footer-social-link:hover {
     padding: 15px;
 }
 
-/* Texto dentro da área de copyright */
+
 .text-copyright {
     margin: 10px 20px;
 }
 
-/* ------------------- RESPONSIVIDADE ------------------- */
 
-/* Até 480px (celulares pequenos) */
+
+
 @media (max-width: 480px) {
 
-    /* FAQ */
+    
     .title-card-faq {
         font-size: 1.6rem;
     }
@@ -1205,10 +1205,10 @@ body.dark-mode .footer-social-link:hover {
     }
 }
 
-/* Até 532px (celulares médios) */
+
 @media (max-width: 532px) {
 
-    /* Equipe */
+    
     .card-team {
         width: 180px;
         padding: 10px 8px 15px 8px;
@@ -1232,7 +1232,7 @@ body.dark-mode .footer-social-link:hover {
         font-size: 12px;
     }
 
-    /* Footer */
+    
     .footer,
     .footer-menu {
         flex-direction: column;
@@ -1260,7 +1260,7 @@ body.dark-mode .footer-social-link:hover {
         padding: 15px;
     }
 
-    /* Navbar */
+    
     .nav-items {
         font-size: 14px;
     }
@@ -1269,7 +1269,7 @@ body.dark-mode .footer-social-link:hover {
         font-size: 16px;
     }
 
-    /* Header */
+    
     .title-header {
         font-size: 32px;
     }
@@ -1286,7 +1286,7 @@ body.dark-mode .footer-social-link:hover {
         font-size: 13px;
     }
 
-    /* Testemunhos */
+    
     .card-testimonial {
         width: 100%;
         max-width: 320px;
@@ -1317,7 +1317,7 @@ body.dark-mode .footer-social-link:hover {
         padding: 8px 15px;
     }
 
-    /* Destaques */
+    
     .title-card-info {
         font-size: 32px;
         margin-top: 30px;
@@ -1334,10 +1334,10 @@ body.dark-mode .footer-social-link:hover {
     }
 }
 
-/* Até 768px (tablets / celulares grandes) */
+
 @media (max-width: 768px) {
 
-    /* FAQ */
+    
     .title-card-faq {
         font-size: 2rem;
         margin-bottom: 1.5rem;
@@ -1351,7 +1351,7 @@ body.dark-mode .footer-social-link:hover {
         padding: 0.75rem 1rem 1rem;
     }
 
-    /* Equipe */
+    
     .card-team {
         width: 220px;
     }
@@ -1375,10 +1375,10 @@ body.dark-mode .footer-social-link:hover {
     }
 }
 
-/* Até 880px (telas médias) */
+
 @media (max-width: 880px) {
 
-    /* Navbar Mobile */
+    
     .navbar-list,
     .navbar-btn-item {
         display: none;
@@ -1393,7 +1393,7 @@ body.dark-mode .footer-social-link:hover {
     }
 }
 
-/* Até 992px (desktops médios) */
+
 
 @media (min-width: 992px) {
     .header-layout {
@@ -1416,10 +1416,10 @@ body.dark-mode .footer-social-link:hover {
     border-radius: 8px;
 }
 
-/* Até 1100px (desktops médios / tablets em landscape) */
+
 @media (max-width: 1100px) {
 
-    /* Header */
+    
     .div-header {
         display: flex;
         flex-direction: column;
@@ -1478,7 +1478,7 @@ body.dark-mode .footer-social-link:hover {
         font-size: 14px;
     }
 
-    /* Destaques */
+    
     .title-card-info {
         font-size: 34px;
         text-align: center;
@@ -1497,7 +1497,7 @@ body.dark-mode .footer-social-link:hover {
         text-align: center;
     }
 
-    /* Testemunhos */
+    
     .card-testimonial {
         width: 100%;
         max-width: 480px;
@@ -1522,7 +1522,7 @@ body.dark-mode .footer-social-link:hover {
         text-align: center;
     }
 
-    /* Equipe */
+    
     .card-team {
         width: 240px;
     }
@@ -1545,7 +1545,7 @@ body.dark-mode .footer-social-link:hover {
         font-size: 14px;
     }
 
-    /* Footer */
+    
     .footer {
         display: flex;
         flex-direction: column;
@@ -1575,7 +1575,7 @@ body.dark-mode .footer-social-link:hover {
    Leve, rápido e sem conflitos
    ============================================ */
 
-/* Overlay - Fundo escuro */
+
 .terms-overlay {
     position: fixed;
     top: 0;
@@ -1589,7 +1589,7 @@ body.dark-mode .footer-social-link:hover {
     z-index: 99999;
 }
 
-/* Modal principal */
+
 .terms-modal {
     background: #fff;
     width: 90%;
@@ -1599,7 +1599,7 @@ body.dark-mode .footer-social-link:hover {
     overflow: hidden;
 }
 
-/* Cabeçalho */
+
 .terms-modal-header {
     background: linear-gradient(135deg, #00614C, #00AD88);
     padding: 15px 20px;
@@ -1613,7 +1613,7 @@ body.dark-mode .footer-social-link:hover {
     font-weight: 600;
 }
 
-/* Conteúdo com scroll */
+
 .terms-modal-content {
     padding: 20px;
     max-height: 350px;
@@ -1627,7 +1627,7 @@ body.dark-mode .footer-social-link:hover {
     margin-bottom: 12px;
 }
 
-/* Scroll personalizado */
+
 .terms-modal-content::-webkit-scrollbar {
     width: 4px;
 }
@@ -1641,7 +1641,7 @@ body.dark-mode .footer-social-link:hover {
     border-radius: 4px;
 }
 
-/* Botões */
+
 .terms-buttons {
     display: flex;
     gap: 12px;
@@ -1659,7 +1659,7 @@ body.dark-mode .footer-social-link:hover {
     transition: all 0.2s;
 }
 
-/* Botão Aceitar */
+
 .terms-btn.accept {
     background: #2e7d32;
     color: #fff;
@@ -1670,7 +1670,7 @@ body.dark-mode .footer-social-link:hover {
     transform: scale(1.02);
 }
 
-/* Botão Recusar */
+
 .terms-btn.decline {
     background: #e53935;
     color: #fff;
@@ -1681,7 +1681,7 @@ body.dark-mode .footer-social-link:hover {
     transform: scale(1.02);
 }
 
-/* ========== MODO ESCURO ========== */
+
 body.dark-mode .terms-modal {
     background: #1a1a2e;
 }
@@ -1698,7 +1698,7 @@ body.dark-mode .terms-modal-content::-webkit-scrollbar-thumb {
     background: #00AD88;
 }
 
-/* ========== RESPONSIVO ========== */
+
 @media (max-width: 576px) {
     .terms-modal {
         width: 95%;
@@ -1728,9 +1728,9 @@ body.dark-mode .terms-modal-content::-webkit-scrollbar-thumb {
     }
 }
 
-/* Sobre.css - Estilos específicos para corrigir e complementar */
 
-/* Ajuste para o FAQ Accordion - sobrescreve estilos do main.css quando necessário */
+
+
 .faq {
     background: var(--cor-branco);
     border: 1px solid #e0e0e0;
@@ -1741,7 +1741,7 @@ body.dark-mode .terms-modal-content::-webkit-scrollbar-thumb {
     max-width: 100%;
 }
 
-/* Garantir que o painel do FAQ funcione corretamente */
+
 .panel {
     overflow: hidden;
     transition: max-height 0.35s ease;
@@ -1751,7 +1751,7 @@ body.dark-mode .terms-modal-content::-webkit-scrollbar-thumb {
     max-height: 300px;
 }
 
-/* Ajuste para o layout do header em telas grandes */
+
 @media (min-width: 992px) {
     .div-header .row {
         display: flex;
@@ -1760,7 +1760,7 @@ body.dark-mode .terms-modal-content::-webkit-scrollbar-thumb {
     }
 }
 
-/* Ajuste para telas menores - garantir que o header não quebre */
+
 @media (max-width: 1100px) {
     .div-header .row {
         flex-direction: column-reverse !important;
@@ -1776,7 +1776,7 @@ body.dark-mode .terms-modal-content::-webkit-scrollbar-thumb {
     }
 }
 
-/* Ajuste para os cards de desenvolvedores em telas pequenas */
+
 @media (max-width: 576px) {
     .card-team {
         width: 100%;
@@ -1785,7 +1785,7 @@ body.dark-mode .terms-modal-content::-webkit-scrollbar-thumb {
     }
 }
 
-/* Ajuste para o botão de dark mode não quebrar o layout */
+
 #dark-mode-toggle {
     background: none;
     background-color: var(--cor-primaria);
@@ -1793,7 +1793,7 @@ body.dark-mode .terms-modal-content::-webkit-scrollbar-thumb {
     cursor: pointer;
 }
 
-/* Garantir que o ícone do usuário no perfil tenha o mesmo comportamento */
+
 .navbar-btn-profile {
     display: flex;
     align-items: center;
@@ -1801,7 +1801,7 @@ body.dark-mode .terms-modal-content::-webkit-scrollbar-thumb {
     text-decoration: none;
 }
 
-/* Ajuste para o botão daltonismo */
+
 #daltonismo-toggle {
     background-color: var(--cor-primaria);
     color: var(--cor-branco);
@@ -1818,7 +1818,7 @@ body.dark-mode .terms-modal-content::-webkit-scrollbar-thumb {
     color: var(--cor-preto);
 }
 
-/* Modo escuro para o botão daltonismo */
+
 body.dark-mode #daltonismo-toggle {
     background-color: var(--cor-primaria);
     color: var(--cor-branco);
