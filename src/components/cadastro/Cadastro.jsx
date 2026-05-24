@@ -184,7 +184,7 @@ function Cadastro() {
           <i className={`fa-solid ${darkMode ? "fa-sun" : "fa-moon"}`}></i>
         </button>
 
-        <div className="container-imagem-1 d-flex align-items-center justify-content-center p-3 col-12 col-md-6">
+        <div className="container-imagem-cadastro d-flex align-items-center justify-content-center p-3 col-12 col-md-6">
           <img
             src={cadastroImg}
             alt="Ilustração de cadastro MedTrack"
@@ -294,7 +294,6 @@ function Cadastro() {
                 required
               />
               {errors.senha && <div className="invalid-feedback">{errors.senha}</div>}
-              <small className="text-muted">Mínimo 6 caracteres</small>
             </div>
 
             <div className="mb-3">

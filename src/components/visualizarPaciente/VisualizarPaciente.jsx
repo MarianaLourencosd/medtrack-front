@@ -1,4 +1,3 @@
-// src/components/visualizarPaciente/VisualizarPaciente.jsx
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { db, auth } from "../../services/firebaseConfig";
@@ -25,14 +24,12 @@ function VisualizarPaciente() {
 
   const [editData, setEditData] = useState({
     nome: "",
-    cpf: "",
     dataNascimento: "",
     sexo: "",
     altura: "",
     peso: "",
     tipoSanguineo: "",
     sus: "",
-    cidade: "",
     observacoes: ""
   });
 
@@ -68,19 +65,23 @@ function VisualizarPaciente() {
   useEffect(() => {
     const fetchPacienteData = async () => {
       setLoading(true);
-      
+
       if (!userId) {
         navigate("/busca-perfil");
         return;
       }
 
       try {
+
         const userDocRef = doc(db, "usuarios", userId);
         const userDoc = await getDoc(userDocRef);
-        
+
+        console.log("Documento usuário existe?", userDoc.exists());
+        console.log("Dados do usuário:", userDoc.data());
+
         const q = query(collection(db, "formularios"), where("userId", "==", userId));
         const querySnapshot = await getDocs(q);
-        
+
         let formData = null;
         let formId = null;
         if (!querySnapshot.empty) {
@@ -89,12 +90,12 @@ function VisualizarPaciente() {
           formId = docSnap.id;
           setFormularioId(formId);
         }
-        
+
         const idade = formData?.dataNascimento ? calcularIdade(formData.dataNascimento) : null;
-        
+
         let contatosArray = [];
         let medicamentosArray = [];
-        
+
         if (formData) {
           if (formData.contatos && Array.isArray(formData.contatos)) {
             contatosArray = formData.contatos;
@@ -105,7 +106,7 @@ function VisualizarPaciente() {
               relacionamento: formData.relacionamento || ""
             }];
           }
-          
+
           if (formData.medicamentos && Array.isArray(formData.medicamentos)) {
             medicamentosArray = formData.medicamentos;
           } else if (formData.medicamento) {
@@ -116,10 +117,16 @@ function VisualizarPaciente() {
             }];
           }
         }
-        
+
+        let emailUsuario = "Não informado";
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+          emailUsuario = userData.email || "Não informado";
+        }
+
         const pacienteData = {
           id: userId,
-          email: userDoc.exists() ? userDoc.data().email : "Não informado",
+          email: emailUsuario,
           nome: formData?.nome || userDoc.data()?.nome || "Não informado",
           cpf: formData?.cpf || "Não informado",
           dataNascimento: formData?.dataNascimento || "Não informada",
@@ -129,32 +136,30 @@ function VisualizarPaciente() {
           peso: formData?.peso || "Não informado",
           tipoSanguineo: formData?.tipoSanguineo || "Não informado",
           sus: formData?.sus || "Não informado",
-          cidade: formData?.cidade || "Não informado",
           observacoes: formData?.observacoes || "Nenhuma observação",
           avatar: getAvatarImage(userId),
           temFormulario: formData !== null,
           contatos: contatosArray,
           medicamentos: medicamentosArray
         };
-        
+
+        console.log("Dados do paciente:", pacienteData);
         setPaciente(pacienteData);
-        
+
         setEditData({
           nome: formData?.nome || "",
-          cpf: formData?.cpf || "",
           dataNascimento: formatarDataParaInput(formData?.dataNascimento),
           sexo: formData?.sexo || "",
           altura: formData?.altura || "",
           peso: formData?.peso || "",
           tipoSanguineo: formData?.tipoSanguineo || "",
           sus: formData?.sus || "",
-          cidade: formData?.cidade || "",
           observacoes: formData?.observacoes || ""
         });
-        
+
         setEditContatos(contatosArray.length ? contatosArray : [{ nomeContato: "", telefoneContato: "", relacionamento: "" }]);
         setEditMedicamentos(medicamentosArray.length ? medicamentosArray : [{ medicamento: "", dosagem: "", frequencia: "" }]);
-        
+
       } catch (error) {
         console.error("Erro ao buscar dados:", error);
         setMensagem({ texto: "Erro ao carregar dados do paciente", tipo: "error" });
@@ -162,7 +167,7 @@ function VisualizarPaciente() {
         setLoading(false);
       }
     };
-    
+
     fetchPacienteData();
   }, [userId, navigate]);
 
@@ -198,32 +203,30 @@ function VisualizarPaciente() {
 
     try {
       const formRef = doc(db, "formularios", formularioId);
-      
+
       const updateData = {
         nome: editData.nome,
-        cpf: editData.cpf,
         dataNascimento: editData.dataNascimento ? new Date(editData.dataNascimento) : null,
         sexo: editData.sexo,
         altura: editData.altura,
         peso: editData.peso,
         tipoSanguineo: editData.tipoSanguineo,
         sus: editData.sus,
-        cidade: editData.cidade,
         observacoes: editData.observacoes,
         contatos: editContatos.filter(c => c.nomeContato || c.telefoneContato || c.relacionamento),
         medicamentos: editMedicamentos.filter(m => m.medicamento || m.dosagem || m.frequencia),
         updatedAt: new Date()
       };
-      
+
       await updateDoc(formRef, updateData);
-      
+
       setMensagem({ texto: "Dados atualizados com sucesso!", tipo: "success" });
       setShowModalEditar(false);
-      
+
       setTimeout(() => {
         window.location.reload();
       }, 1500);
-      
+
     } catch (error) {
       console.error("Erro ao atualizar:", error);
       setMensagem({ texto: "Erro ao atualizar dados", tipo: "error" });
@@ -234,20 +237,20 @@ function VisualizarPaciente() {
     try {
       if (formularioId) {
         await deleteDoc(doc(db, "formularios", formularioId));
-        setMensagem({ 
-          texto: "Dados do paciente excluídos com sucesso! O usuário continua com sua conta.", 
-          tipo: "success" 
+        setMensagem({
+          texto: "Dados do paciente excluídos com sucesso! O usuário continua com sua conta.",
+          tipo: "success"
         });
       } else {
         setMensagem({ texto: "Nenhum formulário encontrado para excluir", tipo: "error" });
       }
-      
+
       setShowModalExcluir(false);
-      
+
       setTimeout(() => {
         navigate("/busca-perfil");
       }, 2000);
-      
+
     } catch (error) {
       console.error("Erro ao excluir:", error);
       setMensagem({ texto: "Erro ao excluir dados do paciente", tipo: "error" });
@@ -334,7 +337,7 @@ function VisualizarPaciente() {
           <i className="fas fa-arrow-left"></i>
           Voltar
         </button>
-        
+
         <button onClick={toggleDarkMode} className="action-btn theme-btn">
           <i className={`fas ${darkMode ? "fa-sun" : "fa-moon"}`}></i>
         </button>
@@ -367,7 +370,6 @@ function VisualizarPaciente() {
             <h2><i className="fas fa-user"></i> Dados Pessoais</h2>
             <div className="grid-2-colunas">
               <div className="campo"><label>Nome Completo</label><p>{paciente.nome}</p></div>
-              <div className="campo"><label>CPF</label><p>{paciente.cpf}</p></div>
               <div className="campo"><label>Data de Nascimento</label><p>{formatarData(paciente.dataNascimento)}</p></div>
               <div className="campo"><label>Idade</label><p>{paciente.idade ? `${paciente.idade} anos` : "Não informada"}</p></div>
               <div className="campo"><label>Sexo</label><p>{paciente.sexo}</p></div>
@@ -375,7 +377,6 @@ function VisualizarPaciente() {
               <div className="campo"><label>Altura</label><p>{paciente.altura !== "Não informado" ? `${paciente.altura} m` : paciente.altura}</p></div>
               <div className="campo"><label>Peso</label><p>{paciente.peso !== "Não informado" ? `${paciente.peso} kg` : paciente.peso}</p></div>
               <div className="campo"><label>Cartão SUS</label><p>{paciente.sus}</p></div>
-              <div className="campo"><label>Cidade</label><p>{paciente.cidade}</p></div>
             </div>
           </div>
 
@@ -420,7 +421,7 @@ function VisualizarPaciente() {
               <i className="fas fa-trash-alt"></i> Excluir Dados do Paciente
             </button>
           </div>
-          
+
           <div className="aviso-exclusao">
             <i className="fas fa-info-circle"></i>
             <span>A exclusão remove apenas os dados de saúde do paciente. A conta de usuário (email) permanece ativa.</span>
@@ -440,38 +441,44 @@ function VisualizarPaciente() {
               <div className="modal-body">
                 <div className="form-grid">
                   <div className="form-group"><label>Nome Completo</label><input type="text" name="nome" value={editData.nome} onChange={handleEditChange} /></div>
-                  <div className="form-group"><label>CPF</label><input type="text" name="cpf" value={editData.cpf} onChange={handleEditChange} /></div>
                   <div className="form-group"><label>Data de Nascimento</label><input type="date" name="dataNascimento" value={editData.dataNascimento} onChange={handleEditChange} /></div>
                   <div className="form-group"><label>Sexo</label><select name="sexo" value={editData.sexo} onChange={handleEditChange}><option value="">Selecione</option><option value="Masculino">Masculino</option><option value="Feminino">Feminino</option><option value="Outro">Outro</option></select></div>
                   <div className="form-group"><label>Altura (m)</label><input type="number" step="0.01" name="altura" value={editData.altura} onChange={handleEditChange} /></div>
                   <div className="form-group"><label>Peso (kg)</label><input type="number" step="0.1" name="peso" value={editData.peso} onChange={handleEditChange} /></div>
                   <div className="form-group"><label>Tipo Sanguíneo</label><select name="tipoSanguineo" value={editData.tipoSanguineo} onChange={handleEditChange}><option value="">Selecione</option><option value="A+">A+</option><option value="A-">A-</option><option value="B+">B+</option><option value="B-">B-</option><option value="AB+">AB+</option><option value="AB-">AB-</option><option value="O+">O+</option><option value="O-">O-</option></select></div>
                   <div className="form-group"><label>Cartão SUS</label><input type="text" name="sus" value={editData.sus} onChange={handleEditChange} /></div>
-                  <div className="form-group"><label>Cidade</label><input type="text" name="cidade" value={editData.cidade} onChange={handleEditChange} /></div>
                   <div className="form-group full-width"><label>Observações</label><textarea name="observacoes" rows="3" value={editData.observacoes} onChange={handleEditChange}></textarea></div>
                 </div>
 
                 <h4>Contatos de Emergência</h4>
                 {editContatos.map((contato, idx) => (
-                  <div key={idx} className="form-grid" style={{ border: "1px solid #ddd", padding: 10, marginBottom: 10, borderRadius: 8 }}>
-                    <div className="form-group"><label>Nome</label><input type="text" value={contato.nomeContato} onChange={(e) => handleContatoChange(idx, "nomeContato", e.target.value)} /></div>
-                    <div className="form-group"><label>Telefone</label><input type="text" value={contato.telefoneContato} onChange={(e) => handleContatoChange(idx, "telefoneContato", e.target.value)} /></div>
-                    <div className="form-group"><label>Relacionamento</label><input type="text" value={contato.relacionamento} onChange={(e) => handleContatoChange(idx, "relacionamento", e.target.value)} /></div>
-                    {editContatos.length > 1 && <button type="button" onClick={() => removeContato(idx)}>Remover</button>}
+                  <div key={idx} style={{ border: "1px solid var(--cor-risco)", padding: "15px", marginBottom: "15px", borderRadius: "12px" }}>
+                    <div className="form-grid">
+                      <div className="form-group"><label>Nome</label><input type="text" value={contato.nomeContato} onChange={(e) => handleContatoChange(idx, "nomeContato", e.target.value)} /></div>
+                      <div className="form-group"><label>Telefone</label><input type="text" value={contato.telefoneContato} onChange={(e) => handleContatoChange(idx, "telefoneContato", e.target.value)} /></div>
+                      <div className="form-group"><label>Relacionamento</label><input type="text" value={contato.relacionamento} onChange={(e) => handleContatoChange(idx, "relacionamento", e.target.value)} /></div>
+                    </div>
+                    {editContatos.length > 1 && (
+                      <button type="button" onClick={() => removeContato(idx)} style={{ marginTop: "10px", background: "#fee2e2", color: "#ef4444", border: "none", padding: "6px 12px", borderRadius: "6px", cursor: "pointer" }}>Remover Contato</button>
+                    )}
                   </div>
                 ))}
-                <button type="button" onClick={addContato}>+ Adicionar Contato</button>
+                <button type="button" className="btn-adicionar" onClick={addContato}>+ Adicionar Contato</button>
 
-                <h4>Medicamentos</h4>
+                <h4 style={{ marginTop: "20px" }}>Medicamentos</h4>
                 {editMedicamentos.map((med, idx) => (
-                  <div key={idx} className="form-grid" style={{ border: "1px solid #ddd", padding: 10, marginBottom: 10, borderRadius: 8 }}>
-                    <div className="form-group"><label>Medicamento</label><input type="text" value={med.medicamento} onChange={(e) => handleMedicamentoChange(idx, "medicamento", e.target.value)} /></div>
-                    <div className="form-group"><label>Dosagem</label><input type="text" value={med.dosagem} onChange={(e) => handleMedicamentoChange(idx, "dosagem", e.target.value)} /></div>
-                    <div className="form-group"><label>Frequência</label><input type="text" value={med.frequencia} onChange={(e) => handleMedicamentoChange(idx, "frequencia", e.target.value)} /></div>
-                    {editMedicamentos.length > 1 && <button type="button" onClick={() => removeMedicamento(idx)}>Remover</button>}
+                  <div key={idx} style={{ border: "1px solid var(--cor-risco)", padding: "15px", marginBottom: "15px", borderRadius: "12px" }}>
+                    <div className="form-grid">
+                      <div className="form-group"><label>Medicamento</label><input type="text" value={med.medicamento} onChange={(e) => handleMedicamentoChange(idx, "medicamento", e.target.value)} /></div>
+                      <div className="form-group"><label>Dosagem</label><input type="text" value={med.dosagem} onChange={(e) => handleMedicamentoChange(idx, "dosagem", e.target.value)} /></div>
+                      <div className="form-group"><label>Frequência</label><input type="text" value={med.frequencia} onChange={(e) => handleMedicamentoChange(idx, "frequencia", e.target.value)} /></div>
+                    </div>
+                    {editMedicamentos.length > 1 && (
+                      <button type="button" onClick={() => removeMedicamento(idx)} style={{ marginTop: "10px", background: "#fee2e2", color: "#ef4444", border: "none", padding: "6px 12px", borderRadius: "6px", cursor: "pointer" }}>Remover Medicamento</button>
+                    )}
                   </div>
                 ))}
-                <button type="button" onClick={addMedicamento}>+ Adicionar Medicamento</button>
+                <button type="button" className="btn-adicionar" onClick={addMedicamento}>+ Adicionar Medicamento</button>
               </div>
               <div className="modal-footer">
                 <button className="btn-cancelar" onClick={() => setShowModalEditar(false)}>Cancelar</button>

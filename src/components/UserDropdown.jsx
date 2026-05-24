@@ -22,15 +22,17 @@ function UserDropdown({ user, userName, userRole, onLogout }) {
     setIsOpen(false);
   };
 
+  const nomeExibido = userName && userName !== user?.email ? userName : "Usuário";
+
   return (
     <div className="user-dropdown-container" ref={dropdownRef}>
       <button className="user-trigger-btn" onClick={() => setIsOpen(!isOpen)}>
         <div className="user-avatar-simple">
           <span className="avatar-initial-simple">
-            {userName?.charAt(0).toUpperCase() || "U"}
+            {nomeExibido?.charAt(0).toUpperCase() || "U"}
           </span>
         </div>
-        <span className="user-name-simple">{userName?.split(" ")[0] || "Usuário"}</span>
+        <span className="user-name-simple">{nomeExibido}</span>
         <i className={`fa-solid ${isOpen ? "fa-chevron-up" : "fa-chevron-down"} arrow-icon`}></i>
       </button>
 
@@ -38,10 +40,10 @@ function UserDropdown({ user, userName, userRole, onLogout }) {
         <div className="dropdown-menu-simple">
           <div className="dropdown-header-simple">
             <div className="dropdown-avatar-simple">
-              <span>{userName?.charAt(0).toUpperCase() || "U"}</span>
+              <span>{nomeExibido?.charAt(0).toUpperCase() || "U"}</span>
             </div>
             <div className="dropdown-info-simple">
-              <h4>{userName || "Usuário"}</h4>
+              <h4>{nomeExibido}</h4>
               <p>{user?.email || "email@exemplo.com"}</p>
               <span className={`role-badge-simple role-${userRole}`}>
                 {userRole === "admin" ? "👑 Administrador" : 

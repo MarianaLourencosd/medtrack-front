@@ -28,6 +28,7 @@ import { initFontSizeControls } from "../../utils/fontSize";
 import { initDaltonismo } from "../../utils/daltonismo";
 import { hasAcceptedTerms, acceptTerms, showDeclineAlert } from "../../utils/termsModal";
 import "../../utils/daltonismo.css";
+import VLibras from "../../utils/VLibras";
 
 function Home() {
   const navigate = useNavigate();
@@ -87,32 +88,32 @@ function Home() {
     showDeclineAlert();
   };
 
-  useEffect(() => {
-    const cleanupNavbar = initNavbarMobile();
-    const cleanupScroll = initScrollButtons();
-    const cleanupShortcuts = initKeyboardShortcuts(navigate);
-    const fontControls = initFontSizeControls();
+useEffect(() => {
+  const cleanupNavbar = initNavbarMobile();
+  const cleanupScroll = initScrollButtons();
+  const cleanupShortcuts = initKeyboardShortcuts(navigate); // ✅ JÁ ESTÁ AQUI
+  const fontControls = initFontSizeControls();
 
-    document.getElementById("decrease")?.addEventListener("click", fontControls.decrease);
-    document.getElementById("increase")?.addEventListener("click", fontControls.increase);
-    document.getElementById("reset")?.addEventListener("click", fontControls.reset);
+  document.getElementById("decrease")?.addEventListener("click", fontControls.decrease);
+  document.getElementById("increase")?.addEventListener("click", fontControls.increase);
+  document.getElementById("reset")?.addEventListener("click", fontControls.reset);
 
-    const daltonismoBtn = document.getElementById("daltonismo-toggle");
-    const { toggleDaltonismo } = initDaltonismo();
-    const cleanupDaltonismo = toggleDaltonismo(daltonismoBtn);
+  const daltonismoBtn = document.getElementById("daltonismo-toggle");
+  const { toggleDaltonismo } = initDaltonismo();
+  const cleanupDaltonismo = toggleDaltonismo(daltonismoBtn);
 
-    return () => {
-      cleanupNavbar?.();
-      cleanupScroll?.();
-      cleanupShortcuts?.();
+  return () => {
+    cleanupNavbar?.();
+    cleanupScroll?.();
+    cleanupShortcuts?.();
 
-      document.getElementById("decrease")?.removeEventListener("click", fontControls.decrease);
-      document.getElementById("increase")?.removeEventListener("click", fontControls.increase);
-      document.getElementById("reset")?.removeEventListener("click", fontControls.reset);
+    document.getElementById("decrease")?.removeEventListener("click", fontControls.decrease);
+    document.getElementById("increase")?.removeEventListener("click", fontControls.increase);
+    document.getElementById("reset")?.removeEventListener("click", fontControls.reset);
 
-      cleanupDaltonismo?.();
-    };
-  }, [navigate]);
+    cleanupDaltonismo?.();
+  };
+}, [navigate]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -123,6 +124,14 @@ function Home() {
     document.addEventListener('click', handleClickOutside);
     return () => document.removeEventListener('click', handleClickOutside);
   }, [menuOpen]);
+
+  useEffect(() => {
+    initDarkMode(setDarkMode);
+  }, []);
+
+  const handleToggleDarkMode = () => {
+    toggleDarkMode(darkMode, setDarkMode);
+  };
 
   return (
     <>
@@ -173,8 +182,8 @@ function Home() {
           <li><a className="navbar-item" href="/">Home</a></li>
           <li><a className="navbar-item" href="/sobre">Sobre</a></li>
           {user && <li><a className="navbar-item" href="/formulario">Formulário</a></li>}
-  
-          {(userRole === "saude" || userRole === "admin") && (
+
+          {(userRole === "saude") && (
             <li><a className="navbar-item" href="/busca-perfil">Buscar Pacientes</a></li>
           )}
           {userRole === "admin" && <li><a className="navbar-item" href="/admin">Admin</a></li>}
@@ -230,18 +239,15 @@ function Home() {
             <>
               <li><a className="nav-items" href="/formulario">Formulário</a></li>
               <li><a className="nav-items" href="/perfil">Meu Perfil</a></li>
-              
-              {(userRole === "saude" || userRole === "admin") && (
+
+              {(userRole === "saude") && (
                 <li><a className="nav-items" href="/busca-perfil">Buscar Pacientes</a></li>
               )}
               {userRole === "admin" && <li><a className="nav-items" href="/admin">Admin</a></li>}
-              <li><button className="nav-items" onClick={handleLogout}>Sair</button></li>
             </>
           )}
         </ul>
       </div>
-
-
 
       <main>
         <div className="div-header my-2 mx-1">

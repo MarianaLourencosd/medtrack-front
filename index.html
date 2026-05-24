@@ -2,8 +2,24 @@
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
-<link rel="icon" type="image/svg+xml" href="/logo-claro.svg" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/logo-claro.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <script>
+      (function() {
+        const savedMode = localStorage.getItem("darkMode");
+        if (savedMode === "enabled") {
+          document.documentElement.classList.add("dark-mode");
+          document.body.classList.add("dark-mode");
+        }
+      })();
+    </script>
+
+    <style>
+      body.dark-mode {
+        background-color: #121212;
+      }
+    </style>
 
     <title>MedTrack</title>
   </head>

@@ -33,6 +33,31 @@
   position: relative;
 }
 
+.btn-adicionar {
+  background: linear-gradient(135deg, var(--cor-primaria), var(--cor-secundaria));
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+.btn-adicionar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 97, 76, 0.3);
+}
+
+body.dark-mode .btn-adicionar {
+  background: linear-gradient(135deg, var(--cor-secundaria), var(--cor-primaria));
+}
+
 .action-btn {
   position: absolute;
   width: 45px;
@@ -350,17 +375,33 @@
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes slideUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 
@@ -390,33 +431,33 @@ body.dark-mode .botoes-acao {
   .visualizar-main {
     padding: 1rem;
   }
-  
+
   .grid-2-colunas {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
-  
+
   .secao {
     padding: 1rem;
   }
-  
+
   .paciente-titulo h1 {
     font-size: 1.3rem;
   }
-  
+
   .paciente-avatar {
     width: 90px;
     height: 90px;
   }
-  
+
   .botoes-acao {
     flex-direction: column;
   }
-  
+
   .back-btn span {
     display: none;
   }
-  
+
   .back-btn {
     width: 45px;
     padding: 0;
@@ -559,23 +600,21 @@ body.dark-mode .form-group textarea {
   .form-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .form-group.full-width {
     grid-column: span 1;
   }
-  
+
   .modal-editar .modal-footer {
     flex-direction: column;
   }
-  
-  .btn-salvar, .btn-cancelar {
+
+  .btn-salvar,
+  .btn-cancelar {
     width: 100%;
     justify-content: center;
   }
 }
-
-
-
 
 .email-info {
   display: flex;

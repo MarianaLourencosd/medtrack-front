@@ -295,7 +295,7 @@ function Sobre() {
           <li><a className="navbar-item" href="/">Home</a></li>
           <li><a className="navbar-item" href="/sobre">Sobre</a></li>
           {user && <li><a className="navbar-item" href="/formulario">Formulário</a></li>}
-          {(userRole === "saude" || userRole === "admin") && (
+          {(userRole === "saude") && (
             <li><a className="navbar-item" href="/busca-perfil">Buscar Pacientes</a></li>
           )}
           {userRole === "admin" && <li><a className="navbar-item" href="/admin">Admin</a></li>}
@@ -352,7 +352,7 @@ function Sobre() {
             <>
               <li><a className="nav-items" href="/formulario">Formulário</a></li>
               <li><a className="nav-items" href="/perfil">Meu Perfil</a></li>
-              {(userRole === "saude" || userRole === "admin") && (
+              {(userRole === "saude") && (
                 <li><a className="nav-items" href="/busca-perfil">Buscar Pacientes</a></li>
               )}
               {userRole === "admin" && <li><a className="nav-items" href="/admin">Admin</a></li>}

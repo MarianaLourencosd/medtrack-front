@@ -257,7 +257,7 @@ const handleSubmit = async (e) => {
             </div>
 
             <div className="esqueceu-senha text-end mb-2">
-              <a href="/recuperar-senha" aria-label="Esqueceu a senha?">
+              <a href="/login" aria-label="Esqueceu a senha?">
                 Esqueceu a senha?
               </a>
             </div>
