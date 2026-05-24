@@ -28,14 +28,15 @@ O sistema foi desenvolvido utilizando uma arquitetura baseada em componentes, pr
 
 O projeto foi desenvolvido utilizando as seguintes tecnologias:
 
-* **React**: Biblioteca para construção da interface de usuário baseada em componentes
-* **Vite**: Ferramenta de build rápida para desenvolvimento moderno
-* **Firebase**:
-
-  * Authentication (autenticação de usuários)
-  * Banco de dados (armazenamento de informações)
-* **JavaScript**: Linguagem principal da aplicação
-* **CSS**: Estilização da interface
+- **React**: Biblioteca para construção da interface de usuário baseada em componentes
+- **Vite**: Ferramenta de build rápida para desenvolvimento moderno
+- **Firebase**:
+  - Authentication (autenticação de usuários)
+  - Firestore Database (armazenamento de informações)
+- **React Router DOM**: Navegação entre páginas
+- **JavaScript**: Linguagem principal da aplicação
+- **CSS**: Estilização da interface com suporte a modo escuro
+- **Bootstrap**: Framework CSS para componentes responsivos
 
 ---
 
@@ -52,22 +53,29 @@ A aplicação segue uma organização modular, facilitando a manutenção e ente
 ```bash
 MEDTRACK-FRONT/
 ├── src/
-│   ├── assets/         
-│   ├── components/     
-│   │   ├── buscaPerfil/
-│   │   ├── cadastro/
-│   │   ├── formulario/
-│   │   ├── home/
-│   │   ├── login/
-│   │   ├── perfil/
-│   │   └── sobre/
-│   ├── services/   
-│   ├── utils/       
-│   ├── App.jsx         
-│   └── main.jsx        
-├── public/       
-├── index.html  
-└── package.json 
+│   ├── assets/              # Imagens, ícones SVGs
+│   ├── components/
+│   │   ├── admin/           # Painel Administrativo
+│   │   ├── buscaPerfil/     # Busca de pacientes
+│   │   ├── cadastro/        # Cadastro de usuário
+│   │   ├── formulario/      # Formulário de saúde
+│   │   ├── home/            # Página inicial
+│   │   ├── login/           # Login de usuário
+│   │   ├── perfil/          # Perfil do paciente
+│   │   ├── sobre/           # Sobre o sistema
+│   │   ├── visualizarPaciente/ # Visualização completa
+│   │   └── UserDropdown.jsx # Dropdown do usuário
+│   ├── services/            # Configuração do Firebase
+│   ├── utils/               # Funções auxiliares
+│   │   ├── darkMode.js      # Controle de modo escuro
+│   │   ├── daltonismo.js    # Controle de daltonismo
+│   │   ├── validacoes.js    # Validações de formulários
+│   │   └── keyboardShortcuts.js # Atalhos de teclado
+│   ├── App.jsx              # Rotas principais
+│   └── main.jsx             # Ponto de entrada
+├── public/                  # Arquivos estáticos
+├── index.html               # HTML principal
+└── package.json             # Dependências e scripts
 ```
 ---
 
@@ -93,9 +101,24 @@ Após a execução, o sistema estará disponível no navegador no endereço info
 
 ---
 
+## Desenvolvedores
+
+João Gabriel Ferreira
+
+José Henrique Bessa
+
+Natália Rodrigues
+
+Sophia Cavallaro
+
+Mariana Lourenço
+
+Fernanda Garcia
+
+---
+
 ## Status do Projeto
 
 Projeto em desenvolvimento para fins acadêmicos.
 
 ---
-
